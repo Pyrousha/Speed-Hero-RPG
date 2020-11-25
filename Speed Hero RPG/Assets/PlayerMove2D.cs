@@ -5,7 +5,11 @@ using UnityEngine;
 public class PlayerMove2D : MonoBehaviour
 {
     public Rigidbody2D heroRB;
+    public Animator heroAnim;
 
+    public GameObject heroSpriteObj;
+
+    public Vector2 inputVect;
     public float moveSpeed;
 
     //Movement Keys
@@ -23,36 +27,81 @@ public class PlayerMove2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 velocityVect = moveSpeed * GetDirectionFromInput();
-        heroRB.velocity = velocityVect;
+        inputVect = GetDirectionFromInput();
+
+        SetAnimatorValues(inputVect);
+    }
+
+    private void FixedUpdate()
+    {
+        heroRB.MovePosition(heroRB.position + inputVect * moveSpeed * Time.fixedDeltaTime);
     }
 
     public Vector2 GetDirectionFromInput()
     {
         //Vertical Input
-        float inputY = 0;
+        float inputY = Input.GetAxisRaw("Vertical");
+
+        /*float inputY = 0;
 
         if (Input.GetKey(upKey))
             inputY++;
 
         if (Input.GetKey(downKey))
-            inputY--;
+            inputY--;*/
 
 
         //Horizontal Input
-        float inputX = 0;
+        float inputX = Input.GetAxisRaw("Horizontal"); 
+
+        /*float inputX = 0;
 
         if (Input.GetKey(rightKey))
             inputX++;
 
         if (Input.GetKey(leftKey))
-            inputX--;
+            inputX--;*/
 
 
         Vector2 dirVector = new Vector2(inputX, inputY);
         dirVector.Normalize();
 
         return dirVector;
+    }
+
+    public void SetAnimatorValues(Vector2 inputVect)
+    {
+        //Player stopped moving keys, set dir value to get idle anim
+        if (inputVect.sqrMagnitude < 0.01)
+        {
+            switch(heroAnim.GetCurrentAnimatorClipInfo(0)[0].clip.name)
+            {
+                case ("Hero-right"):
+                    {
+                        heroAnim.SetInteger("Dir", 0);
+                        break;
+                    }
+                case ("Hero-up"):
+                    {
+                        heroAnim.SetInteger("Dir", 1);
+                        break;
+                    }
+                case ("Hero-left"):
+                    {
+                        heroAnim.SetInteger("Dir", 2);
+                        break;
+                    }
+                case ("Hero-down"):
+                    {
+                        heroAnim.SetInteger("Dir", 3);
+                        break;
+                    }
+            }
+
+        }
+        heroAnim.SetFloat("Horizontal", inputVect.x * 2);
+        heroAnim.SetFloat("Vertical", inputVect.y);
+        heroAnim.SetFloat("Speed", inputVect.sqrMagnitude);
     }
 
 }

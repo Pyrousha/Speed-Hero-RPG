@@ -629,6 +629,9 @@
     <Reference Include="UnityEditor.UI">
       <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
