@@ -12,12 +12,6 @@ public class PlayerMove2D : MonoBehaviour
     public Vector2 inputVect;
     public float moveSpeed;
 
-    //Movement Keys
-    KeyCode upKey = KeyCode.W;
-    KeyCode downKey = KeyCode.S;
-    KeyCode leftKey = KeyCode.A;
-    KeyCode rightKey = KeyCode.D;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -40,28 +34,10 @@ public class PlayerMove2D : MonoBehaviour
     public Vector2 GetDirectionFromInput()
     {
         //Vertical Input
-        float inputY = Input.GetAxisRaw("Vertical");
-
-        /*float inputY = 0;
-
-        if (Input.GetKey(upKey))
-            inputY++;
-
-        if (Input.GetKey(downKey))
-            inputY--;*/
-
+        float inputY = Input.GetAxisRaw("MovementY");
 
         //Horizontal Input
-        float inputX = Input.GetAxisRaw("Horizontal"); 
-
-        /*float inputX = 0;
-
-        if (Input.GetKey(rightKey))
-            inputX++;
-
-        if (Input.GetKey(leftKey))
-            inputX--;*/
-
+        float inputX = Input.GetAxisRaw("MovementX"); 
 
         Vector2 dirVector = new Vector2(inputX, inputY);
         dirVector.Normalize();
