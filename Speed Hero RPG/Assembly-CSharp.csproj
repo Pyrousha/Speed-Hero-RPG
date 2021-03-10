@@ -64,7 +64,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\BattleTransition.cs" />
+    <Compile Include="Assets\EndBattle.cs" />
+    <Compile Include="Assets\Persist.cs" />
     <Compile Include="Assets\PlayerMove2D.cs" />
+    <Compile Include="Assets\TriggerBattle.cs" />
     <Reference Include="UnityEngine">
       <HintPath>H:/Unity Editors/2019.3.12f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
