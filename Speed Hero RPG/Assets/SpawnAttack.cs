@@ -5,11 +5,12 @@ using UnityEngine;
 public class SpawnAttack : MonoBehaviour
 {
     public ShotCreator shotCreator;
+    public Hero_Controller_Combat hero_Controller_Combat;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        hero_Controller_Combat = GetComponent<Hero_Controller_Combat>();
     }
 
     // Update is called once per frame
@@ -18,24 +19,42 @@ public class SpawnAttack : MonoBehaviour
         
     }
 
-    void atk_2()
+    void atk(int attackNum)
     {
-        shotCreator.attack_2();
-    }
-    void atk_3()
-    {
-        shotCreator.attack_3();
-    }
-    void atk_5()
-    {
-        shotCreator.attack_5();
-    }
-    void atk_7()
-    {
-        shotCreator.attack_7();
-    }
-    void atk_9()
-    {
-        shotCreator.attack_9();
+        //Call funstion to spawn attack projectile
+        switch(attackNum)
+        {
+            case (2):
+                {
+                    shotCreator.attack_2();
+                    break;
+                }
+            case (3):
+                {
+                    shotCreator.attack_3();
+                    break;
+                }
+            case (5):
+                {
+                    shotCreator.attack_5();
+                    break;
+                }
+            case (7):
+                {
+                    shotCreator.attack_7();
+                    break;
+                }
+            case (9):
+                {
+                    shotCreator.attack_9();
+                    break;
+                }
+            default:
+                {
+                    //Debug.Log("invalid integer passed into atk() function. Value: " + attackNum);
+                    break;
+                }
+        }
+        //Debug.Log("attack spawned");
     }
 }

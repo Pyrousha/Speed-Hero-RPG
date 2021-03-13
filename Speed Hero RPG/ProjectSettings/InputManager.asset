@@ -89,8 +89,8 @@ InputManager:
     m_Name: AttackY
     descriptiveName: Axis used for attacking vertically (UD arrow keys by default)
     descriptiveNegativeName: 
-    negativeButton: up
-    positiveButton: down
+    negativeButton: down
+    positiveButton: up
     altNegativeButton: 
     altPositiveButton: 
     gravity: 3
