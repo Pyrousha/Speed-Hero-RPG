@@ -67,7 +67,11 @@
     <Compile Include="Assets\BattleTransition.cs" />
     <Compile Include="Assets\BladeShot.cs" />
     <Compile Include="Assets\EndBattle.cs" />
+    <Compile Include="Assets\Enemy_Attack.cs" />
+    <Compile Include="Assets\Enemy_Shot_Creator.cs" />
+    <Compile Include="Assets\Enemy_Stats_Combat.cs" />
     <Compile Include="Assets\Hero_Controller_Combat.cs" />
+    <Compile Include="Assets\Hero_Stats_Combat.cs" />
     <Compile Include="Assets\Persist.cs" />
     <Compile Include="Assets\PlayerMove2D.cs" />
     <Compile Include="Assets\ShotCreator.cs" />

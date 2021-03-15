@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - PersistentGameInfo
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX

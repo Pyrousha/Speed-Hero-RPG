@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class BladeShot : MonoBehaviour
 {
-    Rigidbody2D RB;
+    Rigidbody RB;
     public float initialSpeed;
     public float decellerateSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
-        RB = gameObject.GetComponent<Rigidbody2D>();
+        RB = gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -25,7 +25,15 @@ public class BladeShot : MonoBehaviour
         RB.velocity = RB.velocity * decellerateSpeed;
     }
 
-    public void Destroy()
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "EnemyProjectile")
+        {
+            Destroy(other.gameObject);
+        }
+    }
+
+    public void DestroySelf()
     {
         RB.velocity = new Vector2(0, 0);
         Destroy(gameObject);

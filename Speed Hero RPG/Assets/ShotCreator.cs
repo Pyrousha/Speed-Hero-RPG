@@ -67,6 +67,6 @@ public class ShotCreator : MonoBehaviour
         childObject.transform.parent = shotParent.transform;
         childObject.transform.localPosition = new Vector3(0, 0, 0);
         childObject.transform.localRotation = Quaternion.Euler(0, 0, 0); 
-        childObject.GetComponent<Rigidbody2D>().velocity = transform.right*(childObject.GetComponent<BladeShot>().initialSpeed);
+        childObject.GetComponent<Rigidbody>().velocity = transform.right*(childObject.GetComponent<BladeShot>().initialSpeed);
     }
 }
