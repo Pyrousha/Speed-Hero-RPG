@@ -64,8 +64,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AtkCubeRemover.cs" />
+    <Compile Include="Assets\AttackCube.cs" />
     <Compile Include="Assets\BattleTransition.cs" />
     <Compile Include="Assets\BladeShot.cs" />
+    <Compile Include="Assets\CubePlaceCam.cs" />
     <Compile Include="Assets\EndBattle.cs" />
     <Compile Include="Assets\Enemy_Attack.cs" />
     <Compile Include="Assets\Enemy_Shot_Creator.cs" />
