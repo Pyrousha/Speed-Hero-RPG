@@ -1,0 +1,102 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+
+public class CubePlaceCam : MonoBehaviour
+{
+    public GameObject[] stuffToDisable;
+    public GameObject GridObj;
+    public GameObject attackCubePrefab;
+    public GameObject attackCubeRemoverPrefab;
+    public GameObject noteParent;
+
+    public string songName;
+
+    Camera thisCam;
+
+    public LayerMask noteGridLayer;
+
+    
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        thisCam = GetComponent<Camera>();
+    }
+
+    public void DisableGameComponents()
+    {
+        foreach (GameObject go in stuffToDisable)
+        {
+            go.SetActive(false);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //add notes
+        if (Input.GetMouseButton(0))
+        {
+            PlaceCube();
+        }
+
+        //remove notes
+        if (Input.GetMouseButton(1))
+        {
+            RemoveCube();
+        }
+
+        //save notes
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            SaveNotes();
+        }
+    }
+
+    void PlaceCube()
+    {
+        RaycastHit hitInfo;
+        Ray ray = thisCam.ScreenPointToRay(Input.mousePosition);
+        //Debug.DrawRay(ray.origin, ray.direction * 500, Color.red, 5f);
+
+        if (Physics.Raycast(ray, out hitInfo, noteGridLayer))
+        {
+            GameObject atkCubeObj = Instantiate(attackCubePrefab) as GameObject;
+            atkCubeObj.transform.position = hitInfo.point;
+            atkCubeObj.transform.parent = noteParent.transform;
+            atkCubeObj.GetComponent<AttackCube>().SetAttackNum();
+        }
+
+    }
+
+    void RemoveCube()
+    {
+        RaycastHit hitInfo;
+        Ray ray = thisCam.ScreenPointToRay(Input.mousePosition);
+        //Debug.DrawRay(ray.origin, ray.direction * 500, Color.red, 5f);
+
+        if (Physics.Raycast(ray, out hitInfo, noteGridLayer))
+        {
+            GameObject atkCubeObj = Instantiate(attackCubeRemoverPrefab) as GameObject;
+            atkCubeObj.transform.position = hitInfo.point;
+            atkCubeObj.transform.parent = noteParent.transform;
+            atkCubeObj.GetComponent<AtkCubeRemover>().removeCube();
+        }
+
+    }
+
+    void SaveNotes()
+    {
+        //Set path where prefab will be saved
+        string localPath = "Assets/Prefabs/SongAttackPatterns/" + songName + ".prefab";
+
+        //Make sure filename is unique
+        localPath = AssetDatabase.GenerateUniqueAssetPath(localPath);
+
+        //Create new prefab
+        PrefabUtility.SaveAsPrefabAssetAndConnect(noteParent, localPath, InteractionMode.UserAction);
+    }
+
+}

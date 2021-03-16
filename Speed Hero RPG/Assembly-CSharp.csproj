@@ -64,22 +64,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\AtkCubeRemover.cs" />
-    <Compile Include="Assets\AttackCube.cs" />
-    <Compile Include="Assets\BattleTransition.cs" />
-    <Compile Include="Assets\BladeShot.cs" />
-    <Compile Include="Assets\CubePlaceCam.cs" />
-    <Compile Include="Assets\EndBattle.cs" />
-    <Compile Include="Assets\Enemy_Attack.cs" />
-    <Compile Include="Assets\Enemy_Shot_Creator.cs" />
-    <Compile Include="Assets\Enemy_Stats_Combat.cs" />
-    <Compile Include="Assets\Hero_Controller_Combat.cs" />
-    <Compile Include="Assets\Hero_Stats_Combat.cs" />
-    <Compile Include="Assets\Persist.cs" />
-    <Compile Include="Assets\PlayerMove2D.cs" />
-    <Compile Include="Assets\ShotCreator.cs" />
-    <Compile Include="Assets\SpawnAttack.cs" />
-    <Compile Include="Assets\TriggerBattle.cs" />
+    <Compile Include="Assets\Scripts\AtkCubeRemover.cs" />
+    <Compile Include="Assets\Scripts\AttackCube.cs" />
+    <Compile Include="Assets\Scripts\BattleTransition.cs" />
+    <Compile Include="Assets\Scripts\BladeShot.cs" />
+    <Compile Include="Assets\Scripts\CubePlaceCam.cs" />
+    <Compile Include="Assets\Scripts\EndBattle.cs" />
+    <Compile Include="Assets\Scripts\Enemy_Attack.cs" />
+    <Compile Include="Assets\Scripts\Enemy_Shot_Creator.cs" />
+    <Compile Include="Assets\Scripts\Enemy_Stats_Combat.cs" />
+    <Compile Include="Assets\Scripts\Hero_Controller_Combat.cs" />
+    <Compile Include="Assets\Scripts\Hero_Stats_Combat.cs" />
+    <Compile Include="Assets\Scripts\Persist.cs" />
+    <Compile Include="Assets\Scripts\PlayerMove2D.cs" />
+    <Compile Include="Assets\Scripts\ShotCreator.cs" />
+    <Compile Include="Assets\Scripts\SongLoader.cs" />
+    <Compile Include="Assets\Scripts\SongProperties.cs" />
+    <Compile Include="Assets\Scripts\SpawnAttack.cs" />
+    <Compile Include="Assets\Scripts\TriggerBattle.cs" />
     <Reference Include="UnityEngine">
       <HintPath>H:/Unity Editors/2019.3.12f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
