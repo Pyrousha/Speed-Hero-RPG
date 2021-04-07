@@ -11,6 +11,8 @@ public class CubePlaceCam : MonoBehaviour
     public GameObject attackCubeRemoverPrefab;
     public GameObject noteParent;
 
+    public GameObject songLoadedPrefab;
+
     public string songName;
 
     Camera thisCam;
@@ -89,6 +91,10 @@ public class CubePlaceCam : MonoBehaviour
 
     void SaveNotes()
     {
+        //Save loaded song's properties to new prefab
+        noteParent.GetComponent<AudioSource>().clip = songLoadedPrefab.GetComponent<AudioSource>().clip;
+        noteParent.GetComponent<SongProperties>().BPM = songLoadedPrefab.GetComponent<SongProperties>().BPM;
+
         //Set path where prefab will be saved
         string localPath = "Assets/Prefabs/SongAttackPatterns/" + songName + ".prefab";
 

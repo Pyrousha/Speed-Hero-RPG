@@ -86,6 +86,6 @@ public class AttackCube : MonoBehaviour
 
     public void AddToEnemyPattern(Enemy_Stats_Combat enemy, float timePerEightNote)
     {
-        enemy.Invoke("Spawn" + attackNum, transform.localPosition.z*timePerEightNote + (14/60));
+        enemy.Invoke("Spawn" + attackNum, transform.localPosition.z*timePerEightNote + 1f - (44f/60f));
     }
 }

@@ -29,6 +29,11 @@ public class Enemy_Shot_Creator : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Spawns an attack with the specified direction and damage
+    /// </summary>
+    /// <param name="attackDir">Direction of the attack to spaws (1-9)</param>
+    /// <param name="damage">Damagae that the attack will deal</param>
     public void SpawnAttack(int attackDir, int damage)
     {
         //Create parentObj

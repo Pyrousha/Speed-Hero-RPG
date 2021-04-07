@@ -16,14 +16,16 @@ public class Hero_Controller_Combat : MonoBehaviour
 
     float inputX;
     float inputY;
+    float inputDiag;
 
     public bool xPressedATK;
     public bool yPressedATK;
+    public bool diagPressedATK;
 
     Vector2 moveInput;
     public Vector2 attackInput;
 
-    public SpawnAttack spawnAttack;
+    public HeroSpawnAttack spawnAttack;
 
     //Animation States
     const string HERO_NULL = "This is not a valid animation";
@@ -38,7 +40,7 @@ public class Hero_Controller_Combat : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        spawnAttack = GetComponent<SpawnAttack>();
+        spawnAttack = GetComponent<HeroSpawnAttack>();
         currentState = HERO_IDLE;
         nextState = HERO_NULL;
 
@@ -50,7 +52,6 @@ public class Hero_Controller_Combat : MonoBehaviour
     void Update()
     {
         moveInput = getMoveInput();
-
     }
 
     void AttackAxisToInputDown()
@@ -215,6 +216,10 @@ public class Hero_Controller_Combat : MonoBehaviour
         //Debug.Log("ANIM CHANGED. CurrState: " + currentState + " NextState: " + nextState);
     }
 
+    /// <summary> 
+    /// Changes what animation the hero sprite is currently playing 
+    /// </summary>
+    /// <param name="newState">state to start playing</param>
     void ChangeAnimationState(string newState)
     {
         
@@ -244,6 +249,10 @@ public class Hero_Controller_Combat : MonoBehaviour
         currentState = newState;
     }
 
+    /// <summary>
+    /// Gets the player's input on the move axis
+    /// </summary>
+    /// <returns>a normalized 2D vector of the move input direcion</returns>
     Vector2 getMoveInput()
     {
         //Horizontal Input
@@ -255,6 +264,10 @@ public class Hero_Controller_Combat : MonoBehaviour
         return new Vector2(inputX, inputY).normalized;
     }
 
+    /// <summary>
+    /// Gets the player's input on the attack axis
+    /// </summary>
+    /// <returns>a normalized 2D vector of the attack input direcion</returns>
     Vector2 getAttackInput()
     {
         //Horizontal Input
@@ -262,6 +275,14 @@ public class Hero_Controller_Combat : MonoBehaviour
 
         //Vertical Input
         float inputY = Input.GetAxisRaw("AttackY");
+
+        //Diag Input
+        float inputDiag = Input.GetAxisRaw("AttackDiags");
+        if (inputDiag != 0)
+        {
+            inputY = 1;
+            inputX = inputDiag;
+        }
 
         return new Vector2(inputX, inputY).normalized;
     }
