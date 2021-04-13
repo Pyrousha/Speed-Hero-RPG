@@ -55,6 +55,24 @@ public class CubePlaceCam : MonoBehaviour
         {
             SaveNotes();
         }
+
+        //Move camera
+        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+        if (scrollInput > 0)
+        {
+            transform.Translate(Vector3.right * 25 * Input.GetAxis("Mouse ScrollWheel"));
+        }
+        else
+        {
+            if (scrollInput < 0)
+            {
+                if (transform.position.z > 63)
+                {
+                    transform.Translate(Vector3.right * 25 * Input.GetAxis("Mouse ScrollWheel"));
+                }
+            }
+        }
+        
     }
 
     void PlaceCube()

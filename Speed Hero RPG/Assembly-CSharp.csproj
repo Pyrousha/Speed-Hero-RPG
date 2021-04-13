@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\NoteGridBarNum.cs" />
     <Compile Include="Assets\Scripts\AtkCubeRemover.cs" />
     <Compile Include="Assets\Scripts\AttackCube.cs" />
     <Compile Include="Assets\Scripts\BattleTransition.cs" />
