@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -232,7 +232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 561802934}
   m_Layer: 0
-  m_Name: ThingsToDisable
+  m_Name: ThingsToDisableDuringCombat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -519,7 +519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyToDestroyAfterFight: {fileID: 0}
   overWorldObjParent: {fileID: 561802933}
-  battleObjParent: {fileID: 0}
+  battleSkybox: {fileID: 0}
   battleScene: 
 --- !u!114 &787231572
 MonoBehaviour:

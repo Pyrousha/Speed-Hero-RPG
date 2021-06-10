@@ -7,7 +7,7 @@ public class BattleTransition : MonoBehaviour
 {
     public GameObject enemyToDestroyAfterFight;
     public GameObject overWorldObjParent;
-    public GameObject battleObjParent;
+    public Skybox battleSkybox;
 
     public string battleScene;
 

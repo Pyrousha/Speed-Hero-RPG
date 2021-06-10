@@ -33,7 +33,6 @@ public class EndBattle : MonoBehaviour
 
     public void EndBattleScene()
     {
-        persistObj.battleObjParent = battleObjParent;
         persistObj.TransitionFromBattle();
     }
 }

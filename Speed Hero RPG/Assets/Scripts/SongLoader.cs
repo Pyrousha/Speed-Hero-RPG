@@ -12,11 +12,25 @@ public class SongLoader : MonoBehaviour
     public GameObject noteParent;
     public GameObject noteEditorCamera;
 
-    public AudioSource mainCameraAudioSource;
-
     public Enemy_Stats_Combat enemy;
 
+
+    [Header("Song Properties (To be loaded, don't change!)")]
+    public float songBPM;
+
+    public float secsPerBeat;
+
+    public float songPosition; //current song position, in seconds
+
+    public float songPositionInBeats;
+
+    public float dspSongTime; //How many seconds have passed since the song started
+
+    public AudioSource musicSource; //music source that will play music
+
     float secsPerEightNote;
+
+    public float startOffset;
 
     public enum gameState
     { 
@@ -39,14 +53,14 @@ public class SongLoader : MonoBehaviour
             for(int i = 0; i < noteParent.transform.childCount; i++)
             {
                 AttackCube atkCube = noteParent.transform.GetChild(i).gameObject.GetComponent<AttackCube>();
-                atkCube.AddToEnemyPattern(enemy, secsPerEightNote);
+                atkCube.AddToEnemyPattern(enemy, secsPerEightNote, startOffset);
             }
 
             //Disable note placer camera, not needed in gameplay
             noteEditorCamera.SetActive(false);
 
             //Start Song
-            mainCameraAudioSource.PlayDelayed(1);
+            Invoke("PlaySong", startOffset);
         }
 
         else //Start editor mode
@@ -54,6 +68,15 @@ public class SongLoader : MonoBehaviour
             noteEditorCamera.GetComponent<CubePlaceCam>().DisableGameComponents();
             noteEditorCamera.GetComponent<CubePlaceCam>().songLoadedPrefab = songToLoad;
         }
+    }
+
+    private void Update()
+    {
+        //determine how many seconds since the song started
+        songPosition = (float)(AudioSettings.dspTime - dspSongTime);
+
+        //determine how many beats since the song started
+        songPositionInBeats = songPosition / secsPerBeat;
     }
 
     /// <summary> Spawn note objects from the specified prefab, and load song properties </summary>
@@ -72,10 +95,19 @@ public class SongLoader : MonoBehaviour
         //Change name of noteparent GO to the name of the song to confirm loading worked properly
         noteParent.name += ("(" + songToLoad.name + ")");
 
+        songBPM = songToLoad.GetComponent<SongProperties>().BPM;
+        secsPerBeat = 60f / songBPM;
+
         //Calculate how fast to play notes based on song's BPM
         secsPerEightNote = (30 / songToLoad.GetComponent<SongProperties>().BPM);
         
         //Set song to play based on song from loaded prefab
-        mainCameraAudioSource.clip = songToLoad.GetComponent<AudioSource>().clip;
+        musicSource.clip = songToLoad.GetComponent<AudioSource>().clip;
+    }
+
+    void PlaySong()
+    {
+        dspSongTime = (float)AudioSettings.dspTime;
+        musicSource.Play();
     }
 }

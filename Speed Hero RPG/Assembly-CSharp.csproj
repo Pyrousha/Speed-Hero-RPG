@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ChangeSkyboxOnStart.cs" />
     <Compile Include="Assets\CombatFloorMover.cs" />
     <Compile Include="Assets\NoteGridBarNum.cs" />
     <Compile Include="Assets\Scripts\AtkCubeRemover.cs" />
@@ -621,14 +622,32 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>H:/Unity Editors/2019.3.12f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
+      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
+      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
+      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Editor">
+      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
@@ -639,38 +658,20 @@
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Postprocessing.Editor">
+      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
-      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
-      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Editor">
-      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime">
-      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
-      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Editor">
-      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
-      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+    <Reference Include="Unity.Postprocessing.Runtime">
+      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
@@ -678,11 +679,11 @@
     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
       <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Postprocessing.Editor">
-      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>

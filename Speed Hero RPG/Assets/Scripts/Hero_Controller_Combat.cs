@@ -27,6 +27,9 @@ public class Hero_Controller_Combat : MonoBehaviour
 
     public HeroSpawnAttack spawnAttack;
 
+    [Header("Debug Overrides")]
+    public bool allowInstantAnimationCancelling;
+
     //Animation States
     const string HERO_NULL = "This is not a valid animation";
     const string HERO_IDLE = "Hero_idle";
@@ -154,7 +157,7 @@ public class Hero_Controller_Combat : MonoBehaviour
 
 
         //animPercent = (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1f);
-        if ((currentState == HERO_IDLE) || (animPercent >= queueThreshold))
+        if ((currentState == HERO_IDLE) || (animPercent >= queueThreshold) || (allowInstantAnimationCancelling))
         {
             switch (attackInput.x)
             {
@@ -200,7 +203,7 @@ public class Hero_Controller_Combat : MonoBehaviour
             }
         }
 
-        if (currentState == HERO_IDLE)
+        if ((currentState == HERO_IDLE) || (allowInstantAnimationCancelling))
         {
             ChangeAnimationState(nextState);
             nextState = HERO_NULL;

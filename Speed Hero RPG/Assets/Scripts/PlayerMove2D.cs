@@ -34,10 +34,10 @@ public class PlayerMove2D : MonoBehaviour
     public Vector2 GetDirectionFromInput()
     {
         //Vertical Input
-        float inputY = Input.GetAxisRaw("MovementY");
+        float inputY = Input.GetAxisRaw("Vertical");
 
         //Horizontal Input
-        float inputX = Input.GetAxisRaw("MovementX"); 
+        float inputX = Input.GetAxisRaw("Horizontal"); 
 
         Vector2 dirVector = new Vector2(inputX, inputY);
         dirVector.Normalize();

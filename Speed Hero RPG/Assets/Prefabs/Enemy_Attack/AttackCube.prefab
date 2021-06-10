@@ -125,6 +125,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   attackNum: 5
+  timeToReachPlayer: 0.73333
 --- !u!1 &3579623990205632722
 GameObject:
   m_ObjectHideFlags: 0

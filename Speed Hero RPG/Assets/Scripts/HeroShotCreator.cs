@@ -53,7 +53,8 @@ public class HeroShotCreator : MonoBehaviour
         GameObject childObject = Instantiate(shotProjectile) as GameObject;
         childObject.transform.parent = shotParent.transform;
         childObject.transform.localPosition = new Vector3(0, 0, 0);
-        childObject.transform.localRotation = Quaternion.Euler(0, 0, 0); 
+        childObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        //childObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
         childObject.GetComponent<Rigidbody>().velocity = transform.right*(childObject.GetComponent<BladeShot>().initialSpeed);
     }
 }
