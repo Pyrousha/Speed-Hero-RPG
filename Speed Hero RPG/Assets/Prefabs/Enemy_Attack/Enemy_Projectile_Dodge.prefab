@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2007162090319421606}
   - component: {fileID: 389302054390304714}
   - component: {fileID: 1508418511638627968}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy_Projectile_Dodge
   m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 0.75, z: 0.75}
+  m_Size: {x: 0.8, y: 0.8, z: 0.8}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1508418511638627968
 MonoBehaviour:

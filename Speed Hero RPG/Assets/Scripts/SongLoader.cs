@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class SongLoader : MonoBehaviour
 {
-    public GameObject songToLoadPrefab;
-    GameObject songToLoad;
-
+    [Header("Game State")]
     public gameState state;
 
+    [Header("Objects + Stuff")]
+    public GameObject songToLoadPrefab;
+    GameObject songToLoad;
     public GameObject noteParent;
     public GameObject noteEditorCamera;
-
     public Enemy_Stats_Combat enemy;
-
 
     [Header("Song Properties (To be loaded, don't change!)")]
     public float songBPM;

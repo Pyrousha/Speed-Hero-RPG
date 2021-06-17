@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2007162090319421606}
   - component: {fileID: 389302054390304714}
   - component: {fileID: 1508418511638627968}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy_Projectile_Hit
   m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
@@ -127,3 +127,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 1
+  atkType: 0

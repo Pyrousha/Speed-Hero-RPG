@@ -19,7 +19,7 @@ public class HeroSpawnAttack : MonoBehaviour
         
     }
 
-    void atk(int attackNum)
+    public void atk(int attackNum)
     {
         //Call funstion to spawn attack projectile
         switch(attackNum)

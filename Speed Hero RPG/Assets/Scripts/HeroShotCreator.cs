@@ -8,6 +8,10 @@ public class HeroShotCreator : MonoBehaviour
     public GameObject shotParent;
     public GameObject shotProjectile;
 
+    public float shotSpeed;
+
+    Vector3 targetDir;
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +27,8 @@ public class HeroShotCreator : MonoBehaviour
 
     public void attack_2()
     {
-        gameObject.transform.eulerAngles = new Vector3(0, 0, 180);
+        targetDir = new Vector3(0, 0, 180);
+        gameObject.transform.eulerAngles = targetDir;
         spawnShot();
     }
 
@@ -55,6 +60,6 @@ public class HeroShotCreator : MonoBehaviour
         childObject.transform.localPosition = new Vector3(0, 0, 0);
         childObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
         //childObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-        childObject.GetComponent<Rigidbody>().velocity = transform.right*(childObject.GetComponent<BladeShot>().initialSpeed);
+        childObject.GetComponent<Rigidbody>().velocity = shotParent.transform.right*shotSpeed;
     }
 }

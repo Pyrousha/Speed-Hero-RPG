@@ -29,8 +29,10 @@ public class Hero_Stats_Combat : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Trigger?");
         if (other.tag == "EnemyProjectile")
         {
+            Debug.Log("hit by projectile!");
             //Damage for "hit" projectiles is already handled in Enemy_Attack.cs
             if (other.GetComponent<Enemy_Attack>().atkType == Enemy_Attack.attackType.Dodge)
             {
@@ -46,7 +48,7 @@ public class Hero_Stats_Combat : MonoBehaviour
             return;
 
         hp -= damage;
-        Debug.Log("HP: " + hp + "/"+maxHp);
+        //Debug.Log("HP: " + hp + "/"+maxHp);
         if (hp<=0)
         {
             hp = 0;

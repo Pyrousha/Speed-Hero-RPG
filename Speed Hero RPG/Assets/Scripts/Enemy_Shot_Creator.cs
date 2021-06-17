@@ -44,9 +44,13 @@ public class Enemy_Shot_Creator : MonoBehaviour
         {
             case (1):
                 {
-                    MoveOffset(-1, -1); //Set location
+                    //Left Attack
+                    MoveOffset(-0.5f, -1); //Set location
                     SetRotationZ(90); //Set rotation
                     CreateProjectile(damage, shotProjectileDodge); //Create attack
+
+                    //Spawn Right Attack
+                    SpawnAttack(11, damage);
                     break;
                 }
             case (2):
@@ -93,9 +97,13 @@ public class Enemy_Shot_Creator : MonoBehaviour
                 }
             case (8):
                 {
-                    MoveOffset(1, 1); //Set location
+                    //Right attack
+                    MoveOffset(0f, 1); //Set location
                     SetRotationZ(-90); //Set rotation
                     CreateProjectile(damage, shotProjectileDodge); //Create attack
+
+                    //Spawn left attack
+                    SpawnAttack(10, damage);
                     break;
                 }
             case (9):
@@ -103,6 +111,21 @@ public class Enemy_Shot_Creator : MonoBehaviour
                     MoveOffset(1, 0); //Set location
                     SetRotationZ(-90); //Set rotation
                     CreateProjectile(damage, shotProjectileHit); //Create attack
+                    break;
+                }
+            case (10):
+                {
+                    //Left attack
+                    MoveOffset(-0.25f, 1); //Set location
+                    SetRotationZ(90); //Set rotation
+                    CreateProjectile(damage, shotProjectileDodge); //Create attack
+                    break;
+                }
+            case (11):
+                {
+                    MoveOffset(0f, -1); //Set location
+                    SetRotationZ(-90); //Set rotation
+                    CreateProjectile(damage, shotProjectileDodge); //Create attack
                     break;
                 }
         }

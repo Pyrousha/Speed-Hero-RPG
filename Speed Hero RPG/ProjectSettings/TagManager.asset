@@ -20,9 +20,9 @@ TagManager:
   - 
   - AtkCube
   - NoteGrid
-  - 
-  - 
-  - 
+  - HeroBladeShot
+  - EnemyAttackProjectile
+  - HeroCombatHitbox
   - 
   - 
   - 

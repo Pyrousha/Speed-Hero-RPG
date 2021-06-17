@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4541998126450807042}
   - component: {fileID: -3248164782499991139}
   - component: {fileID: 4117230302800218231}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: blade_shot_sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

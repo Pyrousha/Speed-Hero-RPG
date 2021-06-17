@@ -34,9 +34,11 @@ public class Hero_Controller_Combat : MonoBehaviour
     const string HERO_NULL = "This is not a valid animation";
     const string HERO_IDLE = "Hero_idle";
     const string HERO_2_ATTACK = "Hero_2_attack";
+    const string HERO_2_ATTACK_ENDLAG = "Attack_2_exit";
     const string HERO_3_ATTACK = "Hero_3_attack";
     const string HERO_5_ATTACK = "Hero_5_attack";
     const string HERO_7_ATTACK = "Hero_7_attack";
+    const string HERO_8_DODGE = "Hero_8_dodge_start";
     const string HERO_9_ATTACK = "Hero_9_attack";
 
     // Start is called before the first frame update
@@ -110,6 +112,49 @@ public class Hero_Controller_Combat : MonoBehaviour
     private void FixedUpdate()
     {
         attackInput = getAttackInput();
+
+        #region set animator bools
+        bool press2 = false;
+        bool press3 = false;
+        bool press5 = false;
+        bool press7 = false;
+        bool press8 = false;
+        bool press9 = false;
+
+        if (attackInput.y > 0) //pressing Up
+            press5 = true;
+        else
+        {
+            if (attackInput.y < 0) //pressing Down
+            {
+                press8 = true;
+            }
+        }
+
+        if (attackInput.x < 0) //pressing Left
+        {
+            if (press5)
+                press3 = true;
+            press2 = true;
+        }
+        else
+        {
+            if (attackInput.x > 0) //pressing Right
+            {
+                if (press5)
+                    press7 = true;
+                press9 = true;
+            }  
+        }
+
+        animator.SetBool("Pressing_2", press2);
+        animator.SetBool("Pressing_3", press3);
+        animator.SetBool("Pressing_5", press5);
+        animator.SetBool("Pressing_7", press7);
+        animator.SetBool("Pressing_8", press8);
+        animator.SetBool("Pressing_9", press9);
+        #endregion
+
         AttackAxisToInputDown();
 
         animPercent = (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1f);
@@ -155,8 +200,7 @@ public class Hero_Controller_Combat : MonoBehaviour
             }
         }
 
-
-        //animPercent = (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1f);
+        //Set nextState based on input
         if ((currentState == HERO_IDLE) || (animPercent >= queueThreshold) || (allowInstantAnimationCancelling))
         {
             switch (attackInput.x)
@@ -172,7 +216,16 @@ public class Hero_Controller_Combat : MonoBehaviour
                     {
                         //Attack Up
                         if (attackInput.y > 0)
+                        {
                             nextState = HERO_5_ATTACK;
+                            break;
+                        }
+                        if (attackInput.y < 0)
+                        {
+                            nextState = HERO_8_DODGE;
+                            break;
+                        }
+
                         break;
                     }
 
@@ -203,7 +256,9 @@ public class Hero_Controller_Combat : MonoBehaviour
             }
         }
 
-        if ((currentState == HERO_IDLE) || (allowInstantAnimationCancelling))
+        animator.SetBool("AttackQueued", nextState != HERO_NULL);
+
+        if ((nextState != HERO_NULL) && ((currentState == HERO_IDLE) || (allowInstantAnimationCancelling)))
         {
             ChangeAnimationState(nextState);
             nextState = HERO_NULL;
@@ -229,24 +284,29 @@ public class Hero_Controller_Combat : MonoBehaviour
         //Don't change to Null
         if (newState == HERO_NULL)
         {
-            newState = HERO_IDLE;
-        }
-
-        //stop animator from interrupting itself
-        if (newState == currentState)
-        {
+            Debug.Log("Tried changed to state HERO_NULL");
             return;
         }
 
-        //Debug.Log("Changing animationstate from: " + currentState + " to: " + newState);
-        
-        //play animation
-        animator.Play(newState);
+        //stop animator from interrupting itself if invalid
+        if (newState == currentState)
+        {
+            //Debug.Log("Animation " + newState + " interrupted itself");
+            if (newState == HERO_IDLE)
+                return;
+        }
 
+        //Debug.Log("Changing animationstate from: " + currentState + " to: " + newState);
+
+        //play animation
+        animator.Play(newState, 0, 0f);
+
+
+        /*
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName(newState))
         {
-            //Debug.Log("FUCK YOU UNITY");
-        }
+            //Debug.Log("Unity why ;_;");
+        }*/
 
         //reassign current state and nextstate
         currentState = newState;

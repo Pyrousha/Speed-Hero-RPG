@@ -64,9 +64,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\BGStarMove.cs" />
     <Compile Include="Assets\ChangeSkyboxOnStart.cs" />
     <Compile Include="Assets\CombatFloorMover.cs" />
     <Compile Include="Assets\NoteGridBarNum.cs" />
+    <Compile Include="Assets\ReverseNormals.cs" />
     <Compile Include="Assets\Scripts\AtkCubeRemover.cs" />
     <Compile Include="Assets\Scripts\AttackCube.cs" />
     <Compile Include="Assets\Scripts\BattleTransition.cs" />
@@ -658,9 +660,6 @@
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Postprocessing.Editor">
-      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
@@ -669,9 +668,6 @@
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>H:/Github/Repositories/Speed-Hero-RPG/Speed Hero RPG/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
