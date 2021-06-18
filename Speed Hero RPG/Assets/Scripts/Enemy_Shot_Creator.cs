@@ -55,14 +55,14 @@ public class Enemy_Shot_Creator : MonoBehaviour
                 }
             case (2):
                 {
-                    MoveOffset(-1, 0); //Set location
+                    MoveOffset(-0.5f, 0); //Set location
                     SetRotationZ(90); //Set rotation
                     CreateProjectile(damage, shotProjectileHit); //Create attack
                     break;
                 }
             case (3):
                 {
-                    MoveOffset(0, 0); //Set location
+                    MoveOffset(-0.354f, 0.354f); //Set location
                     SetRotationZ(45); //Set rotation
                     CreateProjectile(damage, shotProjectileHit); //Create attack
                     break;
@@ -90,7 +90,7 @@ public class Enemy_Shot_Creator : MonoBehaviour
                 }
             case (7):
                 {
-                    MoveOffset(0, 0); //Set location
+                    MoveOffset(0.354f, 0.354f); //Set location
                     SetRotationZ(-45); //Set rotation
                     CreateProjectile(damage, shotProjectileHit); //Create attack
                     break;
@@ -108,7 +108,7 @@ public class Enemy_Shot_Creator : MonoBehaviour
                 }
             case (9):
                 {
-                    MoveOffset(1, 0); //Set location
+                    MoveOffset(0.5f, 0); //Set location
                     SetRotationZ(-90); //Set rotation
                     CreateProjectile(damage, shotProjectileHit); //Create attack
                     break;

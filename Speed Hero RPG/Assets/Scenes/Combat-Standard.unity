@@ -3022,6 +3022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1687c2a044c9741aa27f77432e43ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowInstantAnimationCancelling: 1
   currentState: 
   nextState: 
   queueThreshold: 0.5
@@ -3032,7 +3033,6 @@ MonoBehaviour:
   diagPressedATK: 0
   attackInput: {x: 0, y: 0}
   spawnAttack: {fileID: 0}
-  allowInstantAnimationCancelling: 1
 --- !u!65 &1098036438
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3551,7 +3551,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 499.20294
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Hero_Controller_Combat : MonoBehaviour
 {
+    [Header("Debug Overrides")]
+    public bool allowInstantAnimationCancelling;
+
     Animator animator;
+
+    [Header("State Stuff")]
     public string currentState;
     public string nextState;
     
@@ -26,9 +31,6 @@ public class Hero_Controller_Combat : MonoBehaviour
     public Vector2 attackInput;
 
     public HeroSpawnAttack spawnAttack;
-
-    [Header("Debug Overrides")]
-    public bool allowInstantAnimationCancelling;
 
     //Animation States
     const string HERO_NULL = "This is not a valid animation";

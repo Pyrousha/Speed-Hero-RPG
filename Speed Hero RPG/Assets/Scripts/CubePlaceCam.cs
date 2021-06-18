@@ -119,11 +119,13 @@ public class CubePlaceCam : MonoBehaviour
         //Set path where prefab will be saved
         string localPath = "Assets/Prefabs/SongAttackPatterns/" + songName + ".prefab";
 
+        #if UNITY_EDITOR
         //Make sure filename is unique
         localPath = AssetDatabase.GenerateUniqueAssetPath(localPath);
 
         //Create new prefab
         PrefabUtility.SaveAsPrefabAssetAndConnect(noteParent, localPath, InteractionMode.UserAction);
+        #endif
     }
 
 }

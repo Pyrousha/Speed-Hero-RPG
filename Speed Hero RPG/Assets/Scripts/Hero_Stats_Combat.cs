@@ -29,12 +29,10 @@ public class Hero_Stats_Combat : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger?");
         if (other.tag == "EnemyProjectile")
         {
-            Debug.Log("hit by projectile!");
             //Damage for "hit" projectiles is already handled in Enemy_Attack.cs
-            if (other.GetComponent<Enemy_Attack>().atkType == Enemy_Attack.attackType.Dodge)
+            //if (other.GetComponent<Enemy_Attack>().atkType == Enemy_Attack.attackType.Dodge)
             {
                 takeDamage(other.gameObject.GetComponent<Enemy_Attack>().dmg);
                 Destroy(other.gameObject);

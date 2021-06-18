@@ -25,6 +25,7 @@ public class Enemy_Attack : MonoBehaviour
         {
             //Player should take damage
             GameObject heroObj = GameObject.Find("Hero_Combat");
+
             if (heroObj != null)
                 heroObj.GetComponent<Hero_Stats_Combat>().takeDamage(dmg);
         }
