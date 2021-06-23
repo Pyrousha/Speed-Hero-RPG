@@ -248,6 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64fe0b39006983944a11a53188820f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldFlip: 1
 --- !u!114 &4060824
 MonoBehaviour:
   m_ObjectHideFlags: 0

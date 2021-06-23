@@ -86,9 +86,9 @@ public class AttackCube : MonoBehaviour
 
     public void AddToEnemyPattern(Enemy_Stats_Combat enemy, float timePerEightNote, float startOffset)
     {
-        if (attackNum == 1)
+        if (attackNum == 1) //Jump attacks have differnt spawn timings
             enemy.Invoke("Spawn" + attackNum, startOffset + transform.localPosition.z * timePerEightNote - ((32.5f) / 60f));
         else
-            enemy.Invoke("Spawn" + attackNum, startOffset + transform.localPosition.z*timePerEightNote - ((25f)/60f));
+            enemy.Invoke("Spawn" + attackNum, startOffset + transform.localPosition.z*timePerEightNote - ((20f)/60f));
     }
 }

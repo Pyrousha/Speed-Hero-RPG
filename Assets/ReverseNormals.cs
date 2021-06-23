@@ -23,7 +23,6 @@ public class ReverseNormals : MonoBehaviour
 
     public void FlipNormals()
     {
-		Debug.Log("a?");
 		MeshFilter filter = GetComponent(typeof(MeshFilter)) as MeshFilter;
 		if (filter != null)
 		{
