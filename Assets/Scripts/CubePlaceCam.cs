@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEditor;
 
 public class CubePlaceCam : MonoBehaviour
@@ -14,6 +15,8 @@ public class CubePlaceCam : MonoBehaviour
     public GameObject songLoadedPrefab;
 
     public string songName;
+
+    public InputField inputField;
 
     Camera thisCam;
 
@@ -50,11 +53,8 @@ public class CubePlaceCam : MonoBehaviour
             RemoveCube();
         }
 
-        //save notes
         if (Input.GetKeyDown(KeyCode.Return))
-        {
             SaveNotes();
-        }
 
         //Move camera
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
@@ -107,8 +107,10 @@ public class CubePlaceCam : MonoBehaviour
 
     }
 
-    void SaveNotes()
+    public void SaveNotes()
     {
+        songName = inputField.text;
+
         //Save loaded song's properties to new prefab
         if (songLoadedPrefab != null)
         {

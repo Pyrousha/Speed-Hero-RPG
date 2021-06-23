@@ -8,19 +8,22 @@ public class ReverseNormals : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		//FlipNormals();
+		#if !UNITY_EDITOR
+		FlipNormals();
+		#endif
 	}
 
     public void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-			//FlipNormals();
+			FlipNormals();
         }
     }
 
     public void FlipNormals()
     {
+		Debug.Log("a?");
 		MeshFilter filter = GetComponent(typeof(MeshFilter)) as MeshFilter;
 		if (filter != null)
 		{

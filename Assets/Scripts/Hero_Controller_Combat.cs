@@ -27,7 +27,6 @@ public class Hero_Controller_Combat : MonoBehaviour
     public bool yPressedATK;
     public bool diagPressedATK;
 
-    Vector2 moveInput;
     public Vector2 attackInput;
 
     public HeroSpawnAttack spawnAttack;
@@ -35,6 +34,7 @@ public class Hero_Controller_Combat : MonoBehaviour
     //Animation States
     const string HERO_NULL = "This is not a valid animation";
     const string HERO_IDLE = "Hero_idle";
+    const string HERO_1_JUMP = "Hero_1_jump";
     const string HERO_2_ATTACK = "Hero_2_attack";
     const string HERO_2_ATTACK_ENDLAG = "Attack_2_exit";
     const string HERO_3_ATTACK = "Hero_3_attack";
@@ -55,12 +55,9 @@ public class Hero_Controller_Combat : MonoBehaviour
         yPressedATK = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        moveInput = getMoveInput();
-    }
-
+    /// <summary>
+    /// Changes the attack input to only be registered while being pressed down (holding button does not constantly attack)
+    /// </summary>
     void AttackAxisToInputDown()
     {
         //X axis
@@ -111,11 +108,17 @@ public class Hero_Controller_Combat : MonoBehaviour
         ChangeAnimationState(HERO_7_ATTACK);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space) && currentState!= HERO_1_JUMP)
+        {
+            ChangeAnimationState(HERO_1_JUMP);
+            return;
+        }
+
         attackInput = getAttackInput();
 
-        #region set animator bools
+        #region set animator bools for holding attack
         bool press2 = false;
         bool press3 = false;
         bool press5 = false;
@@ -161,7 +164,7 @@ public class Hero_Controller_Combat : MonoBehaviour
 
         animPercent = (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1f);
 
-        //Diagonal Cancelling
+        #region Diagonal Cancelling
         if (animPercent <= diagCancelPercent)
         {
             switch (currentState)
@@ -201,8 +204,9 @@ public class Hero_Controller_Combat : MonoBehaviour
 
             }
         }
+        #endregion
 
-        //Set nextState based on input
+        #region Set nextState based on input
         if ((currentState == HERO_IDLE) || (animPercent >= queueThreshold) || (allowInstantAnimationCancelling))
         {
             switch (attackInput.x)
@@ -257,14 +261,16 @@ public class Hero_Controller_Combat : MonoBehaviour
                     }
             }
         }
+        #endregion
 
+        //Set bool based on if hero has attack queued
         animator.SetBool("AttackQueued", nextState != HERO_NULL);
 
+        //Change animation state
         if ((nextState != HERO_NULL) && ((currentState == HERO_IDLE) || (allowInstantAnimationCancelling)))
         {
             ChangeAnimationState(nextState);
             nextState = HERO_NULL;
-            //Debug.Log("NextState: " + nextState);
         }
 
     }
@@ -303,30 +309,8 @@ public class Hero_Controller_Combat : MonoBehaviour
         //play animation
         animator.Play(newState, 0, 0f);
 
-
-        /*
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(newState))
-        {
-            //Debug.Log("Unity why ;_;");
-        }*/
-
-        //reassign current state and nextstate
+        //reassign current state
         currentState = newState;
-    }
-
-    /// <summary>
-    /// Gets the player's input on the move axis
-    /// </summary>
-    /// <returns>a normalized 2D vector of the move input direcion</returns>
-    Vector2 getMoveInput()
-    {
-        //Horizontal Input
-        float inputX = Input.GetAxisRaw("MovementX");
-
-        //Vertical Input
-        float inputY = Input.GetAxisRaw("MovementY");
-
-        return new Vector2(inputX, inputY).normalized;
     }
 
     /// <summary>
@@ -336,10 +320,10 @@ public class Hero_Controller_Combat : MonoBehaviour
     Vector2 getAttackInput()
     {
         //Horizontal Input
-        float inputX = Input.GetAxisRaw("AttackX");
+        float inputX = Input.GetAxisRaw("Horizontal");
 
         //Vertical Input
-        float inputY = Input.GetAxisRaw("AttackY");
+        float inputY = Input.GetAxisRaw("Vertical");
 
         //Diag Input
         float inputDiag = Input.GetAxisRaw("AttackDiags");

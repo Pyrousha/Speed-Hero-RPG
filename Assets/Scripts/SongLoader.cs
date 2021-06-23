@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEditor;
 
 public class SongLoader : MonoBehaviour
 {
     [Header("Game State")]
     public gameState state;
 
-    [Header("Objects + Stuff")]
+    [Header("Song Prefab")]
     public GameObject songToLoadPrefab;
     GameObject songToLoad;
+
+    [Header("Objects + Stuff")]
     public GameObject noteParent;
     public GameObject noteEditorCamera;
     public Enemy_Stats_Combat enemy;
@@ -30,6 +34,9 @@ public class SongLoader : MonoBehaviour
     float secsPerEightNote;
 
     public float startOffset;
+
+    public InputField bpmObj;
+    public InputField songNameObj;
 
     public enum gameState
     { 
@@ -66,6 +73,9 @@ public class SongLoader : MonoBehaviour
         {
             noteEditorCamera.GetComponent<CubePlaceCam>().DisableGameComponents();
             noteEditorCamera.GetComponent<CubePlaceCam>().songLoadedPrefab = songToLoad;
+
+            bpmObj.text = songBPM.ToString();
+            songNameObj.text = songToLoad.name;
         }
     }
 
@@ -82,6 +92,7 @@ public class SongLoader : MonoBehaviour
     void LoadNotes()
     {
         songToLoad = Instantiate(songToLoadPrefab, transform) as GameObject;
+        songToLoad.name = songToLoad.name.Replace("(Clone)", "");
 
         //Set all notes to be childed to the noteParent GameObject
         int i = 0;
