@@ -17,7 +17,9 @@ public class ReverseNormals : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+			#if UNITY_EDITOR
 			FlipNormals();
+			#endif
         }
     }
 

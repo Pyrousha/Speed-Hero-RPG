@@ -6,16 +6,19 @@ using UnityEngine.UI;
 
 public class Hero_Stats_Combat : MonoBehaviour
 {
-
-    public int hp;
-    public int maxHp;
-    public int dmg;
+    [Header("Debug Toggle Invincible")]
     public bool invincible;
+
+    [Header("Stats")]
+    public int maxHp;
+    int hp;
+    public int dmg;
 
     int healCount = 0;
     int maxhealCount = 8;
     int hpHealed = 1;
 
+    [Header("Objects")]
     public Text healthBarText;
     public Slider healthBarSlider;
     public Slider healBarSlider;
@@ -23,6 +26,8 @@ public class Hero_Stats_Combat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        hp = maxHp;
+
         UpdateHealthBar();
         UpdateHealBar();
     }
@@ -96,11 +101,7 @@ public class Hero_Stats_Combat : MonoBehaviour
 
     void UpdateHealBar()
     {
-        Debug.Log("healCount: " + healCount);
-       
         float newVal = ((float)healCount / (float)maxhealCount);
-        Debug.Log("newVal: " + newVal);
-
         healBarSlider.value = newVal;
     }
 
