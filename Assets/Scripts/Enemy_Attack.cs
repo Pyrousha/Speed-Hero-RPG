@@ -6,6 +6,16 @@ public class Enemy_Attack : MonoBehaviour
 {
     public int dmg;
 
+    GameObject heroObj;
+    Hero_Stats_Combat heroStats; 
+
+    private void Start()
+    {
+        heroObj = GameObject.Find("Hero_Combat");
+        if (heroObj != null)
+            heroStats = heroObj.GetComponent<Hero_Stats_Combat>();
+    }
+
     public enum attackType
     {
         Hit,
@@ -13,6 +23,15 @@ public class Enemy_Attack : MonoBehaviour
     }
 
     public attackType atkType;
+
+    public void TryDestroy()
+    {
+        if (atkType == attackType.Hit)
+        {
+            OnDestroy();
+            heroStats.DestroyEnemyAttack();
+        }
+    }
 
     private void OnDestroy()
     {
@@ -24,10 +43,8 @@ public class Enemy_Attack : MonoBehaviour
         if (atkType == attackType.Hit) //Attack has reached end, meaning it was not hit by the player
         {
             //Player should take damage
-            GameObject heroObj = GameObject.Find("Hero_Combat");
-
             if (heroObj != null)
-                heroObj.GetComponent<Hero_Stats_Combat>().takeDamage(dmg);
+                heroStats.takeDamage(dmg);
         }
         OnDestroy();
     }

@@ -29,7 +29,7 @@ public class BladeShot : MonoBehaviour
     {
         if (other.tag == "EnemyProjectile")
         {
-            Destroy(other.gameObject);
+            other.GetComponent<Enemy_Attack>().TryDestroy();
         }
     }
 

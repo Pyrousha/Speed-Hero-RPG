@@ -13,7 +13,7 @@ public class ReverseNormals : MonoBehaviour
 		#endif
 	}
 
-    public void FixedUpdate()
+    public void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
