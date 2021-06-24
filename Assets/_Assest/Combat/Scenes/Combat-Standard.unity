@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2865,7 +2865,7 @@ GameObject:
   - component: {fileID: 675128999}
   - component: {fileID: 675128998}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: Hero UI Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8929,11 +8929,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d51a1ef73caae041a6e83d984084b4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotParent: {fileID: 600190569}
-  shotProjectile: {fileID: 4541998126450807071, guid: f91a9e1e3089d0a49939ffbe4042d2db,
-    type: 3}
-  shotSpeed: 4
-  targetDir: {x: 0, y: 0, z: 0}
 --- !u!1 &1967168865
 GameObject:
   m_ObjectHideFlags: 0
