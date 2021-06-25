@@ -8,11 +8,13 @@ public class BGStarMove : MonoBehaviour
     public float starSizeAdd;
     public float minStarSize;
     public float maxStarSize;
+    float startStarSize = 50;
     float starSize;
 
     // Start is called before the first frame update
     void Start()
     {
+        mat.SetFloat("_StarSize", 50);
     }
 
     // Update is called once per frame
@@ -35,5 +37,10 @@ public class BGStarMove : MonoBehaviour
         }
 
         mat.SetFloat("_StarSize", starSize);
+    }
+
+    void OnApplicationQuit()
+    {
+        mat.SetFloat("_StarSize", 50);
     }
 }

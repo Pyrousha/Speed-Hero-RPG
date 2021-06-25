@@ -7565,8 +7565,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed3a8758380935478ae7739e24099a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 1
-  songToLoadPrefab: {fileID: 5670280064027413839, guid: 761ee502e669a484092d1c261d390a71,
+  state: 0
+  songToLoadPrefab: {fileID: 2188708092519784206, guid: d9cad156594f8414ca0a747d328cd5ef,
     type: 3}
   noteParent: {fileID: 1024982693}
   noteEditorCamera: {fileID: 1511847372}
