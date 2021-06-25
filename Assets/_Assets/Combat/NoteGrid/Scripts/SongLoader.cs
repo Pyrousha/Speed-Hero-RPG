@@ -19,6 +19,7 @@ public class SongLoader : MonoBehaviour
     public Camera noteEditorPreviewCam;
     public Canvas heroUICanvas;
     public Enemy_Stats_Combat enemy;
+    public Hero_Stats_Combat heroStatsCombat;
     public InputField bpmObj;
     public InputField songNameObj;
 
@@ -71,6 +72,8 @@ public class SongLoader : MonoBehaviour
 
             heroUICanvas.worldCamera = noteEditorPreviewCam;
 
+            heroStatsCombat.isNoteEditorMode = true;
+
             bpmObj.text = songBPM.ToString();
             songNameObj.text = songToLoad.name;
         }
@@ -112,7 +115,7 @@ public class SongLoader : MonoBehaviour
         musicSource.clip = songToLoad.GetComponent<AudioSource>().clip;
     }
 
-    void PlaySong()
+    public void PlaySong()
     {
         //Add every note in the song pattern to be played
         for (int i = 0; i < noteParent.transform.childCount; i++)
@@ -123,5 +126,16 @@ public class SongLoader : MonoBehaviour
 
         dspSongTime = (float)AudioSettings.dspTime;
         musicSource.Play();
+    }
+
+    public void StopSong()
+    {
+        for (int i = 0; i < noteParent.transform.childCount; i++)
+        {
+            AttackCube atkCube = noteParent.transform.GetChild(i).gameObject.GetComponent<AttackCube>();
+            atkCube.RemoveFromEnemyPattern(enemy);
+        }
+
+        musicSource.Stop();
     }
 }

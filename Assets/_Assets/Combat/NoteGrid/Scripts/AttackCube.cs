@@ -91,4 +91,9 @@ public class AttackCube : MonoBehaviour
         else
             enemy.Invoke("Spawn" + attackNum, startOffset + transform.localPosition.z*timePerEightNote - ((20f)/60f));
     }
+
+    public void RemoveFromEnemyPattern(Enemy_Stats_Combat enemy)
+    {
+        enemy.CancelInvoke();
+    }
 }

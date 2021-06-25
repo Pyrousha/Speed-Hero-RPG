@@ -27,8 +27,6 @@ public class CubePlaceCam : MonoBehaviour
 
     float scrollInput;
 
-    
-
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +47,9 @@ public class CubePlaceCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (buttonController.songIsPlaying)
+            return;
+        
         //add notes
         if (Input.GetMouseButton(0))
         {
@@ -61,8 +62,6 @@ public class CubePlaceCam : MonoBehaviour
             RemoveCube();
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
-            SaveNotes();
 
         scrollInput = 0;
 
@@ -132,14 +131,15 @@ public class CubePlaceCam : MonoBehaviour
         }
 
         //Set path where prefab will be saved
-        string localPath = "Assets/Prefabs/SongAttackPatterns/" + songName + ".prefab";
+        string localPath = "Assets/_Assets/Combat/NoteGrid/SongMaps/" + songName + ".prefab";
 
         #if UNITY_EDITOR
         //Make sure filename is unique
         localPath = AssetDatabase.GenerateUniqueAssetPath(localPath);
 
         //Create new prefab
-        PrefabUtility.SaveAsPrefabAssetAndConnect(noteParent, localPath, InteractionMode.UserAction);
+        if (noteParent != null)
+            PrefabUtility.SaveAsPrefabAssetAndConnect(noteParent, localPath, InteractionMode.UserAction);
         #endif
     }
 

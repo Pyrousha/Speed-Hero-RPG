@@ -23,6 +23,8 @@ public class Hero_Stats_Combat : MonoBehaviour
     public Slider healthBarSlider;
     public Slider healBarSlider;
 
+    public bool isNoteEditorMode;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,10 +34,16 @@ public class Hero_Stats_Combat : MonoBehaviour
         UpdateHealBar();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetHealth(int newHp)
     {
-        
+        hp = newHp;
+        UpdateHealthBar();
+    }
+
+    public void SetHealBar(int newHeal)
+    {
+        healCount = newHeal;
+        UpdateHealBar();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -78,7 +86,9 @@ public class Hero_Stats_Combat : MonoBehaviour
         if (hp<=0)
         {
             hp = 0;
-            Die();
+
+            if (!isNoteEditorMode)
+                Die();
         }
         else
         {
