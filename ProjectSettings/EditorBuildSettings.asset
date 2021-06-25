@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Assest/Overworld/Scenes/Zone1.unity
+    path: Assets/_Assest/Scenes/Zone1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/_Assest/Combat/Scenes/Combat-Standard.unity
+    path: Assets/_Assest/Scenes/Combat-Standard.unity
     guid: 391317620212f5b4daa2bbef0289e89f
   - enabled: 1
-    path: Assets/_Assest/Combat/Scenes/DEAD.unity
+    path: Assets/_Assest/Scenes/DEAD.unity
     guid: 97a4a15e8e47b8646b3bccf10baa0d2b
   m_configObjects: {}

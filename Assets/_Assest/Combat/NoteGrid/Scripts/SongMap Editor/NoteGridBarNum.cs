@@ -9,7 +9,8 @@ public class NoteGridBarNum : MonoBehaviour
     void Start()
     {
         //Bar this obj starts on
-        float startingBarNum = (transform.parent.localPosition.z + 0.5f) / 8f;
+        int startingBarNum = (int)((transform.parent.localPosition.z + 0.5f) / 8f);
+
 
         //Set children's text to be the bar# + offset
         for(int i = 0; i<transform.childCount; i++)

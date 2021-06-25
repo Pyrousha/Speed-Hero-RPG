@@ -16,7 +16,12 @@ public class SongLoader : MonoBehaviour
     [Header("Objects + Stuff")]
     public GameObject noteParent;
     public GameObject noteEditorCamera;
+    public Camera noteEditorPreviewCam;
+    public Canvas heroUICanvas;
     public Enemy_Stats_Combat enemy;
+    public InputField bpmObj;
+    public InputField songNameObj;
+
 
     [Header("Song Properties (To be loaded, don't change!)")]
     public float songBPM;
@@ -35,9 +40,6 @@ public class SongLoader : MonoBehaviour
 
     public float startOffset;
 
-    public InputField bpmObj;
-    public InputField songNameObj;
-
     public enum gameState
     { 
         NoteEditor,
@@ -55,13 +57,6 @@ public class SongLoader : MonoBehaviour
 
         if (state == gameState.Playing) //Player enters combat
         {
-            //Add every note in the song pattern to be played
-            for(int i = 0; i < noteParent.transform.childCount; i++)
-            {
-                AttackCube atkCube = noteParent.transform.GetChild(i).gameObject.GetComponent<AttackCube>();
-                atkCube.AddToEnemyPattern(enemy, secsPerEightNote, startOffset);
-            }
-
             //Disable note placer camera, not needed in gameplay
             noteEditorCamera.SetActive(false);
 
@@ -73,6 +68,8 @@ public class SongLoader : MonoBehaviour
         {
             noteEditorCamera.GetComponent<CubePlaceCam>().DisableGameComponents();
             noteEditorCamera.GetComponent<CubePlaceCam>().songLoadedPrefab = songToLoad;
+
+            heroUICanvas.worldCamera = noteEditorPreviewCam;
 
             bpmObj.text = songBPM.ToString();
             songNameObj.text = songToLoad.name;
@@ -117,6 +114,13 @@ public class SongLoader : MonoBehaviour
 
     void PlaySong()
     {
+        //Add every note in the song pattern to be played
+        for (int i = 0; i < noteParent.transform.childCount; i++)
+        {
+            AttackCube atkCube = noteParent.transform.GetChild(i).gameObject.GetComponent<AttackCube>();
+            atkCube.AddToEnemyPattern(enemy, secsPerEightNote, 0);
+        }
+
         dspSongTime = (float)AudioSettings.dspTime;
         musicSource.Play();
     }

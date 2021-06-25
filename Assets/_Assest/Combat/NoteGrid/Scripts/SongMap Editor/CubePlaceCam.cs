@@ -14,6 +14,8 @@ public class CubePlaceCam : MonoBehaviour
 
     public GameObject songLoadedPrefab;
 
+    NoteEditorPlaySong buttonController;
+
     public string songName;
 
     public InputField inputField;
@@ -21,6 +23,9 @@ public class CubePlaceCam : MonoBehaviour
     Camera thisCam;
 
     public LayerMask noteGridLayer;
+    float minZ;
+
+    float scrollInput;
 
     
 
@@ -28,6 +33,9 @@ public class CubePlaceCam : MonoBehaviour
     void Start()
     {
         thisCam = GetComponent<Camera>();
+        minZ = transform.position.z;
+
+        buttonController = transform.GetChild(0).GetComponent<NoteEditorPlaySong>();
     }
 
     public void DisableGameComponents()
@@ -56,19 +64,25 @@ public class CubePlaceCam : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
             SaveNotes();
 
+        scrollInput = 0;
+
+        if (!buttonController.GetCamEnabled())
+            scrollInput = Input.GetAxisRaw("Horizontal");
+
+        scrollInput += 50 * Input.GetAxis("Mouse ScrollWheel");
+
         //Move camera
-        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
         if (scrollInput > 0)
         {
-            transform.Translate(Vector3.right * 25 * Input.GetAxis("Mouse ScrollWheel"));
+            transform.Translate(Vector3.right * scrollInput);
         }
         else
         {
             if (scrollInput < 0)
             {
-                if (transform.position.z > 63)
+                if (transform.position.z > minZ)
                 {
-                    transform.Translate(Vector3.right * 25 * Input.GetAxis("Mouse ScrollWheel"));
+                    transform.Translate(Vector3.right * scrollInput);
                 }
             }
         }
@@ -79,7 +93,6 @@ public class CubePlaceCam : MonoBehaviour
     {
         RaycastHit hitInfo;
         Ray ray = thisCam.ScreenPointToRay(Input.mousePosition);
-        //Debug.DrawRay(ray.origin, ray.direction * 500, Color.red, 5f);
 
         if (Physics.Raycast(ray, out hitInfo, noteGridLayer))
         {

@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a094b963eb129c0428706ef63470dcfc, type: 2}
+  - {fileID: 2100000, guid: 872442d3ecb59634d82645e3c876b26d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,7 +125,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   attackNum: 5
-  timeToReachPlayer: 0.73333
 --- !u!1 &3579623990205632722
 GameObject:
   m_ObjectHideFlags: 0
