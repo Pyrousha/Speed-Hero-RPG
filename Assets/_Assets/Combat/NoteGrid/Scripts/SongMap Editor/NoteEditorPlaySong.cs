@@ -26,7 +26,11 @@ public class NoteEditorPlaySong : MonoBehaviour
     bool isPlaying = false;
     bool camEnabled = false;
 
+    float bpm;
+    float songPosWhenPaused = 0;
+
     public bool songIsPlaying;
+    float songStartTime;
 
     GameObject cubePlaceCam;
 
@@ -38,6 +42,8 @@ public class NoteEditorPlaySong : MonoBehaviour
     {
         cubePlaceCam = transform.parent.gameObject;
         camStartPosition = transform.parent.position;
+
+        songStartTime = 0;
     }
 
     // Update is called once per frame
@@ -54,6 +60,11 @@ public class NoteEditorPlaySong : MonoBehaviour
 
     public void ResetSongButtonClick()
     {
+        if (isPlaying)
+            PlayButtonClicked();
+
+        songStartTime = 0;
+
         transform.parent.position = camStartPosition;
     }
 
@@ -62,16 +73,29 @@ public class NoteEditorPlaySong : MonoBehaviour
     {
         if (isPlaying)
         {
+            //Get current song time
+            songPosWhenPaused = songLoader.songPosition;
+
             //Stop the song
             playButtonImage.sprite = playSprite;
-            songLoader.StopSong();
+            songLoader.PauseSong();
             songIsPlaying = false;
         }
         else
         {
+            //Set current song time based on camera position
+            bpm = songLoader.songBPM;
+            songStartTime = (240 * (cubePlaceCam.transform.position.z - camStartPosition.z)) / (bpm * 27.68f);
+            songStartTime = Mathf.Max(0, songStartTime - songLoader.beatTravelTime);
+
+            //Reload notes into array
+            songLoader.FillNoteArray(songStartTime);
+
             //Start the song
             playButtonImage.sprite = pauseSprite;
-            songLoader.PlaySong();
+            if (songPosWhenPaused != songStartTime)
+                songLoader.ClearEnemyAttacks();
+            songLoader.PlaySong(songStartTime);
             songIsPlaying = true;
 
             //Reset Hero Stats
@@ -79,13 +103,13 @@ public class NoteEditorPlaySong : MonoBehaviour
             heroStats.SetHealBar(0);
 
             if (!camEnabled)
-                TogglePreviewStuff();
+                ToggleCamPreviewStuff();
         }
 
         isPlaying = !isPlaying;
     }
 
-    public void TogglePreviewStuff()
+    public void ToggleCamPreviewStuff()
     {
         if (camEnabled)
         {

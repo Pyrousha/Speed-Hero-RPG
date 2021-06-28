@@ -7565,8 +7565,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed3a8758380935478ae7739e24099a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
-  songToLoadPrefab: {fileID: 2188708092519784206, guid: d9cad156594f8414ca0a747d328cd5ef,
+  state: 1
+  songToLoadPrefab: {fileID: 916084351725983312, guid: eb98c31cf5e4d3f4fa409f615ec9faea,
     type: 3}
   noteParent: {fileID: 1024982693}
   noteEditorCamera: {fileID: 1511847372}
@@ -7574,15 +7574,18 @@ MonoBehaviour:
   heroUICanvas: {fileID: 675129000}
   enemy: {fileID: 812930110}
   heroStatsCombat: {fileID: 1098036439}
+  heroAnim: {fileID: 1098036435}
   bpmObj: {fileID: 1012338838}
   songNameObj: {fileID: 1011766955}
+  enemyProjectilesToResume: []
   songBPM: 0
   secsPerBeat: 0
   songPosition: 0
   songPositionInBeats: 0
   dspSongTime: 0
   musicSource: {fileID: 1498556604}
-  startOffset: 0.5
+  songStartOffset: 0
+  beatTravelTime: 0.6
 --- !u!4 &1498556602
 Transform:
   m_ObjectHideFlags: 0
@@ -7934,7 +7937,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 478108683}
-        m_MethodName: TogglePreviewStuff
+        m_MethodName: ToggleCamPreviewStuff
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

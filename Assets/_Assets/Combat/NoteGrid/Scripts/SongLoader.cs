@@ -20,8 +20,11 @@ public class SongLoader : MonoBehaviour
     public Canvas heroUICanvas;
     public Enemy_Stats_Combat enemy;
     public Hero_Stats_Combat heroStatsCombat;
+    public Animator heroAnim;
     public InputField bpmObj;
     public InputField songNameObj;
+
+    public GameObject[] enemyProjectilesToResume = new GameObject[0];
 
 
     [Header("Song Properties (To be loaded, don't change!)")]
@@ -37,9 +40,14 @@ public class SongLoader : MonoBehaviour
 
     public AudioSource musicSource; //music source that will play music
 
-    float secsPerEightNote;
+    bool songPlaying;
 
-    public float startOffset;
+
+    [Header("Timing + Settings")]
+    public float songStartOffset;
+    public float beatTravelTime;
+    float startupBeats; //How many beats before should a note be spawned (dependent on beatTravelTime and song BPM)
+    public List<noteStruct> noteArray;
 
     public enum gameState
     { 
@@ -47,13 +55,21 @@ public class SongLoader : MonoBehaviour
         Playing
     }
 
+    public struct noteStruct
+    {
+        public float beatWithOffset;
+        public int attackNum;
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
+        songPlaying = false;
+
         if (songToLoadPrefab != null)
         {
-            LoadNotes();
+            LoadSongPrefab();
         }
 
         if (state == gameState.Playing) //Player enters combat
@@ -62,7 +78,7 @@ public class SongLoader : MonoBehaviour
             noteEditorCamera.SetActive(false);
 
             //Start Song
-            Invoke("PlaySong", startOffset);
+            Invoke("PlaySongZero", songStartOffset);
         }
 
         else //Start editor mode
@@ -81,15 +97,27 @@ public class SongLoader : MonoBehaviour
 
     private void Update()
     {
-        //determine how many seconds since the song started
-        songPosition = (float)(AudioSettings.dspTime - dspSongTime);
+        if (songPlaying)
+        {
+            //determine how many seconds since the song started
+            songPosition = (float)(AudioSettings.dspTime - dspSongTime);
 
-        //determine how many beats since the song started
-        songPositionInBeats = songPosition / secsPerBeat;
+            //determine how many beats since the song started
+            songPositionInBeats = songPosition / secsPerBeat;
+
+            if (noteArray.Count > 0)
+            {
+                if (songPositionInBeats >= noteArray[0].beatWithOffset)
+                {
+                    enemy.EnemyStartAttack(noteArray[0].attackNum);
+                    noteArray.RemoveAt(0);
+                }
+            }
+        }
     }
 
     /// <summary> Spawn note objects from the specified prefab, and load song properties </summary>
-    void LoadNotes()
+    void LoadSongPrefab()
     {
         songToLoad = Instantiate(songToLoadPrefab, transform) as GameObject;
         songToLoad.name = songToLoad.name.Replace("(Clone)", "");
@@ -107,35 +135,94 @@ public class SongLoader : MonoBehaviour
 
         songBPM = songToLoad.GetComponent<SongProperties>().BPM;
         secsPerBeat = 60f / songBPM;
-
-        //Calculate how fast to play notes based on song's BPM
-        secsPerEightNote = (30 / songToLoad.GetComponent<SongProperties>().BPM);
         
         //Set song to play based on song from loaded prefab
         musicSource.clip = songToLoad.GetComponent<AudioSource>().clip;
+
+        //Calculate beat offset
+        startupBeats = (songBPM / 60) * beatTravelTime;
+
+        FillNoteArray(0);
     }
 
-    public void PlaySong()
+    public void FillNoteArray(float currentSongTime)
     {
+        noteArray = new List<noteStruct>();
+
+        float currentSongBeat = currentSongTime * (songBPM / 60);
+
         //Add every note in the song pattern to be played
         for (int i = 0; i < noteParent.transform.childCount; i++)
         {
-            AttackCube atkCube = noteParent.transform.GetChild(i).gameObject.GetComponent<AttackCube>();
-            atkCube.AddToEnemyPattern(enemy, secsPerEightNote, 0);
+            GameObject noteObj = noteParent.transform.GetChild(i).gameObject;
+
+            float beatToPlayOn = (noteObj.transform.localPosition.z/ 2) - startupBeats;
+            if (beatToPlayOn < currentSongBeat) //note should have alreayd been spawned, skip
+                continue;
+
+            int atkNum = noteObj.GetComponent<AttackCube>().attackNum;
+
+            noteStruct newNote = new noteStruct { attackNum = atkNum, beatWithOffset = beatToPlayOn };
+            noteArray.Add(newNote);
         }
 
-        dspSongTime = (float)AudioSettings.dspTime;
+        noteArray.Sort((a, b) => a.beatWithOffset.CompareTo(b.beatWithOffset));
+
+        //DEBUG PRINTING
+        //for (int i = 0; i < noteArray.Count; i++)
+            //Debug.Log("Beatoffset: "+noteArray[i].beatWithOffset + ", AtkNum: " + noteArray[i].attackNum);
+    }
+
+    void PlaySongZero()
+    {
+        PlaySong(0);
+    }
+
+    public void PlaySong(float startTime)
+    {
         musicSource.Play();
+        musicSource.time = startTime;
+
+        songPlaying = true;
+        dspSongTime = (float)AudioSettings.dspTime - startTime;
+
+        heroAnim.speed = 1;
+        foreach (GameObject go in enemyProjectilesToResume)
+        {
+            if (go != null)
+                go.GetComponent<Animator>().speed = 1;
+        }
+        enemyProjectilesToResume = new GameObject[0];
+    }
+
+    public void PauseSong()
+    {
+        songPlaying = false;
+
+        musicSource.Stop();
+
+        enemyProjectilesToResume = GameObject.FindGameObjectsWithTag("EnemyProjectile");
+
+        heroAnim.speed = 0;
+        foreach(GameObject go in enemyProjectilesToResume)
+        {
+            go.GetComponent<Animator>().speed = 0;
+        }
     }
 
     public void StopSong()
     {
-        for (int i = 0; i < noteParent.transform.childCount; i++)
-        {
-            AttackCube atkCube = noteParent.transform.GetChild(i).gameObject.GetComponent<AttackCube>();
-            atkCube.RemoveFromEnemyPattern(enemy);
-        }
+        songPlaying = false;
 
         musicSource.Stop();
+    }
+
+    public void ClearEnemyAttacks()
+    {
+        foreach (GameObject go in enemyProjectilesToResume)
+        {
+            Destroy(go);
+        }
+        enemyProjectilesToResume = new GameObject[0];
     }
 }

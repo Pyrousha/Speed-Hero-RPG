@@ -65,8 +65,7 @@ public class CubePlaceCam : MonoBehaviour
 
         scrollInput = 0;
 
-        if (!buttonController.GetCamEnabled())
-            scrollInput = Input.GetAxisRaw("Horizontal");
+        scrollInput = Input.GetAxisRaw("Horizontal");
 
         scrollInput += 50 * Input.GetAxis("Mouse ScrollWheel");
 
@@ -140,6 +139,9 @@ public class CubePlaceCam : MonoBehaviour
         //Create new prefab
         if (noteParent != null)
             PrefabUtility.SaveAsPrefabAssetAndConnect(noteParent, localPath, InteractionMode.UserAction);
+
+        //Unpack so notes can still be edited
+        PrefabUtility.UnpackPrefabInstance(noteParent, PrefabUnpackMode.Completely, InteractionMode.UserAction);
         #endif
     }
 
