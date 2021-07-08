@@ -18,6 +18,7 @@ public class SongLoader : MonoBehaviour
     public GameObject noteEditorCamera;
     public Camera noteEditorPreviewCam;
     public Canvas heroUICanvas;
+    public EndBattle endBattle;
     public Enemy_Stats_Combat enemy;
     public Hero_Stats_Combat heroStatsCombat;
     public Animator heroAnim;
@@ -46,13 +47,16 @@ public class SongLoader : MonoBehaviour
     [Header("Timing + Settings")]
     public float songStartOffset;
     public float beatTravelTime;
+    public GameObject songTimingPrefab;
+    public GameObject[] thingsToToggleEnableForSettingOffset;
     float startupBeats; //How many beats before should a note be spawned (dependent on beatTravelTime and song BPM)
     public List<noteStruct> noteArray;
 
     public enum gameState
     { 
         NoteEditor,
-        Playing
+        Playing,
+        BeatOffset
     }
 
     public struct noteStruct
@@ -67,31 +71,51 @@ public class SongLoader : MonoBehaviour
     {
         songPlaying = false;
 
-        if (songToLoadPrefab != null)
+        switch (state)
         {
-            LoadSongPrefab();
-        }
+            case (gameState.Playing):
+                {
+                    //Load notes
+                    LoadSongPrefab(songToLoadPrefab);
 
-        if (state == gameState.Playing) //Player enters combat
-        {
-            //Disable note placer camera, not needed in gameplay
-            noteEditorCamera.SetActive(false);
+                    //Disable note placer camera, not needed in gameplay
+                    noteEditorCamera.SetActive(false);
 
-            //Start Song
-            Invoke("PlaySongZero", songStartOffset);
-        }
+                    //Start Song
+                    Invoke("PlaySongZero", songStartOffset);
+                    break;
+                }
+            case (gameState.NoteEditor):
+                {
+                    //Load notes
+                    LoadSongPrefab(songToLoadPrefab);
 
-        else //Start editor mode
-        {
-            noteEditorCamera.GetComponent<CubePlaceCam>().DisableGameComponents();
-            noteEditorCamera.GetComponent<CubePlaceCam>().songLoadedPrefab = songToLoad;
+                    noteEditorCamera.GetComponent<CubePlaceCam>().DisableGameComponents();
+                    noteEditorCamera.GetComponent<CubePlaceCam>().songLoadedPrefab = songToLoad;
 
-            heroUICanvas.worldCamera = noteEditorPreviewCam;
+                    heroUICanvas.worldCamera = noteEditorPreviewCam;
 
-            heroStatsCombat.isNoteEditorMode = true;
+                    heroStatsCombat.isNoteEditorMode = true;
 
-            bpmObj.text = songBPM.ToString();
-            songNameObj.text = songToLoad.name;
+                    bpmObj.text = songBPM.ToString();
+                    songNameObj.text = songToLoad.name;
+                    break;
+                }
+            case (gameState.BeatOffset):
+                {
+                    //Disable note placer camera, not needed in gameplay
+                    noteEditorCamera.SetActive(false);
+
+                    foreach (GameObject go in thingsToToggleEnableForSettingOffset)
+                    {
+                        go.SetActive(!go.activeSelf);
+                    }
+
+                    //Make hero invincible
+                    heroStatsCombat.isNoteEditorMode = true;
+
+                    break;
+                }
         }
     }
 
@@ -113,13 +137,35 @@ public class SongLoader : MonoBehaviour
                     noteArray.RemoveAt(0);
                 }
             }
+            else
+            {
+                if (songPosition > musicSource.clip.length)
+                {
+                    songPlaying = false;
+
+                    if (state == gameState.BeatOffset)
+                    {
+                        //Restart song
+                        FillNoteArray(0);
+                        PlaySong(0);
+                    }
+                    else
+                    {
+                        //End the battle
+                        endBattle.EndBattleScene();
+                    }
+                }
+            }
         }
     }
 
     /// <summary> Spawn note objects from the specified prefab, and load song properties </summary>
-    void LoadSongPrefab()
+    void LoadSongPrefab(GameObject songPrefab)
     {
-        songToLoad = Instantiate(songToLoadPrefab, transform) as GameObject;
+        if (songPrefab == null)
+            return;
+
+        songToLoad = Instantiate(songPrefab, transform) as GameObject;
         songToLoad.name = songToLoad.name.Replace("(Clone)", "");
 
         //Set all notes to be childed to the noteParent GameObject
@@ -213,6 +259,7 @@ public class SongLoader : MonoBehaviour
     public void StopSong()
     {
         songPlaying = false;
+        ClearEnemyAttacks();
 
         musicSource.Stop();
     }
@@ -224,5 +271,14 @@ public class SongLoader : MonoBehaviour
             Destroy(go);
         }
         enemyProjectilesToResume = new GameObject[0];
+    }
+
+    public void ChangeBeatOffset(float newoffset)
+    {
+        beatTravelTime = newoffset;
+        StopSong();
+
+        LoadSongPrefab(songTimingPrefab);
+        PlaySong(0);
     }
 }

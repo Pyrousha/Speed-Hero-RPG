@@ -33,6 +33,7 @@ public class BattleTransition : MonoBehaviour
     public void TransitionFromBattle()
     {
         SceneManager.UnloadSceneAsync(battleScene);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Zone1"));
         Destroy(enemyToDestroyAfterFight);
 
         overWorldObjParent.SetActive(true); //re-enable overworld objects

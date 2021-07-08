@@ -15,7 +15,7 @@ public class TriggerBattle : MonoBehaviour
 		persistObj = GameObject.Find("PersistentGameInfo").GetComponent<BattleTransition>();
 	}
 
-	void OnTriggerEnter2D(Collider2D other)
+	void OnTriggerEnter(Collider other)
 	{
 		if (other.tag == "Enemy")
 		{

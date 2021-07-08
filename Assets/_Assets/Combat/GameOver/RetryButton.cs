@@ -19,6 +19,15 @@ public class RetryButton : MonoBehaviour
 
     public void Retry()
     {
-        SceneManager.LoadScene("Combat-Standard", LoadSceneMode.Single);
+        if (SceneManager.GetSceneByName("Zone1").isLoaded)
+        {
+            SceneManager.LoadScene("Combat-Standard", LoadSceneMode.Additive);
+            SceneManager.UnloadSceneAsync("DEAD");
+        }
+        else
+        {
+            SceneManager.LoadScene("Combat-Standard", LoadSceneMode.Single);
+        }
+
     }
 }

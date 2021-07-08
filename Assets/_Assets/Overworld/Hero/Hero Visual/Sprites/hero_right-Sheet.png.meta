@@ -20,6 +20,24 @@ TextureImporter:
   - first:
       213: -6524094491432564976
     second: hero_right-Sheet 1_5
+  - first:
+      213: -5098729017474759078
+    second: hero_right-Sheet_0
+  - first:
+      213: 1748298444984405882
+    second: hero_right-Sheet_1
+  - first:
+      213: 7356714862469860379
+    second: hero_right-Sheet_2
+  - first:
+      213: -5277244313287177470
+    second: hero_right-Sheet_3
+  - first:
+      213: 1266346499052707609
+    second: hero_right-Sheet_4
+  - first:
+      213: 6332230255290823526
+    second: hero_right-Sheet_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -177,127 +195,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hero_right-Sheet 1_0
+      name: hero_right-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 16
         height: 16
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ee414e1165d39550800000000000000
-      internalID: 6166506927896481505
+      spriteID: a56c07b09fcad39b0800000000000000
+      internalID: -5098729017474759078
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hero_right-Sheet 1_1
+      name: hero_right-Sheet_1
       rect:
         serializedVersion: 2
         x: 16
         y: 0
         width: 16
         height: 16
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: accd7077b75486d00800000000000000
-      internalID: 966098516651269322
+      spriteID: a7fc9ae3c24334810800000000000000
+      internalID: 1748298444984405882
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hero_right-Sheet 1_2
+      name: hero_right-Sheet_2
       rect:
         serializedVersion: 2
         x: 32
         y: 0
         width: 16
         height: 16
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 32342870de2856950800000000000000
-      internalID: 6441698796568199971
+      spriteID: b1c4a5b903d481660800000000000000
+      internalID: 7356714862469860379
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hero_right-Sheet 1_3
+      name: hero_right-Sheet_3
       rect:
         serializedVersion: 2
         x: 48
         y: 0
         width: 16
         height: 16
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f5803d5e2a345690800000000000000
-      internalID: -7614397099170298377
+      spriteID: 20b4191d14673c6b0800000000000000
+      internalID: -5277244313287177470
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hero_right-Sheet 1_4
+      name: hero_right-Sheet_4
       rect:
         serializedVersion: 2
         x: 64
         y: 0
         width: 16
         height: 16
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3917dbcb847afc980800000000000000
-      internalID: -8516404439488302701
+      spriteID: 91f98967e67f29110800000000000000
+      internalID: 1266346499052707609
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hero_right-Sheet 1_5
+      name: hero_right-Sheet_5
       rect:
         serializedVersion: 2
         x: 80
         y: 0
         width: 16
         height: 16
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 017441d40a2c575a0800000000000000
-      internalID: -6524094491432564976
+      spriteID: 663379a1ed990e750800000000000000
+      internalID: 6332230255290823526
       vertices: []
       indices: 
       edges: []

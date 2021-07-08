@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMove2D : MonoBehaviour
 {
-    public Rigidbody2D heroRB;
+    public Rigidbody heroRB;
     public Animator heroAnim;
 
     public GameObject heroSpriteObj;
@@ -28,7 +28,7 @@ public class PlayerMove2D : MonoBehaviour
 
     private void FixedUpdate()
     {
-        heroRB.MovePosition(heroRB.position + inputVect * moveSpeed * Time.fixedDeltaTime);
+        heroRB.MovePosition(heroRB.position + new Vector3(inputVect.x, 0, inputVect.y) * moveSpeed * Time.fixedDeltaTime);
     }
 
     public Vector2 GetDirectionFromInput()

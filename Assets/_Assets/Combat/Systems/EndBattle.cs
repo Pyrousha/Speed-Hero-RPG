@@ -11,6 +11,8 @@ public class EndBattle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Combat-Standard"));
+
         if (GameObject.Find("PersistentGameInfo") != null)
         {
             persistObj = GameObject.Find("PersistentGameInfo").GetComponent<BattleTransition>();
@@ -25,6 +27,7 @@ public class EndBattle : MonoBehaviour
 
     public void EndBattleScene()
     {
-        persistObj.TransitionFromBattle();
+        if (persistObj != null)
+            persistObj.TransitionFromBattle();
     }
 }

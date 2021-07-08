@@ -8,6 +8,7 @@ public class Hero_Stats_Combat : MonoBehaviour
 {
     [Header("Debug Toggle Invincible")]
     public bool invincible;
+    bool dead = false;
 
     [Header("Stats")]
     public int maxHp;
@@ -123,6 +124,18 @@ public class Hero_Stats_Combat : MonoBehaviour
 
     public void Die()
     {
-        SceneManager.LoadScene("DEAD", LoadSceneMode.Single);
+        if (dead == false)
+        {
+            dead = true;
+            if (SceneManager.GetSceneByName("Zone1").isLoaded)
+            {
+                SceneManager.LoadScene("DEAD", LoadSceneMode.Additive);
+                SceneManager.UnloadSceneAsync("Combat-Standard");
+            }
+            else
+            {
+                SceneManager.LoadScene("DEAD", LoadSceneMode.Single);
+            }
+        }
     }
 }

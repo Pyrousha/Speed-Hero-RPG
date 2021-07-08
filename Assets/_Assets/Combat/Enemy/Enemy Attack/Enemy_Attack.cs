@@ -7,6 +7,7 @@ public class Enemy_Attack : MonoBehaviour
     public int dmg;
 
     GameObject heroObj;
+    SongLoader songLoader;
     Hero_Stats_Combat heroStats; 
 
     private void Start()
@@ -14,6 +15,9 @@ public class Enemy_Attack : MonoBehaviour
         heroObj = GameObject.Find("Hero_Combat");
         if (heroObj != null)
             heroStats = heroObj.GetComponent<Hero_Stats_Combat>();
+
+        if ((GameObject.Find("Note Grid/State Controller").GetComponent<SongLoader>().state == SongLoader.gameState.BeatOffset) || (atkType == attackType.Hit))
+            GetComponent<Animator>().Play("Flash Blue for offset syncing");
     }
 
     public enum attackType
