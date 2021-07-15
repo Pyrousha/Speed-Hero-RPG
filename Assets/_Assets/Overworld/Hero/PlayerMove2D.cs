@@ -12,6 +12,9 @@ public class PlayerMove2D : MonoBehaviour
     public Vector2 inputVect;
     public float moveSpeed;
 
+    public LayerMask groundLayer;
+    bool isGrounded = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +24,12 @@ public class PlayerMove2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        inputVect = GetDirectionFromInput();
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1f, groundLayer);
+
+        if (isGrounded)
+            inputVect = GetDirectionFromInput();
+        else
+            inputVect = new Vector2(0, 0);
 
         SetAnimatorValues(inputVect);
     }
