@@ -637,8 +637,8 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.8833333
-    functionName: OnDestroy
+  - time: 0.98333335
+    functionName: EndOfAnim
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -7964,7 +7964,7 @@ MonoBehaviour:
   dspSongTime: 0
   musicSource: {fileID: 1498556604}
   songStartOffset: 0
-  beatTravelTime: 0.6
+  beatTravelTime: 0.4
   songTimingPrefab: {fileID: 5858298540112893502, guid: a00d037abcf750c428ac619d1444b126,
     type: 3}
   thingsToToggleEnableForSettingOffset:
@@ -10308,7 +10308,6 @@ GameObject:
   - component: {fileID: 1935169090}
   - component: {fileID: 1935169089}
   - component: {fileID: 1935169088}
-  - component: {fileID: 1935169091}
   m_Layer: 0
   m_Name: Shot Orientation
   m_TagString: Untagged
@@ -10378,18 +10377,6 @@ Transform:
   m_Father: {fileID: 203614561}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1935169091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1935169086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d51a1ef73caae041a6e83d984084b4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1947460636
 GameObject:
   m_ObjectHideFlags: 0

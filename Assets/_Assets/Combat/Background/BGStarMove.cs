@@ -8,7 +8,6 @@ public class BGStarMove : MonoBehaviour
     public float starSizeAdd;
     public float minStarSize;
     public float maxStarSize;
-    float startStarSize = 50;
     float starSize;
 
     // Start is called before the first frame update
