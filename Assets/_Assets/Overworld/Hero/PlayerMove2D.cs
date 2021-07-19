@@ -30,7 +30,7 @@ public class PlayerMove2D : MonoBehaviour
 
         foreach(GameObject go in raycastPoints)
         {
-            if (Physics.Raycast(go.transform.position, Vector3.down, 1f, groundLayer))
+            if (Physics.Raycast(go.transform.position, Vector3.down, 0.05f, groundLayer))
             {
                 isGrounded = true;
                 break;
@@ -97,6 +97,7 @@ public class PlayerMove2D : MonoBehaviour
         heroAnim.SetFloat("Horizontal", inputVect.x * 2);
         heroAnim.SetFloat("Vertical", inputVect.y);
         heroAnim.SetFloat("Speed", inputVect.sqrMagnitude);
+        heroAnim.SetBool("InAir", !isGrounded);
     }
 
 }
