@@ -12,8 +12,8 @@ ScriptedImporter:
     textureType: 8
     pixelsPerUnit: 16
     mirror: 0
-    transparencyMode: 0
-    transparentColor: {r: 1, g: 0, b: 1, a: 1}
+    transparencyMode: 1
+    transparentColor: {r: 0.007843138, g: 0.007843138, b: 0.007843138, a: 1}
     meshType: 1
     extrudeEdges: 1
     spritePivot: {x: 0.5, y: 0.5}

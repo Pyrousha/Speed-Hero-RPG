@@ -37,10 +37,13 @@ public class PlayerMove2D : MonoBehaviour
             }
         }
 
-        if (isGrounded)
-            inputVect = GetDirectionFromInput();
-        else
-            inputVect = new Vector2(0, 0);
+        //if (Mathf.Abs(heroRB.velocity.y) < 0.1)
+        //  isGrounded = true;
+
+        inputVect = GetDirectionFromInput();
+
+        if (!isGrounded)
+            inputVect *= 0.15f;
 
         SetAnimatorValues(inputVect);
     }
