@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMove2D : MonoBehaviour
 {
+    public bool canMove;
+
     public Rigidbody heroRB;
     public Animator heroAnim;
 
@@ -39,13 +41,18 @@ public class PlayerMove2D : MonoBehaviour
 
         //if (Mathf.Abs(heroRB.velocity.y) < 0.1)
         //  isGrounded = true;
-
-        inputVect = GetDirectionFromInput();
+        if (canMove)
+            inputVect = GetDirectionFromInput();
+        else
+            inputVect = new Vector2(0, 0);
 
         if (!isGrounded)
-            inputVect *= 0.15f;
-
-        SetAnimatorValues(inputVect);
+        {
+            inputVect *= 0.5f;
+            SetAnimatorValues(new Vector2(0, 0));
+        }
+        else
+            SetAnimatorValues(inputVect);
     }
 
     private void FixedUpdate()

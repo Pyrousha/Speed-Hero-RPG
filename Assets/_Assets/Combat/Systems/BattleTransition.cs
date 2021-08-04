@@ -7,21 +7,9 @@ public class BattleTransition : MonoBehaviour
 {
     public GameObject enemyToDestroyAfterFight;
     public GameObject overWorldObjParent;
-    public Skybox battleSkybox;
 
-    public string battleScene;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string overworldScene;
+    string battleScene;
 
     public void TransitionToBattle(string sceneToLoad)
     {
@@ -33,7 +21,7 @@ public class BattleTransition : MonoBehaviour
     public void TransitionFromBattle()
     {
         SceneManager.UnloadSceneAsync(battleScene);
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Zone1"));
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(overworldScene));
         Destroy(enemyToDestroyAfterFight);
 
         overWorldObjParent.SetActive(true); //re-enable overworld objects

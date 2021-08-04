@@ -47,7 +47,7 @@ public class PrefabOnSpriteSpawner : MonoBehaviour
 
         raycastStartY = topLeft.position.y;
 
-        Debug.Log("sX, eX, sZ, eZ: " + startX + ", " + endX + ", " + startZ + ", " + endZ + ", ");
+        //Debug.Log("sX, eX, sZ, eZ: " + startX + ", " + endX + ", " + startZ + ", " + endZ + ", ");
         
         foreach(OffsetGrid grid in gridsToPass)
         {
@@ -93,7 +93,7 @@ public class PrefabOnSpriteSpawner : MonoBehaviour
 
     private void CheckSpawnTree(float x, float z)
     {
-        Debug.Log("checking position " + x + "," + z);
+        //Debug.Log("checking position " + x + "," + z);
         RaycastHit hit;
         if (Physics.Raycast(new Vector3(x,raycastStartY,z), Vector3.down, out hit, rayDistance, terrainLayer))
         {
@@ -110,7 +110,7 @@ public class PrefabOnSpriteSpawner : MonoBehaviour
             int index = FindIndexFromColor(color);
             if (index >= 0)
             {
-                Debug.Log("placing obj");
+                //Debug.Log("placing obj");
                 GameObject newTree = Instantiate(prefabToSpawn) as GameObject;
                 newTree.transform.position = new Vector3(x, parentObj.position.y, z);
                 newTree.transform.eulerAngles = spawnRotation;
@@ -118,7 +118,7 @@ public class PrefabOnSpriteSpawner : MonoBehaviour
             }
             else
             {
-                Debug.Log("not valid spot");
+                //Debug.Log("not valid spot");
             }
         }
     }

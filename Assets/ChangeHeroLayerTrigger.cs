@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ChangeHeroLayerTrigger : MonoBehaviour
 {
+    public int newLayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,11 @@ public class ChangeHeroLayerTrigger : MonoBehaviour
         Debug.Log(collision.gameObject.name);
         if (collision.gameObject.name == "Hero Hitbox")
         {
-            collision.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder = -2;
+            collision.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder = newLayer;
         }
+
+        RespawnHero2D respawnHero = GetComponent<RespawnHero2D>();
+        if (respawnHero != null)
+            respawnHero.Respawn();
     }
 }

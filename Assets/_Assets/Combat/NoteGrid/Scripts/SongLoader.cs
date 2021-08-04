@@ -6,8 +6,8 @@ using UnityEditor;
 
 public class SongLoader : MonoBehaviour
 {
-    [Header("Game State")]
-    public gameState state;
+    public CombatState state;
+    GameObject startState;
 
     [Header("Song Prefab")]
     public GameObject songToLoadPrefab;
@@ -52,7 +52,7 @@ public class SongLoader : MonoBehaviour
     float startupBeats; //How many beats before should a note be spawned (dependent on beatTravelTime and song BPM)
     public List<noteStruct> noteArray;
 
-    public enum gameState
+    public enum CombatState
     { 
         NoteEditor,
         Playing,
@@ -71,9 +71,13 @@ public class SongLoader : MonoBehaviour
     {
         songPlaying = false;
 
+        startState = GameObject.Find("PersistentGameInfo");
+        if (startState != null)
+            LoadDataFromPersistentGameInfo();
+
         switch (state)
         {
-            case (gameState.Playing):
+            case (CombatState.Playing):
                 {
                     //Load notes
                     LoadSongPrefab(songToLoadPrefab);
@@ -85,7 +89,7 @@ public class SongLoader : MonoBehaviour
                     Invoke("PlaySongZero", songStartOffset);
                     break;
                 }
-            case (gameState.NoteEditor):
+            case (CombatState.NoteEditor):
                 {
                     //Load notes
                     LoadSongPrefab(songToLoadPrefab);
@@ -101,7 +105,7 @@ public class SongLoader : MonoBehaviour
                     songNameObj.text = songToLoad.name;
                     break;
                 }
-            case (gameState.BeatOffset):
+            case (CombatState.BeatOffset):
                 {
                     //Disable note placer camera, not needed in gameplay
                     noteEditorCamera.SetActive(false);
@@ -117,6 +121,13 @@ public class SongLoader : MonoBehaviour
                     break;
                 }
         }
+    }
+
+    private void LoadDataFromPersistentGameInfo()
+    {
+        CombatStartingState combatStartingState = startState.GetComponent<CombatStartingState>();
+        state = combatStartingState.combatState;
+        beatTravelTime = combatStartingState.beatOffset;
     }
 
     private void Update()
@@ -143,7 +154,7 @@ public class SongLoader : MonoBehaviour
                 {
                     songPlaying = false;
 
-                    if (state == gameState.BeatOffset)
+                    if (state == CombatState.BeatOffset)
                     {
                         //Restart song
                         FillNoteArray(0);
