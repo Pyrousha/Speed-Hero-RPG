@@ -4008,7 +4008,7 @@ Transform:
   m_GameObject: {fileID: 812930107}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 6.6241264, y: 7.6527405, z: 2.8911457}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 649105811}
   m_RootOrder: 0
@@ -7964,7 +7964,7 @@ MonoBehaviour:
   dspSongTime: 0
   musicSource: {fileID: 1498556604}
   songStartOffset: 0
-  beatTravelTime: 0.6
+  beatTravelTime: 0.4
   songTimingPrefab: {fileID: 5858298540112893502, guid: a00d037abcf750c428ac619d1444b126,
     type: 3}
   thingsToToggleEnableForSettingOffset:
