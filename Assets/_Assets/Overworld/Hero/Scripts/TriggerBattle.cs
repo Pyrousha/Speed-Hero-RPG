@@ -8,6 +8,7 @@ public class TriggerBattle : MonoBehaviour
 	public string sceneToLoad;
 	public GameObject thingsToDisable;
 	public GameObject enemyToDestroy;
+	public Transform postBattleHeroTransform;
 	public BattleTransition persistObj;
 
 	// Start is called before the first frame update
@@ -22,8 +23,9 @@ public class TriggerBattle : MonoBehaviour
 		{
 			persistObj.enemyToDestroyAfterFight = enemyToDestroy;
 			persistObj.overWorldObjParent = thingsToDisable;
+			persistObj.postBattleHeroPos = postBattleHeroTransform;
 
-			persistObj.TransitionToBattle(sceneToLoad);
+			persistObj.TransitionToBattle(sceneToLoad, true);
 		}
 	}
 }

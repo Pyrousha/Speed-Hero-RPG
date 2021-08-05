@@ -25,9 +25,9 @@ public class EndBattle : MonoBehaviour
     }
 
 
-    public void EndBattleScene()
+    public void EndBattleScene(bool destroyEnemy)
     {
         if (persistObj != null)
-            persistObj.TransitionFromBattle();
+            persistObj.TransitionFromBattle(destroyEnemy);
     }
 }

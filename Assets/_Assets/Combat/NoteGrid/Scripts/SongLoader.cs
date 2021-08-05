@@ -16,7 +16,9 @@ public class SongLoader : MonoBehaviour
     [Header("Objects + Stuff")]
     public GameObject noteParent;
     public GameObject noteEditorCamera;
+    public GameObject combatCameraLights;
     public Camera noteEditorPreviewCam;
+    public Camera beatOffsetCamera;
     public Canvas heroUICanvas;
     public EndBattle endBattle;
     public Enemy_Stats_Combat enemy;
@@ -110,6 +112,10 @@ public class SongLoader : MonoBehaviour
                     //Disable note placer camera, not needed in gameplay
                     noteEditorCamera.SetActive(false);
 
+                    //Get cameras ready to be shown in overworld
+                    combatCameraLights.SetActive(false);
+                    beatOffsetCamera.gameObject.SetActive(true);
+
                     foreach (GameObject go in thingsToToggleEnableForSettingOffset)
                     {
                         go.SetActive(!go.activeSelf);
@@ -163,7 +169,7 @@ public class SongLoader : MonoBehaviour
                     else
                     {
                         //End the battle
-                        endBattle.EndBattleScene();
+                        endBattle.EndBattleScene(true);
                     }
                 }
             }

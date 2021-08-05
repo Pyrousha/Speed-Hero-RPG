@@ -3,18 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RetryButton : MonoBehaviour
+public class GameOverButton : MonoBehaviour
 {
+    BattleTransition persistObj;
+
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        persistObj = GameObject.Find("PersistentGameInfo").GetComponent<BattleTransition>();
     }
 
     public void Retry()
@@ -29,5 +25,11 @@ public class RetryButton : MonoBehaviour
             SceneManager.LoadScene("Combat-Standard", LoadSceneMode.Single);
         }
 
+    }
+
+    public void ExitCombat()
+    {
+        persistObj.SetBattleScene("DEAD");
+        persistObj.TransitionFromBattle(false);
     }
 }

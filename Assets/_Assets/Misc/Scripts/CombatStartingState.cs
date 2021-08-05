@@ -18,17 +18,4 @@ public class CombatStartingState : MonoBehaviour
 
     [Header("Song Properties")]
     public float beatOffset;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
