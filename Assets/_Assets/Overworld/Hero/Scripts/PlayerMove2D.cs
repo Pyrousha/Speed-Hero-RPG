@@ -13,6 +13,8 @@ public class PlayerMove2D : MonoBehaviour
 
     public Vector2 inputVect;
     public float moveSpeed;
+    public float accelSpeed;
+    public float frictionSpeed;
 
     public LayerMask groundLayer;
     bool isGrounded = false;
@@ -57,7 +59,99 @@ public class PlayerMove2D : MonoBehaviour
 
     private void FixedUpdate()
     {
-        heroRB.MovePosition(heroRB.position + new Vector3(inputVect.x, 0, inputVect.y) * moveSpeed * Time.fixedDeltaTime);
+        
+        float currSpeedX = heroRB.velocity.x;
+        float currSpeedZ = heroRB.velocity.z;
+
+        float newSpeedX = currSpeedX;
+        float newSpeedZ = currSpeedZ;
+
+        if (isGrounded)
+        {
+            #region calculate xSpeed
+            if (inputVect.x < 0) //pressing left
+            {
+                //if (currSpeedX > moveSpeed * inputVect.x)
+                {
+                    //accelerate left
+                    newSpeedX = Mathf.Max(currSpeedX - accelSpeed, moveSpeed * inputVect.x);
+                }
+            }
+            else
+            {
+                if (inputVect.x > 0) //pressing right
+                {
+                    //if (currSpeedX < moveSpeed * inputVect.x)
+                    {
+                        //accelerate right
+                        newSpeedX = Mathf.Min(currSpeedX + accelSpeed, moveSpeed * inputVect.x);
+                    }
+                }
+                else //pressing nothing, x-friction
+                {
+                    //if (isGrounded)
+                    {
+                        if (currSpeedX < 0) //moving left
+                        {
+                            newSpeedX = Mathf.Min(0, currSpeedX + frictionSpeed);
+                        }
+                        else
+                        {
+                            if (currSpeedX > 0) //moving right
+                            {
+                                newSpeedX = Mathf.Max(0, currSpeedX - frictionSpeed);
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+
+            #region calculate zSpeed
+            if (inputVect.y < 0) //pressing down
+            {
+                //if (currSpeedZ > -moveSpeed)
+                {
+                    //accelerate down
+                    newSpeedZ = Mathf.Max(currSpeedZ - accelSpeed, moveSpeed * inputVect.y);
+                }
+            }
+            else
+            {
+                if (inputVect.y > 0) //pressing up
+                {
+                    //if (currSpeedZ < moveSpeed)
+                    {
+                        //accelerate up
+                        newSpeedZ = Mathf.Min(currSpeedZ + accelSpeed, moveSpeed * inputVect.y);
+                    }
+                }
+                else //pressing nothing, z-friction
+                {
+                    //if (isGrounded)
+                    {
+                        if (currSpeedZ < 0) //moving left
+                        {
+                            newSpeedZ = Mathf.Min(0, currSpeedZ + frictionSpeed);
+                        }
+                        else
+                        {
+                            if (currSpeedZ > 0) //moving right
+                            {
+                                newSpeedZ = Mathf.Max(0, currSpeedZ - frictionSpeed);
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+        }
+
+        //heroRB.MovePosition(heroRB.position + new Vector3(inputVect.x, 0, inputVect.y) * moveSpeed * Time.fixedDeltaTime);
+
+        //heroRB.velocity = new Vector3(inputVect.x * moveSpeed, heroRB.velocity.y, inputVect.y * moveSpeed);
+
+        heroRB.velocity = new Vector3(newSpeedX, heroRB.velocity.y, newSpeedZ);
     }
 
     public Vector2 GetDirectionFromInput()
