@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMove2D : MonoBehaviour
 {
     public bool canMove;
+    public Vector3 startingVelocity;
 
     public Rigidbody heroRB;
     public Animator heroAnim;
@@ -24,7 +25,7 @@ public class PlayerMove2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        heroRB.velocity = startingVelocity;
     }
 
     // Update is called once per frame
