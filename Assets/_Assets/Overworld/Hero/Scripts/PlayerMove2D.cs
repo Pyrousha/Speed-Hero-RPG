@@ -22,6 +22,13 @@ public class PlayerMove2D : MonoBehaviour
 
     public GameObject[] raycastPoints;
 
+    [SerializeField] private OverworldInputHandler overworldInputHandler;
+    [SerializeField] private DialogueUI dialogueUI;
+
+    public DialogueUI DialogueUI => dialogueUI;
+
+    public IInteractable Interactable {get; set;}
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +38,15 @@ public class PlayerMove2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!dialogueUI.isOpen)
+        {
+            if (Interactable != null)
+            {
+                Interactable.TryInteract(this);
+                overworldInputHandler.pressedDownConfirm = false;
+            }
+        }
+
         isGrounded = false;
 
         foreach(GameObject go in raycastPoints)
@@ -44,7 +60,7 @@ public class PlayerMove2D : MonoBehaviour
 
         //if (Mathf.Abs(heroRB.velocity.y) < 0.1)
         //  isGrounded = true;
-        if (canMove)
+        if ((canMove) && (!dialogueUI.isOpen))
             inputVect = GetDirectionFromInput();
         else
             inputVect = new Vector2(0, 0);

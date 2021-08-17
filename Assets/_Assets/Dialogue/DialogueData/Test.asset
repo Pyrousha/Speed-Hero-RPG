@@ -12,13 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c77e930972665f4f9a9210fba3c3022, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: 
-  dialogue:
-  - WTF are you a talking tree?
-  - Bruhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-  - 'SO WHAT IF I AM?
-
-    GOT A PROBLEM WITH THAT, FUCKO??'
   characters:
+  - {fileID: 11400000, guid: 0732300ae8cf03a4e8aaf6d31c364b2c, type: 2}
   - {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
   - {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
   - {fileID: 11400000, guid: 0732300ae8cf03a4e8aaf6d31c364b2c, type: 2}
+  dialogue:
+  - HEY KID!!!!
+  - 'WTF!!!
+
+    Are you a talking tree?'
+  - Bruhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+  - 'SO WHAT IF I AM?
+
+    YOU GOT A PROBLEM WITH THAT, BUDDY????'
+  responses:
+  - responseText: Yes
+    dialogueObject: {fileID: 11400000, guid: f82d55ef1bd6b424bab97eefac159177, type: 2}
+  - responseText: No
+    dialogueObject: {fileID: 11400000, guid: 7dd49b1d9138d4d45b8e42e02f052c58, type: 2}

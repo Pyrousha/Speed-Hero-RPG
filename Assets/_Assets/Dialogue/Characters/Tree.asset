@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Tree
   m_EditorClassIdentifier: 
   characterName: Tree?
-  portraitSprite: {fileID: 6853316077166303748, guid: 10c0a92ec492e3c4db9af909ea6f27ca,
+  portraitSprite: {fileID: 2772422577124372811, guid: 23eea7c48e8360d4c98639eae4c35177,
     type: 3}
