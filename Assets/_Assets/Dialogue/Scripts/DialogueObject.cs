@@ -24,7 +24,7 @@ public class DialogueObject : ScriptableObject
 
     public void Convert()
     {
-        if (dialogueLines.Length == 0)
+        if (dialogueLines == null || dialogueLines.Length == 0)
             return;
 
         dialogue = new string[dialogueLines.Length];
