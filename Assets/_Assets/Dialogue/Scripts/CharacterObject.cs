@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Dialogue/Character")]
+[CreateAssetMenu(menuName = "Dialogue/CharacterObject")]
 public class CharacterObject : ScriptableObject
 {
     [SerializeField] private string characterName;

@@ -58,7 +58,7 @@ public class DialogueActivator : MonoBehaviour, IInteractable
         if (played && playOnce)
             return;
 
-        dialogueUI.ShowDialogue(dialogueObject);
+        dialogueUI.ShowDialogue(dialogueObject, gameObject);
     }
 
     public void TryInteract(PlayerMove2D player)
@@ -66,19 +66,10 @@ public class DialogueActivator : MonoBehaviour, IInteractable
         if (played && playOnce)
             return;
 
-        foreach(DialogueResponseEvents responseEvents in GetComponents<DialogueResponseEvents>())
-        {
-            if (responseEvents.DialogueObject == dialogueObject)
-            {
-                player.DialogueUI.AddResponseEvents(responseEvents.Events);
-                break;
-            }
-        }
-
         if (playWithoutInput || overworldInputHandler.pressedDownConfirm)
         {
             played = true;
-            player.DialogueUI.ShowDialogue(dialogueObject);
+            player.DialogueUI.ShowDialogue(dialogueObject, gameObject);
             overworldInputHandler.pressedDownConfirm = false;
 
             switch (playOption)

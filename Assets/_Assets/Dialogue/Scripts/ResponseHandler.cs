@@ -69,12 +69,11 @@ public class ResponseHandler : MonoBehaviour
 
         if (response.DialogueObject)
         {
-            dialogueUI.ShowDialogue(response.DialogueObject);
+            dialogueUI.ShowDialogue(response.DialogueObject, null);
         }
         else
         {
             dialogueUI.CloseDialogueBox();
         }
     }
-        
 }

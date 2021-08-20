@@ -13,6 +13,12 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private GameObject dialogueParent;
     [SerializeField] private Animator anim;
 
+    [SerializeField] private DialogueObject currDialogueObject;
+
+    private GameObject interactableObj;
+
+    public DialogueEvent[] dialogueEvents;
+
     public bool isOpen { get; private set; }
 
     public OverworldInputHandler overworldInputHandler;
@@ -23,12 +29,35 @@ public class DialogueUI : MonoBehaviour
     {
         typewriterEffect = GetComponent<TypewriterEffect>();
         responseHandler = GetComponent<ResponseHandler>();
-
-        CloseDialogueBox();
     }
 
-    public void ShowDialogue(DialogueObject dialogueObject)
+    public void ShowDialogue(DialogueObject dialogueObject, GameObject newInteractableObj)
     {
+        currDialogueObject = dialogueObject;
+
+        if (newInteractableObj != null)
+            interactableObj = newInteractableObj;
+
+        foreach (DialogueResponseEvents responseEvents in interactableObj.GetComponents<DialogueResponseEvents>())
+        {
+            if (responseEvents.DialogueObject == currDialogueObject)
+            {
+                AddResponseEvents(responseEvents.Events);
+                break;
+            }
+        }
+
+        dialogueEvents = null;
+
+        foreach (DialogueEvents dialogueEvents in interactableObj.GetComponents<DialogueEvents>())
+        {
+            if (dialogueEvents.DialogueObject == currDialogueObject)
+            {
+                AddDialogueEvents(dialogueEvents.Events);
+                break;
+            }
+        }
+
         isOpen = true;
 
         dialogueParent.SetActive(true);
@@ -39,9 +68,24 @@ public class DialogueUI : MonoBehaviour
         StartCoroutine(StepThroughDialogue(dialogueObject));
     }
 
+    public void SetCurrDialogueObject(DialogueObject newDO)
+    {
+        currDialogueObject = newDO;
+    }
     public void AddResponseEvents(ResponseEvent[] responseEvents)
     {
         responseHandler.AddResponseEvents(responseEvents);
+    }
+
+    public void AddDialogueEvents(DialogueEvent[] events)
+    {
+        dialogueEvents = events;
+    }
+
+    public void ClearEvents()
+    {
+        responseHandler.AddResponseEvents(null);
+        dialogueEvents = null;
     }
 
     private IEnumerator StepThroughDialogue(DialogueObject dialogueObject)
@@ -72,6 +116,12 @@ public class DialogueUI : MonoBehaviour
             yield return null;
             yield return new WaitUntil(() => overworldInputHandler.pressedDownConfirm);
             overworldInputHandler.pressedDownConfirm = false;
+
+            //Handle Dialogue Events if they exist
+            if ((dialogueEvents != null) && (dialogueEvents.Length > 0) && (i < dialogueEvents.Length))
+            {
+                dialogueEvents[i].AfterTextSpoken?.Invoke();
+            }
         }
 
         if (dialogueObject.HasResponses)
@@ -102,6 +152,8 @@ public class DialogueUI : MonoBehaviour
 
     public void CloseDialogueBox()
     {
+        currDialogueObject = null;
+
         anim.SetTrigger("FadeOut");
 
         textLabel.text = string.Empty;

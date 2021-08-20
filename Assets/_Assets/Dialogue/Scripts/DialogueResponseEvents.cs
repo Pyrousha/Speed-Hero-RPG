@@ -22,7 +22,6 @@ public class DialogueResponseEvents : MonoBehaviour
         if (events == null)
         {
             events = new ResponseEvent[dialogueObject.Responses.Length];
-
         }
         else
         {

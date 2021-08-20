@@ -16,3 +16,19 @@ public class DialogueResponseEventsEditor : Editor
         }
     }
 }
+
+[CustomEditor(typeof(DialogueEvents))]
+public class DialogueEventsEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        DialogueEvents dialogueEvents = (DialogueEvents)target;
+
+        if (GUILayout.Button("Refresh"))
+        {
+            dialogueEvents.OnValidate();
+        }
+    }
+}
