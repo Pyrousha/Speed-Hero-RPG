@@ -23,7 +23,7 @@ public class ChangeHeroLayerTrigger : MonoBehaviour
         Debug.Log(collision.gameObject.name);
         if (collision.gameObject.name == "Hero Hitbox")
         {
-            collision.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder = newLayer;
+            collision.transform.Find("Hero Sprite").GetComponent<SpriteRenderer>().sortingOrder = newLayer;
         }
 
         RespawnHero2D respawnHero = GetComponent<RespawnHero2D>();

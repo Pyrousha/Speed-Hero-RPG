@@ -2,24 +2,28 @@
 
 public class PlayerMove2D : MonoBehaviour
 {
-    public bool canMove;
-    public Vector3 startingVelocity;
-
+    [Header("Self References")]
     public Rigidbody heroRB;
     public Animator heroAnim;
-
     public GameObject heroSpriteObj;
 
+    [Header("Movement")]
     public Vector2 inputVect;
     public float moveSpeed;
     public float accelSpeed;
     public float frictionSpeed;
 
+    public bool canMove;
+    public Vector3 startingVelocity;
+
+    [Header("Ground checking")]
     public LayerMask groundLayer;
     bool isGrounded = false;
 
+    [SerializeField] private float raycastHeight;
     public GameObject[] raycastPoints;
 
+    [Header("Dialogue References")]
     [SerializeField] private OverworldInputHandler overworldInputHandler;
     [SerializeField] private DialogueUI dialogueUI;
 
@@ -49,7 +53,7 @@ public class PlayerMove2D : MonoBehaviour
 
         foreach(GameObject go in raycastPoints)
         {
-            if (Physics.Raycast(go.transform.position, Vector3.down, 0.05f, groundLayer))
+            if (Physics.Raycast(go.transform.position, Vector3.down, raycastHeight, groundLayer))
             {
                 isGrounded = true;
                 break;
