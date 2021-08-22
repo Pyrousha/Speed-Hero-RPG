@@ -25,8 +25,8 @@ TagManager:
   - HeroCombatHitbox
   - OverworldSprite
   - OverworldTerrain
-  - 
-  - 
+  - CameraBounds
+  - OverworldPlayer
   - 
   - 
   - 

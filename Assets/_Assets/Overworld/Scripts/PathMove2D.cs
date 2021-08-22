@@ -1,41 +1,74 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PathMove2D : MonoBehaviour
 {
+    [Header("Pathing")]
     [SerializeField] private bool shouldMove = false;
     [SerializeField] private Transform pathObjectParent;
-    
+
+    [SerializeField] private UnityEvent afterPathFinished;
+
     private List<Vector3> pathPoints = new List<Vector3>();
     private Vector3 targetPosition;
 
     private Rigidbody rb;
 
+    [Header("Ground checking")]
+    public bool onlyMoveOnGround;
+    public LayerMask groundLayer;
+    bool isGrounded = true;
+    [SerializeField] private float raycastHeight;
+    [SerializeField] private GameObject[] raycastPoints;
+
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float accelSpeed;
     [SerializeField] private float frictionSpeed;
+    private float tempFrictionSpeed;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        tempFrictionSpeed = frictionSpeed;
+
         rb = GetComponent<Rigidbody>();
 
-        for (int i = 0; i < pathObjectParent.childCount; i++)
+        GeneratePath(pathObjectParent);
+
+        if (shouldMove)
+            AllowMovement();
+    }
+
+    public void GeneratePath(Transform pathParent)
+    {
+        if (pathParent == null)
         {
-            pathPoints.Add(pathObjectParent.GetChild(i).position);
+            Debug.Log("Unable to generate path, parent is null");
+            return;
+        }
+
+        pathPoints = new List<Vector3>();
+
+        for (int i = 0; i < pathParent.childCount; i++)
+        {
+            pathPoints.Add(pathParent.GetChild(i).position);
         }
 
         targetPosition = pathPoints[0];
 
-        pathObjectParent.gameObject.SetActive(false);
+        pathParent.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (onlyMoveOnGround)
+            isGrounded = CalcIsGrounded();
+
         if (shouldMove)
         {
             //if close enough to consider this point reached
@@ -43,6 +76,7 @@ public class PathMove2D : MonoBehaviour
             {
                 if (pathPoints.Count <= 1) //No points left, or this is the last one
                 {
+                    afterPathFinished.Invoke();
                     DisableMovement();
                 }
                 else
@@ -54,10 +88,41 @@ public class PathMove2D : MonoBehaviour
             //move towards point
             else
             {
-                Move();
+                SetVelocity(shouldMove = true);
             }
         }
+        else
+        {
+            SetVelocity(shouldMove = false);
+        }
     }
+
+    public void DisableFriction()
+    {
+        if (frictionSpeed == 0)
+            return;
+
+        tempFrictionSpeed = frictionSpeed;
+        frictionSpeed = 0;
+        Debug.Log("SetFF to : " + frictionSpeed);
+    }
+
+    public void EnableFriction(float timeUntilEnable)
+    {
+        if (timeUntilEnable > 0)
+            Invoke("EnableFrictionDelayed", timeUntilEnable);
+        else
+            EnableFrictionDelayed();
+    }
+
+    private void EnableFrictionDelayed()
+    {
+        frictionSpeed = tempFrictionSpeed;
+
+        Debug.Log("NewFF: " + frictionSpeed);
+    }
+
+
 
     public void AllowMovement()
     {
@@ -68,17 +133,25 @@ public class PathMove2D : MonoBehaviour
     public void DisableMovement()
     {
         shouldMove = false;
-        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        //rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
     }
 
     /// <summary>
     /// Moves linearly towards the next target position
     /// </summary>
-    private void Move()
+    private void SetVelocity(bool shouldMove)
     {
+        if (!isGrounded)
+            return;
+
+        Vector2 inputVect = new Vector2(0,0);
+
         //Calculate direction to move
-        Vector3 targetDir = targetPosition - transform.position;
-        Vector2 inputVect = new Vector2(targetDir.x, targetDir.z).normalized;
+        if (shouldMove)
+        {
+            Vector3 targetDir = targetPosition - transform.position;
+            inputVect = new Vector2(targetDir.x, targetDir.z).normalized;
+        }
 
         //Get variables ready for calculation
         float currSpeedX = rb.velocity.x;
@@ -152,5 +225,18 @@ public class PathMove2D : MonoBehaviour
 
         //Set velocity after calculation
         rb.velocity = new Vector3(newSpeedX, rb.velocity.y, newSpeedZ);
+    }
+
+    private bool CalcIsGrounded()
+    {
+        foreach (GameObject go in raycastPoints)
+        {
+            if (Physics.Raycast(go.transform.position, Vector3.down, raycastHeight, groundLayer))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

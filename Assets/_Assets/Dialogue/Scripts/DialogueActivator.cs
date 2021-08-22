@@ -42,7 +42,7 @@ public class DialogueActivator : MonoBehaviour, IInteractable
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player") && other.TryGetComponent(out PlayerMove2D player))
         {
