@@ -36,7 +36,7 @@ public class DialogueActivator : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && other.TryGetComponent(out PlayerMove2D player))
+        if (other.CompareTag("Player") && other.TryGetComponent(out HeroDialogueInteract player))
         {
             player.Interactable = this;
         }
@@ -44,7 +44,7 @@ public class DialogueActivator : MonoBehaviour, IInteractable
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && other.TryGetComponent(out PlayerMove2D player))
+        if (other.CompareTag("Player") && other.TryGetComponent(out HeroDialogueInteract player))
         {
             if (player.Interactable is DialogueActivator dialogueActivator && dialogueActivator == this)
             {
@@ -61,7 +61,7 @@ public class DialogueActivator : MonoBehaviour, IInteractable
         dialogueUI.ShowDialogue(dialogueObject, gameObject);
     }
 
-    public void TryInteract(PlayerMove2D player)
+    public void TryInteract(HeroDialogueInteract player)
     {
         if (played && playOnce)
             return;

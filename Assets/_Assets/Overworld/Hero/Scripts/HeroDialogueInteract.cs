@@ -19,7 +19,7 @@ public class HeroDialogueInteract : MonoBehaviour
         {
             if (Interactable != null)
             {
-                //Interactable.TryInteract(this);
+                Interactable.TryInteract(this);
                 overworldInputHandler.pressedDownConfirm = false;
             }
         }

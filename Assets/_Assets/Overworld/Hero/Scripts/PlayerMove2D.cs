@@ -31,10 +31,6 @@ public class PlayerMove2D : MonoBehaviour
     [SerializeField] private OverworldInputHandler overworldInputHandler;
     [SerializeField] private DialogueUI dialogueUI;
 
-    public DialogueUI DialogueUI => dialogueUI;
-
-    public IInteractable Interactable {get; set;}
-
     // Start is called before the first frame update
     void Start()
     {
@@ -51,15 +47,6 @@ public class PlayerMove2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!dialogueUI.isOpen)
-        {
-            if (Interactable != null)
-            {
-                Interactable.TryInteract(this);
-                overworldInputHandler.pressedDownConfirm = false;
-            }
-        }
-
         if (pathMove2D != null && pathMove2D.enabled)
             return;
 
