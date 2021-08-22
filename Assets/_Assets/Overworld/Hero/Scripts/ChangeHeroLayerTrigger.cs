@@ -20,14 +20,9 @@ public class ChangeHeroLayerTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.name == "Hero Hitbox")
         {
             collision.transform.Find("Hero Sprite").GetComponent<SpriteRenderer>().sortingOrder = newLayer;
         }
-
-        RespawnHero2D respawnHero = GetComponent<RespawnHero2D>();
-        if (respawnHero != null)
-            respawnHero.Respawn();
     }
 }

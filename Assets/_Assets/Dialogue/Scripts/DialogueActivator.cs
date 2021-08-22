@@ -93,4 +93,9 @@ public class DialogueActivator : MonoBehaviour, IInteractable
             }
         }
     }
+
+    public void SetPlayWithoutInput(bool playWithNoInput)
+    {
+        playWithoutInput = playWithNoInput;
+    }
 }

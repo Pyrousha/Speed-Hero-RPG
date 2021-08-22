@@ -21,7 +21,8 @@ public class PathMove2D : MonoBehaviour
     public LayerMask groundLayer;
     bool isGrounded = true;
     [SerializeField] private float raycastHeight;
-    [SerializeField] private GameObject[] raycastPoints;
+    [SerializeField] private Transform raycastPointParent;
+    private Transform[] raycastPoints;
 
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed;
@@ -33,6 +34,16 @@ public class PathMove2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (raycastPointParent != null)
+        {
+            raycastPoints = new Transform[raycastPointParent.childCount];
+
+            for (int i = 0; i < raycastPointParent.childCount; i++)
+            {
+                raycastPoints[i] = raycastPointParent.GetChild(i);
+            }
+        }
+
         tempFrictionSpeed = frictionSpeed;
 
         rb = GetComponent<Rigidbody>();
@@ -104,7 +115,6 @@ public class PathMove2D : MonoBehaviour
 
         tempFrictionSpeed = frictionSpeed;
         frictionSpeed = 0;
-        Debug.Log("SetFF to : " + frictionSpeed);
     }
 
     public void EnableFriction(float timeUntilEnable)
@@ -118,8 +128,6 @@ public class PathMove2D : MonoBehaviour
     private void EnableFrictionDelayed()
     {
         frictionSpeed = tempFrictionSpeed;
-
-        Debug.Log("NewFF: " + frictionSpeed);
     }
 
 
@@ -225,13 +233,16 @@ public class PathMove2D : MonoBehaviour
 
         //Set velocity after calculation
         rb.velocity = new Vector3(newSpeedX, rb.velocity.y, newSpeedZ);
+
+        if(GetComponent<PlayerMove2D>() != null)
+            GetComponent<PlayerMove2D>().SetAnimatorValues(inputVect);
     }
 
     private bool CalcIsGrounded()
     {
-        foreach (GameObject go in raycastPoints)
+        foreach (Transform pos in raycastPoints)
         {
-            if (Physics.Raycast(go.transform.position, Vector3.down, raycastHeight, groundLayer))
+            if (Physics.Raycast(pos.position, Vector3.down, raycastHeight, groundLayer))
             {
                 return true;
             }

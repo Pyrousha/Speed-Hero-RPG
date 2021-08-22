@@ -5,7 +5,8 @@ public class PlayerMove2D : MonoBehaviour
     [Header("Self References")]
     public Rigidbody heroRB;
     public Animator heroAnim;
-    public GameObject heroSpriteObj;
+    public SpriteRenderer heroSprite;
+    private PathMove2D pathMove2D;
 
     [Header("Movement")]
     public Vector2 inputVect;
@@ -23,6 +24,9 @@ public class PlayerMove2D : MonoBehaviour
     [SerializeField] private float raycastHeight;
     public GameObject[] raycastPoints;
 
+    [SerializeField] private Transform respawnTransform;
+    private Vector3 respawnLocation; 
+
     [Header("Dialogue References")]
     [SerializeField] private OverworldInputHandler overworldInputHandler;
     [SerializeField] private DialogueUI dialogueUI;
@@ -34,7 +38,14 @@ public class PlayerMove2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (respawnTransform != null)
+            respawnLocation = respawnTransform.position;
+        else
+            respawnLocation = transform.position;
+
         heroRB.velocity = startingVelocity;
+
+        pathMove2D = GetComponent<PathMove2D>();
     }
 
     // Update is called once per frame
@@ -48,6 +59,9 @@ public class PlayerMove2D : MonoBehaviour
                 overworldInputHandler.pressedDownConfirm = false;
             }
         }
+
+        if (pathMove2D != null && pathMove2D.enabled)
+            return;
 
         isGrounded = false;
 
@@ -78,7 +92,9 @@ public class PlayerMove2D : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        if(pathMove2D!= null && pathMove2D.enabled)
+            return;
+
         float currSpeedX = heroRB.velocity.x;
         float currSpeedZ = heroRB.velocity.z;
 
@@ -223,4 +239,20 @@ public class PlayerMove2D : MonoBehaviour
         heroAnim.SetBool("InAir", !isGrounded);
     }
 
+    public void SetRespawnLocation(Transform newRespawn)
+    {
+        respawnLocation = newRespawn.position;
+    }
+
+    public void Respawn()
+    {
+        transform.position = respawnLocation;
+        heroRB.velocity = new Vector3(0, 0, 0);
+        heroSprite.sortingOrder = 1;
+    }
+
+    public void SetCanMove(bool newCanMove)
+    {
+        canMove = newCanMove;
+    }
 }
