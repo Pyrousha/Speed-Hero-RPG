@@ -19,7 +19,7 @@ public class PlayerMove2D : MonoBehaviour
 
     [Header("Ground checking")]
     public LayerMask groundLayer;
-    bool isGrounded = false;
+    bool isGrounded = true;
 
     [SerializeField] private float raycastHeight;
     public GameObject[] raycastPoints;
@@ -47,9 +47,6 @@ public class PlayerMove2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pathMove2D != null && pathMove2D.enabled)
-            return;
-
         isGrounded = false;
 
         foreach(GameObject go in raycastPoints)
