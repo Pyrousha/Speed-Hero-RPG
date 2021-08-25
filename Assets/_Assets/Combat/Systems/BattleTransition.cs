@@ -5,21 +5,29 @@ using UnityEngine.SceneManagement;
 
 public class BattleTransition : MonoBehaviour
 {
-    public GameObject overWorldObjParent;
-    public GameObject enemyToDestroyAfterFight;
-    public Transform postBattleHeroPos;
-    public GameObject heroObj;
+    [SerializeField] private GameObject overWorldObjParent;
 
+    [SerializeField] private string overworldScene;
+    private string battleScene;
 
-    public string overworldScene;
-    string battleScene;
+    private TriggerBattle triggerBattle;
 
-    public void TransitionToBattle(string sceneToLoad, bool disableOverworld)
+    public void TransitionToBattle(TriggerBattle.BattleType battleType, TriggerBattle newTriggerBattle)
     {
-        battleScene = sceneToLoad;
-        if (disableOverworld)
-            overWorldObjParent.SetActive(false); //disable overworld objects
-        SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Additive);
+        if (battleType == TriggerBattle.BattleType.standard)
+            battleScene = "Combat-Standard";
+
+        triggerBattle = newTriggerBattle;
+
+        overWorldObjParent.SetActive(false); //disable overworld objects
+
+        SceneManager.LoadScene(battleScene, LoadSceneMode.Additive);
+    }
+
+    public void TransitionToSceneAdditive(string newScene)
+    {
+        battleScene = newScene;
+        SceneManager.LoadScene(newScene, LoadSceneMode.Additive);
     }
 
     public void SetBattleScene(string newBattleScene)
@@ -27,19 +35,19 @@ public class BattleTransition : MonoBehaviour
         battleScene = newBattleScene;
     }
 
-    public void TransitionFromBattle(bool destroyEnemy)
+    public void CloseBeatCalibration()
     {
-        if (postBattleHeroPos != null)
-        {
-            heroObj.transform.position = postBattleHeroPos.position;
-            postBattleHeroPos = null;
-        }
-
         SceneManager.UnloadSceneAsync(battleScene);
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(overworldScene));
-        if (destroyEnemy)
-            Destroy(enemyToDestroyAfterFight);
+    }
+
+    public void TransitionFromBattle(bool wonFight)
+    {
+        SceneManager.UnloadSceneAsync(battleScene);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(overworldScene));
 
         overWorldObjParent.SetActive(true); //re-enable overworld objects
+
+        triggerBattle.EndBattle(wonFight);
     }
 }

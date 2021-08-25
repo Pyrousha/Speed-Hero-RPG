@@ -10,47 +10,26 @@ public class Enemy_Stats_Combat : MonoBehaviour
 
     public Enemy_Shot_Creator EnemyShotCreator;
 
-    /*
-    public void Spawn1()
+    private SpriteRenderer spriteRenderer;
+
+    private void Start()
     {
-        EnemyStartAttack(1);
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
-    public void Spawn2()
-    {
-        EnemyStartAttack(2);
-    }
-    public void Spawn3()
-    {
-        EnemyStartAttack(3);
-    }
-    public void Spawn4()
-    {
-        EnemyStartAttack(4);
-    }
-    public void Spawn5()
-    {
-        EnemyStartAttack(5);
-    }
-    public void Spawn6()
-    {
-        EnemyStartAttack(6);
-    }
-    public void Spawn7()
-    {
-        EnemyStartAttack(7);
-    }
-    public void Spawn8()
-    {
-        EnemyStartAttack(8);
-    }
-    public void Spawn9()
-    {
-        EnemyStartAttack(9);
-    }
-    */
 
     public void EnemyStartAttack(int attackdir)
     {
         EnemyShotCreator.SpawnAttack(attackdir, dmg);
+    }
+
+    public void LoadFromEnemyObject(EnemyObject enemyObject)
+    {
+        if (enemyObject == null)
+            return;
+
+        maxHp = enemyObject.maxHP;
+        hp = maxHp;
+
+        spriteRenderer.sprite = enemyObject.enemySprite;
     }
 }

@@ -44,10 +44,8 @@ public class Enemy_Attack : MonoBehaviour
 
     private void EndOfAnim()
     {
-        Debug.Log("end of anim");
         if (atkType == attackType.Hit) //Attack has reached end, meaning it was not hit by the player
         {
-            Debug.Log("deal dmg??");
             //Player should take damage
             if (heroObj != null)
                 heroStats.takeDamage(dmg);

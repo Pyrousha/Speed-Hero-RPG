@@ -241,7 +241,7 @@ public class MenuController : MonoBehaviour
 
         //Load scene
         persistentGameInfo.GetComponent<CombatStartingState>().combatState = SongLoader.CombatState.BeatOffset;
-        persistentGameInfo.GetComponent<BattleTransition>().TransitionToBattle("Combat-Standard", false);
+        persistentGameInfo.GetComponent<BattleTransition>().TransitionToSceneAdditive("Combat-Standard");
 
         menuState = MenuState.beatOffset;
 
@@ -259,7 +259,7 @@ public class MenuController : MonoBehaviour
             persistentGameInfo.GetComponent<CombatStartingState>().beatOffset =  GameObject.Find("Note Grid/State Controller").GetComponent<SongLoader>().beatTravelTime;
         }
 
-        persistentGameInfo.GetComponent<BattleTransition>().TransitionFromBattle(false);
+        persistentGameInfo.GetComponent<BattleTransition>().CloseBeatCalibration();
         persistentGameInfo.GetComponent<CombatStartingState>().combatState = SongLoader.CombatState.Playing;
     }
 

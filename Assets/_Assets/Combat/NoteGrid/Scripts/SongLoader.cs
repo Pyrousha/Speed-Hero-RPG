@@ -11,7 +11,7 @@ public class SongLoader : MonoBehaviour
 
     [Header("Song Prefab")]
     public GameObject songToLoadPrefab;
-    GameObject songToLoad;
+    private GameObject songToLoad;
 
     [Header("Objects + Stuff")]
     public GameObject noteParent;
@@ -134,6 +134,9 @@ public class SongLoader : MonoBehaviour
         CombatStartingState combatStartingState = startState.GetComponent<CombatStartingState>();
         state = combatStartingState.combatState;
         beatTravelTime = combatStartingState.beatOffset;
+
+        songToLoadPrefab = combatStartingState.songPrefab;
+        enemy.LoadFromEnemyObject(combatStartingState.enemyObject);
     }
 
     private void Update()

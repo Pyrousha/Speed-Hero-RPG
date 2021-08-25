@@ -18,4 +18,8 @@ public class CombatStartingState : MonoBehaviour
 
     [Header("Song Properties")]
     public float beatOffset;
+
+    [Header("Combat Properties")]
+    [HideInInspector] public GameObject songPrefab;
+    [HideInInspector] public EnemyObject enemyObject;
 }
