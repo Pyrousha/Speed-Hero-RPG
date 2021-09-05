@@ -15,8 +15,7 @@ public class DialogueActivator : MonoBehaviour, IInteractable
     private enum PlayOptions
     {
         playOnce,
-        playAgainWithInput,
-        playInfinite
+        playAgainWithInput
     }
 
     private bool played = false;
@@ -83,11 +82,6 @@ public class DialogueActivator : MonoBehaviour, IInteractable
                 case PlayOptions.playAgainWithInput:
                     {
                         playWithoutInput = false;
-                        break;
-                    }
-
-                case PlayOptions.playInfinite:
-                    {
                         break;
                     }
             }

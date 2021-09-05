@@ -130,7 +130,14 @@ public class DialogueUI : MonoBehaviour
         }
         else
         {
-            CloseDialogueBox();
+            if (dialogueObject.nextDialogueObject != null)
+            {
+                ShowDialogue(dialogueObject.nextDialogueObject, null);
+            }
+            else
+            {
+                CloseDialogueBox();
+            }
         }
     }
 

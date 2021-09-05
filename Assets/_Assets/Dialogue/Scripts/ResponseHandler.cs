@@ -77,8 +77,9 @@ public class ResponseHandler : MonoBehaviour
 
             responseObjects[i] = responseButton;
 
-            TMP_Text responseText = responseButton.GetComponentInChildren<TMP_Text>();
-            responseText.text = response.ResponseText;
+            TMP_Text[] responseTexts = responseButton.GetComponentsInChildren<TMP_Text>();
+            foreach (TMP_Text txt in responseTexts)
+                txt.text = response.ResponseText;
 
             responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse(response, responseIndex));
 

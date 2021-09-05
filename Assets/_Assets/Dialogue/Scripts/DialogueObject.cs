@@ -7,6 +7,7 @@ public class DialogueObject : ScriptableObject
     private string[] dialogue;
 
     public Dialogue[] dialogueLines;
+    public DialogueObject nextDialogueObject;
     [SerializeField] private Response[] responses;
 
     public string[] Dialogue => dialogue;
@@ -19,6 +20,8 @@ public class DialogueObject : ScriptableObject
 
     public void OnValidate()
     {
+        if ((nextDialogueObject != null) && (responses != null && responses.Length > 0))
+            Debug.LogError("ERROR ON \""+name+".asset\" : NextDialogueObject set while also using responses.\nPlease set the Responses length to 0, or remove the NextDialogueObject\n");
         Convert();
     }
 
