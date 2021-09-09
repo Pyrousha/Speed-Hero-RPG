@@ -10,7 +10,7 @@ public class GameOverButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        persistObj = GameObject.Find("PersistentGameInfo").GetComponent<BattleTransition>();
+        persistObj = GameObject.Find("PersistentGameInfo")?.GetComponent<BattleTransition>();
     }
 
     public void Retry()
@@ -29,7 +29,12 @@ public class GameOverButton : MonoBehaviour
 
     public void ExitCombat()
     {
-        persistObj.SetBattleScene("DEAD");
-        persistObj.TransitionFromBattle(false);
+        if (persistObj == null)
+            Retry();
+        else
+        {
+            persistObj.SetBattleScene("DEAD");
+            persistObj.TransitionFromBattle(false);
+        }
     }
 }

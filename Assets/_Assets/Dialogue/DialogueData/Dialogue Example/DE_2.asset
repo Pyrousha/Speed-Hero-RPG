@@ -18,14 +18,4 @@ MonoBehaviour:
   - speaker: {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
     text: Sure, lessgo
   nextDialogueObject: {fileID: 0}
-  responses:
-  - responseText: 
-    dialogueObject: {fileID: 0}
-  - responseText: 
-    dialogueObject: {fileID: 0}
-  - responseText: 
-    dialogueObject: {fileID: 0}
-  - responseText: 
-    dialogueObject: {fileID: 0}
-  - responseText: 
-    dialogueObject: {fileID: 0}
+  responses: []
