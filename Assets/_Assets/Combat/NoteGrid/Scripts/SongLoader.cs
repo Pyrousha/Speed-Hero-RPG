@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
+using UnityEngine.Events;
 
 public class SongLoader : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class SongLoader : MonoBehaviour
     [Header("Objects + Stuff")]
     public GameObject noteParent;
     public GameObject noteEditorCamera;
+    [SerializeField] private SongEventHandler songEventHandler;
     public GameObject combatCameraLights;
     public Camera noteEditorPreviewCam;
     public Camera beatOffsetCamera;
@@ -63,6 +65,7 @@ public class SongLoader : MonoBehaviour
 
     public struct noteStruct
     {
+        public int songEventIndex;
         public float beatWithOffset;
         public int attackNum;
     }
@@ -151,9 +154,13 @@ public class SongLoader : MonoBehaviour
 
             if (noteArray.Count > 0)
             {
-                if (songPositionInBeats >= noteArray[0].beatWithOffset)
+                noteStruct nextNote = noteArray[0];
+                if (songPositionInBeats >= nextNote.beatWithOffset)
                 {
-                    enemy.EnemyStartAttack(noteArray[0].attackNum);
+                    if (nextNote.attackNum == 10)
+                        songEventHandler.songEvents[nextNote.songEventIndex].Invoke(); //Do event
+                    else
+                        enemy.EnemyStartAttack(nextNote.attackNum); //Spawn attack
                     noteArray.RemoveAt(0);
                 }
             }
@@ -223,12 +230,18 @@ public class SongLoader : MonoBehaviour
             GameObject noteObj = noteParent.transform.GetChild(i).gameObject;
 
             float beatToPlayOn = (noteObj.transform.localPosition.z/ 2) - startupBeats;
-            if (beatToPlayOn < currentSongBeat) //note should have alreayd been spawned, skip
+            if (beatToPlayOn < currentSongBeat) //note should have already been spawned, skip
                 continue;
 
             int atkNum = noteObj.GetComponent<AttackCube>().attackNum;
 
-            noteStruct newNote = new noteStruct { attackNum = atkNum, beatWithOffset = beatToPlayOn };
+            noteStruct newNote;
+
+            if (atkNum == 10)
+                newNote = new noteStruct { songEventIndex = noteObj.GetComponent<SongEvent>().songEventIndex, beatWithOffset = beatToPlayOn + startupBeats, attackNum = 10};
+            else
+                newNote = new noteStruct { attackNum = atkNum, beatWithOffset = beatToPlayOn };
+
             noteArray.Add(newNote);
         }
 

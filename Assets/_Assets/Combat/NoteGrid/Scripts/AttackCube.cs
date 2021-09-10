@@ -50,7 +50,7 @@ public class AttackCube : MonoBehaviour
 
     void changeVisualsToMatchAttackNum(int attackNum)
     {
-        if ((attackNum < 1) || (attackNum > 9))
+        if ((attackNum < 1) || (attackNum > 10))
         {
             Debug.Log("Invalid attack number");
             return;
@@ -62,7 +62,7 @@ public class AttackCube : MonoBehaviour
         //Set cube to correct material
         if (attackNum % 2 == 0) //even
         {
-            if (attackNum == 2) //2 is white
+            if ((attackNum == 2) || (attackNum == 10)) //2 and 10 are white
             {
                 cubeRenderer.material = mat_white;
             }
@@ -82,6 +82,9 @@ public class AttackCube : MonoBehaviour
                 cubeRenderer.material = mat_white;
             }
         }
+
+        if (attackNum == 10)
+            gameObject.AddComponent<SongEvent>();
     }
 
     public void AddToEnemyPattern(Enemy_Stats_Combat enemy, float timePerEightNote, float startOffset)

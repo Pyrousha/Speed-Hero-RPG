@@ -29,6 +29,9 @@ TextureImporter:
   - first:
       213: -125807945323936061
     second: AttackArrows_8
+  - first:
+      213: -2468487946485259883
+    second: AttackArrows_9
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -370,6 +373,27 @@ TextureImporter:
       bones: []
       spriteID: 3c68b0d175a014ef0800000000000000
       internalID: -125807945323936061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackArrows_9
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 591a9619a4b2ebdd0800000000000000
+      internalID: -2468487946485259883
       vertices: []
       indices: 
       edges: []
