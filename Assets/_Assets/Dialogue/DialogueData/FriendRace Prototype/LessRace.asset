@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c77e930972665f4f9a9210fba3c3022, type: 3}
-  m_Name: RaceOver_Win
+  m_Name: LessRace
   m_EditorClassIdentifier: 
   dialogueLines:
-  - speaker: {fileID: 11400000, guid: 5b609800b10a3274092d2b4ac8549623, type: 2}
-    text: 'How''d you beat me?
-
-      Why didn''t you run like that during the beep
-      test? Too humble?'
+  - speaker: {fileID: 0}
+    text: Anyway, wanna race to the big tree at the end of the path?
   nextDialogueObject: {fileID: 0}
-  responses: []
+  responses:
+  - responseText: Yes
+    dialogueObject: {fileID: 11400000, guid: c13ea850f7a57f04abc3737af3e68894, type: 2}
+  - responseText: No
+    dialogueObject: {fileID: 11400000, guid: acd379deac2eb044e88b3a8e8e9eb12e, type: 2}

@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueLines:
   - speaker: {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
-    text: 'Shoot, there''s a fence blocking our path.
+    text: 'Shoot, this fence is new.
 
-      Maybe we should just
-      head back?'
+      Maybe we should just head back, Vincent.'
   - speaker: {fileID: 11400000, guid: 5b609800b10a3274092d2b4ac8549623, type: 2}
     text: I've got a better idea...
   - speaker: {fileID: 11400000, guid: 5b609800b10a3274092d2b4ac8549623, type: 2}
     text: TUCK THOSE KNEES!
+  - speaker: {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
+    text: Aaaaaaa
+  nextDialogueObject: {fileID: 0}
   responses: []

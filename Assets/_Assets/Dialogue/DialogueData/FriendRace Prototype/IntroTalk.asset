@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueLines:
   - speaker: {fileID: 11400000, guid: 5b609800b10a3274092d2b4ac8549623, type: 2}
-    text: C'mon! Let's get outta here!
+    text: We're almost at the forest! Hurry up! I want to get the school out of my
+      sight.
+  - speaker: {fileID: 11400000, guid: 5b609800b10a3274092d2b4ac8549623, type: 2}
+    text: Warner and his crew were even bigger jerks than usual today.
+  nextDialogueObject: {fileID: 0}
   responses: []
