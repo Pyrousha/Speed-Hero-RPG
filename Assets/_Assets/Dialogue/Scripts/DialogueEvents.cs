@@ -10,6 +10,11 @@ public class DialogueEvents : MonoBehaviour
 
     public DialogueEvent[] Events => events;
 
+    [Header("Stuff For Moving Events")]
+    public int copyIndex;
+    public int pasteIndex;
+    public bool deleteAfterCopy;
+
     public void OnValidate()
     {
         if (dialogueObject == null)
@@ -38,5 +43,13 @@ public class DialogueEvents : MonoBehaviour
 
             events[i] = new DialogueEvent() { name = dialogueText };
         }
+    }
+
+    public void Copy()
+    {
+        events[pasteIndex] = events[copyIndex];
+
+        if(deleteAfterCopy)
+            events[copyIndex] = new DialogueEvent() { name = dialogueObject.Dialogue[copyIndex] };
     }
 }

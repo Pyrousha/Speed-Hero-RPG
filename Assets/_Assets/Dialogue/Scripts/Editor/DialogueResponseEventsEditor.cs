@@ -26,6 +26,10 @@ public class DialogueEventsEditor : Editor
 
         DialogueEvents dialogueEvents = (DialogueEvents)target;
 
+        if (GUILayout.Button("Copy"))
+        {
+            dialogueEvents.Copy();
+        }
         if (GUILayout.Button("Refresh"))
         {
             dialogueEvents.OnValidate();
