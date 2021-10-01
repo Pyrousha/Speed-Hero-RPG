@@ -15,10 +15,10 @@ public class MenuController : MonoBehaviour
 
     bool interactable;
 
-    List<Text> selectablesList = new List<Text>();
+    public List<Text> selectablesList = new List<Text>();
     
     int oldSelectedIndex = 0;
-    int selectedIndex = 0;
+    public int selectedIndex = 0;
     int maxIndex;
     int input;
 

@@ -47,5 +47,7 @@ public class HeroSpawnAttack : MonoBehaviour
         childObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
         childObject.GetComponent<Rigidbody>().velocity = shotSpawnPoint.transform.right * shotSpeed;
+
+        childObject.transform.parent = null;
     }
 }

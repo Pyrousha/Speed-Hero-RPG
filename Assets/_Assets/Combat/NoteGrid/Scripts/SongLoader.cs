@@ -70,7 +70,6 @@ public class SongLoader : MonoBehaviour
         public int attackNum;
     }
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -92,6 +91,7 @@ public class SongLoader : MonoBehaviour
 
                     //Start Song
                     Invoke("PlaySongZero", songStartOffset);
+
                     break;
                 }
             case (CombatState.NoteEditor):
@@ -231,7 +231,9 @@ public class SongLoader : MonoBehaviour
 
             float beatToPlayOn = (noteObj.transform.localPosition.z/ 2) - startupBeats;
             if (beatToPlayOn < currentSongBeat) //note should have already been spawned, skip
+            {
                 continue;
+            }
 
             int atkNum = noteObj.GetComponent<AttackCube>().attackNum;
 
