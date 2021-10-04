@@ -16,9 +16,21 @@ public class CombatFloorMover : MonoBehaviour
         bg_1.transform.position += move_1 * Time.deltaTime;
         if (bg_1.transform.localPosition.x > 1)
             bg_1.transform.localPosition += new Vector3(-1, 0, 0);
-        
+        if (bg_1.transform.localPosition.x < 1)
+            bg_1.transform.localPosition += new Vector3(1, 0, 0);
+        if (bg_1.transform.localPosition.y > 1)
+            bg_1.transform.localPosition += new Vector3(0, -1, 0);
+        if (bg_1.transform.localPosition.y < 1)
+            bg_1.transform.localPosition += new Vector3(0, 1, 0);
+
         bg_2.transform.position += move_2 * Time.deltaTime;
-        if ((bg_2.transform.localPosition.x > 1) && (bg_2.transform.localPosition.y > 1))
-            bg_2.transform.localPosition += new Vector3(-1, -1, 0);
+        if (bg_2.transform.localPosition.x > 1)
+            bg_2.transform.localPosition += new Vector3(-1, 0, 0);
+        if (bg_2.transform.localPosition.x < 1)
+            bg_2.transform.localPosition += new Vector3(1, 0, 0);
+        if (bg_2.transform.localPosition.y > 1)
+            bg_2.transform.localPosition += new Vector3(0, -1, 0);
+        if (bg_2.transform.localPosition.y < 1)
+            bg_2.transform.localPosition += new Vector3(0, 1, 0);
     }
 }
