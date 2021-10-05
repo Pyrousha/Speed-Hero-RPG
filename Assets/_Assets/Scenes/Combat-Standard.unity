@@ -8533,8 +8533,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed3a8758380935478ae7739e24099a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
-  songToLoadPrefab: {fileID: 132757743623292707, guid: d83ca005abf982643a1e382c470fcf5c,
+  state: 1
+  songToLoadPrefab: {fileID: 5401878848925135257, guid: 9f7322bc9e5af3a40a85a2e816471126,
     type: 3}
   noteParent: {fileID: 1024982693}
   noteEditorCamera: {fileID: 1511847372}
