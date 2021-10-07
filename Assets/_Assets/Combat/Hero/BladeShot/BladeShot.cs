@@ -7,29 +7,33 @@ public class BladeShot : MonoBehaviour
     Rigidbody RB;
     public float initialSpeed;
     public float decellerateSpeed;
+    public int attackNum;
 
+    
     // Start is called before the first frame update
     void Start()
     {
-        RB = gameObject.GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (transform.childCount > 0)
+        {
+            RB = transform.GetChild(0).GetComponent<Rigidbody>();
+            RB.velocity = RB.transform.right * initialSpeed;
+        }
+        else
+            RB = null;
     }
 
     private void FixedUpdate()
     {
-        RB.velocity = RB.velocity * decellerateSpeed;
+        if (RB != null)
+            RB.velocity = RB.velocity * decellerateSpeed;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.tag == "EnemyProjectile")
         {
-            other.GetComponent<Enemy_Attack>().TryDestroy();
+            //Debug.Log("HIT!");
+            other.GetComponent<Enemy_Attack>().TryDestroy(attackNum);
         }
     }
 

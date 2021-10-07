@@ -17,16 +17,19 @@ public class Enemy_Shot_Creator : MonoBehaviour
     public int[] attackNums;
     public int[] attackTimes;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    SongLoader songLoader;
+    float attackAnimSpeed;
+    float dodgeAnimSpeed;
 
+    private void Start()
+    {
+        songLoader = FindObjectOfType<SongLoader>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetAnimSpeeds(float atkSpeed, float dodgeSpeed)
     {
-        
+        attackAnimSpeed = atkSpeed;
+        dodgeAnimSpeed = dodgeSpeed;
     }
 
     /// <summary>
@@ -47,7 +50,7 @@ public class Enemy_Shot_Creator : MonoBehaviour
                     //Left Attack
                     MoveOffset(-0.5f, -1); //Set location
                     SetRotationZ(90); //Set rotation
-                    CreateProjectile(damage, shotProjectileDodge); //Create attack
+                    CreateProjectile(1, damage, shotProjectileDodge); //Create attack
 
                     //Spawn Right Attack
                     SpawnAttack(11, damage);
@@ -57,42 +60,42 @@ public class Enemy_Shot_Creator : MonoBehaviour
                 {
                     MoveOffset(-0.5f, 0); //Set location
                     SetRotationZ(90); //Set rotation
-                    CreateProjectile(damage, shotProjectileHit); //Create attack
+                    CreateProjectile(2, damage, shotProjectileHit); //Create attack
                     break;
                 }
             case (3):
                 {
                     MoveOffset(-0.354f, 0.354f); //Set location
                     SetRotationZ(45); //Set rotation
-                    CreateProjectile(damage, shotProjectileHit); //Create attack
+                    CreateProjectile(3, damage, shotProjectileHit); //Create attack
                     break;
                 }
             case (4):
                 {
                     MoveOffset(-1, 0); //Set location
                     SetRotationZ(0); //Set rotation
-                    CreateProjectile(damage, shotProjectileDodge); //Create attack
+                    CreateProjectile(4, damage, shotProjectileDodge); //Create attack
                     break;
                 }
             case (5):
                 {
-                    MoveOffset(0, 0); //Set location
+                    MoveOffset(0, 0.5f); //Set location
                     SetRotationZ(0); //Set rotation
-                    CreateProjectile(damage, shotProjectileHit); //Create attack
+                    CreateProjectile(5, damage, shotProjectileHit); //Create attack
                     break;
                 }
             case (6):
                 {
                     MoveOffset(1, 0); //Set location
                     SetRotationZ(0); //Set rotation
-                    CreateProjectile(damage, shotProjectileDodge); //Create attack
+                    CreateProjectile(6, damage, shotProjectileDodge); //Create attack
                     break;
                 }
             case (7):
                 {
                     MoveOffset(0.354f, 0.354f); //Set location
                     SetRotationZ(-45); //Set rotation
-                    CreateProjectile(damage, shotProjectileHit); //Create attack
+                    CreateProjectile(7, damage, shotProjectileHit); //Create attack
                     break;
                 }
             case (8):
@@ -100,7 +103,7 @@ public class Enemy_Shot_Creator : MonoBehaviour
                     //Right attack
                     MoveOffset(0f, 1); //Set location
                     SetRotationZ(-90); //Set rotation
-                    CreateProjectile(damage, shotProjectileDodge); //Create attack
+                    CreateProjectile(8, damage, shotProjectileDodge); //Create attack
 
                     //Spawn left attack
                     SpawnAttack(10, damage);
@@ -110,22 +113,23 @@ public class Enemy_Shot_Creator : MonoBehaviour
                 {
                     MoveOffset(0.5f, 0); //Set location
                     SetRotationZ(-90); //Set rotation
-                    CreateProjectile(damage, shotProjectileHit); //Create attack
+                    CreateProjectile(9, damage, shotProjectileHit); //Create attack
                     break;
                 }
             case (10):
                 {
-                    //Left attack
+                    //Left attack Of 8
                     MoveOffset(-0.25f, 1); //Set location
                     SetRotationZ(90); //Set rotation
-                    CreateProjectile(damage, shotProjectileDodge); //Create attack
+                    CreateProjectile(8, damage, shotProjectileDodge); //Create attack
                     break;
                 }
             case (11):
                 {
+                    //Right attack of 1
                     MoveOffset(0f, -1); //Set location
                     SetRotationZ(-90); //Set rotation
-                    CreateProjectile(damage, shotProjectileDodge); //Create attack
+                    CreateProjectile(1, damage, shotProjectileDodge); //Create attack
                     break;
                 }
         }
@@ -141,17 +145,21 @@ public class Enemy_Shot_Creator : MonoBehaviour
         parentObj.transform.rotation = Quaternion.Euler(0, 0, newZ);
     }
 
-    private void CreateProjectile(int damage, GameObject attackType)
+    private void CreateProjectile(int attackNum, int damage, GameObject attackType)
     {
         //Create projectile
-        GameObject childObject = Instantiate(attackType) as GameObject;
+        GameObject childObject = Instantiate(attackType);
 
         //Set damage
-        attackType.GetComponent<Enemy_Attack>().dmg = damage;
+        Enemy_Attack enemy_Attack = childObject.GetComponent<Enemy_Attack>();
+        enemy_Attack.dmg = damage;
+        enemy_Attack.attackNum = attackNum;
         
         //Align projectile to parent obj
         childObject.transform.parent = parentObj.transform;
         childObject.transform.localPosition = shotParent.transform.position;
         childObject.transform.localRotation = shotParent.transform.rotation;
+
+        enemy_Attack.SetAnimSpeed(attackAnimSpeed, dodgeAnimSpeed);
     }
 }

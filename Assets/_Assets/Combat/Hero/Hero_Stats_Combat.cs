@@ -52,9 +52,12 @@ public class Hero_Stats_Combat : MonoBehaviour
         if (other.tag == "EnemyProjectile")
         {
             //Damage for "hit" projectiles is already handled in Enemy_Attack.cs
-            //if (other.GetComponent<Enemy_Attack>().atkType == Enemy_Attack.attackType.Dodge)
+
+            Enemy_Attack enemy_Attack = other.GetComponent<Enemy_Attack>();
+
+            if (enemy_Attack.atkType == Enemy_Attack.attackType.Dodge)
             {
-                takeDamage(other.gameObject.GetComponent<Enemy_Attack>().dmg);
+                takeDamage(enemy_Attack.dmg);
                 Destroy(other.gameObject);
             }
         }

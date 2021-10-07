@@ -51,9 +51,13 @@ public class SongLoader : MonoBehaviour
     [Header("Timing + Settings")]
     public float songStartOffset;
     public float beatTravelTime;
+    //public float audioLatencySecs;
     public GameObject songTimingPrefab;
     public GameObject[] thingsToToggleEnableForSettingOffset;
-    float startupBeats; //How many beats before should a note be spawned (dependent on beatTravelTime and song BPM)
+    //float startupBeats; //How many beats before should a note be spawned (dependent on beatTravelTime and song BPM)
+    private float startupBeats;
+    public float attackAnimationSpeedHit;
+    private float attackAnimationSpeedDodge;
     public List<noteStruct> noteArray;
 
     public enum CombatState
@@ -192,8 +196,10 @@ public class SongLoader : MonoBehaviour
         if (songPrefab == null)
             return;
 
-        songToLoad = Instantiate(songPrefab, transform) as GameObject;
+        songToLoad = Instantiate(songPrefab, transform);
         songToLoad.name = songToLoad.name.Replace("(Clone)", "");
+
+        SongProperties songProperties = songToLoad.GetComponent<SongProperties>();
 
         //Set all notes to be childed to the noteParent GameObject
         int i = 0;
@@ -206,7 +212,7 @@ public class SongLoader : MonoBehaviour
         //Change name of noteparent GO to the name of the song to confirm loading worked properly
         noteParent.name += ("(" + songToLoad.name + ")");
 
-        songBPM = songToLoad.GetComponent<SongProperties>().BPM;
+        songBPM = songProperties.BPM;
         secsPerBeat = 60f / songBPM;
         
         //Set song to play based on song from loaded prefab
@@ -214,6 +220,24 @@ public class SongLoader : MonoBehaviour
 
         //Calculate beat offset
         startupBeats = (songBPM / 60) * beatTravelTime;
+
+        #region New Stuff
+        /*
+        startupBeats = songProperties.attackTravelBeats;
+
+        float secsPer4Beats = (240f / songBPM);
+
+        float latency = (51f / 60f) - beatTravelTime;
+
+        //attackAnimationSpeedHit = ((secsPer4Beats - latency) / (51f / 60f));
+        attackAnimationSpeedHit = ((secsPer4Beats - latency) / (51f / 60f));
+        attackAnimationSpeedDodge = attackAnimationSpeedHit;
+
+        FindObjectOfType<Enemy_Shot_Creator>().SetAnimSpeeds(attackAnimationSpeedHit, attackAnimationSpeedDodge);
+        */
+        #endregion
+        
+        FindObjectOfType<Enemy_Shot_Creator>().SetAnimSpeeds(1, 1);
 
         FillNoteArray(0);
     }

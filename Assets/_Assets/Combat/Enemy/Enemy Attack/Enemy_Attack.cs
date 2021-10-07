@@ -5,20 +5,15 @@ using UnityEngine;
 public class Enemy_Attack : MonoBehaviour
 {
     public int dmg;
+    public int attackNum;
 
     GameObject heroObj;
     SongLoader songLoader;
-    Hero_Stats_Combat heroStats; 
+    Hero_Stats_Combat heroStats;
+    BeatOffsetTracker offsetTracker;
+    [SerializeField] private Animator animator;
 
-    private void Start()
-    {
-        heroObj = GameObject.Find("Hero_Combat");
-        if (heroObj != null)
-            heroStats = heroObj.GetComponent<Hero_Stats_Combat>();
-
-        if ((GameObject.Find("Note Grid/State Controller").GetComponent<SongLoader>().state == SongLoader.CombatState.BeatOffset) || (atkType == attackType.Hit))
-            GetComponent<Animator>().Play("Flash Blue for offset syncing");
-    }
+    float animSpeed;
 
     public enum attackType
     {
@@ -28,13 +23,85 @@ public class Enemy_Attack : MonoBehaviour
 
     public attackType atkType;
 
-    public void TryDestroy()
+    private void Start()
     {
-        if (atkType == attackType.Hit)
+        heroObj = GameObject.Find("Hero_Combat");
+        if (heroObj != null)
+            heroStats = heroObj.GetComponent<Hero_Stats_Combat>();
+
+        animator = GetComponent<Animator>();
+
+        offsetTracker = GameObject.Find("Note Grid/State Controller").GetComponent<BeatOffsetTracker>();
+
+        //if ((GameObject.Find("Note Grid/State Controller").GetComponent<SongLoader>().state == SongLoader.CombatState.BeatOffset) || (atkType == attackType.Hit))
+        //animator.Play("Flash Blue for offset syncing");
+
+        SetAnimSpeedAndPlay(animSpeed);
+    }
+
+    public void SetAnimSpeed(float atkSpeed, float dodgeSpeed)
+    {
+        if (atkType == attackType.Dodge)
+            animSpeed = dodgeSpeed;
+        else
+            animSpeed = atkSpeed;
+    }
+
+    public void SetAnimSpeedAndPlay(float animSpeed)
+    {
+        animator.speed = animSpeed;
+
+        if (atkType == attackType.Dodge)
+            animator.Play("Enemy_Projectile_dodge", 0, 0);
+        else
+            animator.Play("Flash Blue for offset syncing", 0, 0);
+    }
+
+    public void TryDestroy(int bladeShotAttackNum)
+    {
+        //Debug.Log("Secs ahead of center: " + (animator.GetCurrentAnimatorStateInfo(0).normalizedTime - (51f/60f)));
+        if (attackNum == bladeShotAttackNum)
         {
-            OnDestroy();
+            float playSpeed = animator.GetCurrentAnimatorStateInfo(0).speed;
+            float currTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+
+            float secsAhead = ((75*currTime - 51)/(playSpeed*60));
+            
+            float maxOffset = offsetTracker.GetMaxOffset();
+            float offsetMinusFrames = (maxOffset - (4f / 60f))/2;
+            float minTime = (51f / 60f) - offsetMinusFrames;
+            float maxTime = ((51f + 4f) / 60f) + offsetMinusFrames;
+
+            //Debug.Log("Min, ideal, max times: " + minTime + ", " + (51f / 60f) + ", " + maxTime);
+
+            if (secsAhead < (minTime - 0.85f))
+            {
+                Debug.Log("Too Early! "+ secsAhead);
+                return;
+            }
+
+            if (secsAhead > (maxTime - 0.85f))
+            {
+                Debug.Log("Too Late! " + secsAhead);
+                return;
+            }
+
+            //Debug.Log("Recent time hit: " + secsAhead);
+
+            offsetTracker.AddOffsetNote(secsAhead);
+
             heroStats.DestroyEnemyAttack();
+            OnDestroy();
         }
+    }
+
+    public void PrintTime()
+    {
+        float frameNum = (animator.GetCurrentAnimatorStateInfo(0).normalizedTime * 75);
+        float framesAhead = frameNum - 51;
+        float secsAhead = framesAhead / (60f);
+        Debug.Log("FramesAhead: "+framesAhead);
+        Debug.Log("SecsAhead: "+secsAhead);
     }
 
     private void OnDestroy()
@@ -44,6 +111,7 @@ public class Enemy_Attack : MonoBehaviour
 
     private void EndOfAnim()
     {
+        //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).normalizedTime * 75);
         if (atkType == attackType.Hit) //Attack has reached end, meaning it was not hit by the player
         {
             //Player should take damage

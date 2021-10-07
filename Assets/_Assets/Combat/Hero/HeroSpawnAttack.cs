@@ -34,19 +34,20 @@ public class HeroSpawnAttack : MonoBehaviour
         }
 
         //Create attack projectile
-        SpawnShot();
+        SpawnShot(attackNum);
     }
 
-    void SpawnShot()
+    void SpawnShot(int attackNum)
     {
-        GameObject childObject = Instantiate(shotProjectilePrefab) as GameObject;
+        GameObject childObject = Instantiate(shotProjectilePrefab);
 
         childObject.transform.parent = shotSpawnPoint.transform;
 
         childObject.transform.localPosition = new Vector3(0, 0, 0);
         childObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
-        childObject.GetComponent<Rigidbody>().velocity = shotSpawnPoint.transform.right * shotSpeed;
+        //childObject.GetComponent<Rigidbody>().velocity = shotSpawnPoint.transform.right * shotSpeed;
+        childObject.GetComponent<BladeShot>().attackNum = attackNum;
 
         childObject.transform.parent = null;
     }
