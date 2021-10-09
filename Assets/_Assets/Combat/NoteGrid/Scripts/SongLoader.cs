@@ -10,8 +10,9 @@ public class SongLoader : MonoBehaviour
     public CombatState state;
     GameObject startState;
 
-    [Header("Song Prefab")]
+    [Header("Song Prefab + Settings")]
     public GameObject songToLoadPrefab;
+    [SerializeField] private float attackTravelTimeInBeats;
     private GameObject songToLoad;
 
     [Header("Objects + Stuff")]
@@ -51,6 +52,7 @@ public class SongLoader : MonoBehaviour
     [Header("Timing + Settings")]
     public float songStartOffset;
     public float beatTravelTime;
+    [SerializeField] private float beatTimingOffset;
     //public float audioLatencySecs;
     public GameObject songTimingPrefab;
     public GameObject[] thingsToToggleEnableForSettingOffset;
@@ -218,26 +220,29 @@ public class SongLoader : MonoBehaviour
         //Set song to play based on song from loaded prefab
         musicSource.clip = songToLoad.GetComponent<AudioSource>().clip;
 
+        /*
+        #region Old Beat Offset
         //Calculate beat offset
         startupBeats = (songBPM / 60) * beatTravelTime;
 
-        #region New Stuff
-        /*
-        startupBeats = songProperties.attackTravelBeats;
+        FindObjectOfType<Enemy_Shot_Creator>().SetAnimSpeeds(1, 1);
+        #endregion
+        */
 
-        float secsPer4Beats = (240f / songBPM);
+        #region New Beat Offset
+        startupBeats = attackTravelTimeInBeats;
 
-        float latency = (51f / 60f) - beatTravelTime;
+        float totalTravelTime = secsPerBeat * startupBeats;
 
-        //attackAnimationSpeedHit = ((secsPer4Beats - latency) / (51f / 60f));
-        attackAnimationSpeedHit = ((secsPer4Beats - latency) / (51f / 60f));
+        float normalTravelTime = (51f / 60f);
+
+        float animationScale = (normalTravelTime / totalTravelTime) + beatTimingOffset;
+
+        attackAnimationSpeedHit = animationScale;
         attackAnimationSpeedDodge = attackAnimationSpeedHit;
 
         FindObjectOfType<Enemy_Shot_Creator>().SetAnimSpeeds(attackAnimationSpeedHit, attackAnimationSpeedDodge);
-        */
         #endregion
-        
-        FindObjectOfType<Enemy_Shot_Creator>().SetAnimSpeeds(1, 1);
 
         FillNoteArray(0);
     }
@@ -254,6 +259,9 @@ public class SongLoader : MonoBehaviour
             GameObject noteObj = noteParent.transform.GetChild(i).gameObject;
 
             float beatToPlayOn = (noteObj.transform.localPosition.z/ 2) - startupBeats;
+            if (beatToPlayOn < 0)
+                beatToPlayOn = 0;
+
             if (beatToPlayOn < currentSongBeat) //note should have already been spawned, skip
             {
                 continue;
@@ -274,8 +282,9 @@ public class SongLoader : MonoBehaviour
         noteArray.Sort((a, b) => a.beatWithOffset.CompareTo(b.beatWithOffset));
 
         //DEBUG PRINTING
-        //for (int i = 0; i < noteArray.Count; i++)
-            //Debug.Log("Beatoffset: "+noteArray[i].beatWithOffset + ", AtkNum: " + noteArray[i].attackNum);
+        float howManyToPrint = 5;
+        for (int i = 0; i < howManyToPrint; i++)
+            Debug.Log("Beatoffset: "+noteArray[i].beatWithOffset + ", AtkNum: " + noteArray[i].attackNum);
     }
 
     void PlaySongZero()

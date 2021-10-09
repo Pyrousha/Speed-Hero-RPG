@@ -6076,7 +6076,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BPM: 0
-  attackTravelBeats: 0
 --- !u!82 &1024982696
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9173,6 +9172,7 @@ MonoBehaviour:
   state: 1
   songToLoadPrefab: {fileID: 8843899969375160443, guid: 2c8724ab80994474d89d472b49721ad1,
     type: 3}
+  attackTravelTimeInBeats: 2
   noteParent: {fileID: 1024982693}
   noteEditorCamera: {fileID: 1511847372}
   songEventHandler: {fileID: 394240087}
@@ -9195,6 +9195,7 @@ MonoBehaviour:
   musicSource: {fileID: 1498556604}
   songStartOffset: 0.5
   beatTravelTime: 0.7
+  beatTimingOffset: 0
   songTimingPrefab: {fileID: 5858298540112893502, guid: a00d037abcf750c428ac619d1444b126,
     type: 3}
   thingsToToggleEnableForSettingOffset:

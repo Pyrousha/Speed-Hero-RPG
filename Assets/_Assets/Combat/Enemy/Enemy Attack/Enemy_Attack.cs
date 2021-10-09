@@ -73,13 +73,13 @@ public class Enemy_Attack : MonoBehaviour
 
             if (secsAhead < ((-maxOffset)/2))
             {
-                Debug.Log("Too Early! "+ secsAhead);
+                //Debug.Log("Too Early! "+ secsAhead);
                 return;
             }
 
             if (secsAhead > ((maxOffset) / 2))
             {
-                Debug.Log("Too Late! " + secsAhead);
+                //Debug.Log("Too Late! " + secsAhead);
                 return;
             }
 

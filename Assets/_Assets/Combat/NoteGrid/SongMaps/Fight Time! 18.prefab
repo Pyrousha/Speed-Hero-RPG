@@ -43901,7 +43901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BPM: 180
-  attackTravelBeats: 0
+  attackTravelBeats: 2
 --- !u!82 &8843899969375160438
 AudioSource:
   m_ObjectHideFlags: 0
