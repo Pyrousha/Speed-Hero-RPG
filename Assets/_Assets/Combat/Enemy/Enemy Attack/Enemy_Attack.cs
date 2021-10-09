@@ -68,19 +68,16 @@ public class Enemy_Attack : MonoBehaviour
             float secsAhead = ((75*currTime - 51)/(playSpeed*60));
             
             float maxOffset = offsetTracker.GetMaxOffset();
-            float offsetMinusFrames = (maxOffset - (4f / 60f))/2;
-            float minTime = (51f / 60f) - offsetMinusFrames;
-            float maxTime = ((51f + 4f) / 60f) + offsetMinusFrames;
 
             //Debug.Log("Min, ideal, max times: " + minTime + ", " + (51f / 60f) + ", " + maxTime);
 
-            if (secsAhead < (minTime - 0.85f))
+            if (secsAhead < ((-maxOffset)/2))
             {
                 Debug.Log("Too Early! "+ secsAhead);
                 return;
             }
 
-            if (secsAhead > (maxTime - 0.85f))
+            if (secsAhead > ((maxOffset) / 2))
             {
                 Debug.Log("Too Late! " + secsAhead);
                 return;
@@ -93,6 +90,11 @@ public class Enemy_Attack : MonoBehaviour
             heroStats.DestroyEnemyAttack();
             OnDestroy();
         }
+    }
+
+    public float GetAnimPercent()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
     }
 
     public void PrintTime()

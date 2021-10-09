@@ -2341,6 +2341,11 @@ MonoBehaviour:
   initialSpeed: 0
   decellerateSpeed: 0
   attackNum: 7
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  hitboxTransform: {fileID: 0}
+  animationRB: {fileID: 0}
 --- !u!65 &452021431
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4055,6 +4060,11 @@ MonoBehaviour:
   initialSpeed: 0
   decellerateSpeed: 0
   attackNum: 3
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  hitboxTransform: {fileID: 0}
+  animationRB: {fileID: 0}
 --- !u!65 &724087422
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6811,6 +6821,11 @@ MonoBehaviour:
   initialSpeed: 0
   decellerateSpeed: 0
   attackNum: 2
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  hitboxTransform: {fileID: 0}
+  animationRB: {fileID: 0}
 --- !u!54 &1159510260
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7648,6 +7663,11 @@ MonoBehaviour:
   initialSpeed: 0
   decellerateSpeed: 0
   attackNum: 5
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  hitboxTransform: {fileID: 0}
+  animationRB: {fileID: 0}
 --- !u!65 &1281412128
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9151,7 +9171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 1
-  songToLoadPrefab: {fileID: 5401878848925135257, guid: 9f7322bc9e5af3a40a85a2e816471126,
+  songToLoadPrefab: {fileID: 8843899969375160443, guid: 2c8724ab80994474d89d472b49721ad1,
     type: 3}
   noteParent: {fileID: 1024982693}
   noteEditorCamera: {fileID: 1511847372}
@@ -9174,7 +9194,7 @@ MonoBehaviour:
   dspSongTime: 0
   musicSource: {fileID: 1498556604}
   songStartOffset: 0.5
-  beatTravelTime: 0.72
+  beatTravelTime: 0.7
   songTimingPrefab: {fileID: 5858298540112893502, guid: a00d037abcf750c428ac619d1444b126,
     type: 3}
   thingsToToggleEnableForSettingOffset:
@@ -9327,7 +9347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoUpdateAverage: 1
   printAvg: 0
-  maxOffsetToCountAsHit: 0.125
+  maxOffsetToCountAsHit: 0.15
   offsets: []
   avgOffset: 0
 --- !u!1 &1511847372
@@ -12661,6 +12681,11 @@ MonoBehaviour:
   initialSpeed: 0
   decellerateSpeed: 0
   attackNum: 9
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  hitboxTransform: {fileID: 0}
+  animationRB: {fileID: 0}
 --- !u!65 &2132348304
 BoxCollider:
   m_ObjectHideFlags: 0

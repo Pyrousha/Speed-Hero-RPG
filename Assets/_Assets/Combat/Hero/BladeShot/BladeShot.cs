@@ -4,30 +4,58 @@ using UnityEngine;
 
 public class BladeShot : MonoBehaviour
 {
-    Rigidbody RB;
     public float initialSpeed;
     public float decellerateSpeed;
     public int attackNum;
 
-    
+    public LayerMask m_LayerMask;
+    [SerializeField] private Transform hitboxTransform;
+    [SerializeField] private Rigidbody animationRB;
+
     // Start is called before the first frame update
     void Start()
     {
-        if (transform.childCount > 0)
+        CheckForCollision();
+
+        if (animationRB != null)
+        if (animationRB != null)
+            animationRB.velocity = animationRB.transform.right * initialSpeed;
+    }
+
+    public void CheckForCollision()
+    {
+        Collider[] hitColliders = Physics.OverlapBox(hitboxTransform.position, hitboxTransform.localScale / 2, hitboxTransform.rotation, m_LayerMask);
+
+        /*
+        Enemy_Attack enemyProjectile = null;
+
+        float currAnimTime = 0;
+
+        //Check when there is a new collider coming into contact with the box
+        for (int i = 0;  i < hitColliders.Length; i++)
         {
-            RB = transform.GetChild(0).GetComponent<Rigidbody>();
-            RB.velocity = RB.transform.right * initialSpeed;
+            Enemy_Attack enemyAttacki = hitColliders[i].GetComponent<Enemy_Attack>();
+            if (enemyAttacki.GetAnimPercent() > currAnimTime)
+                enemyProjectile = enemyAttacki;
         }
-        else
-            RB = null;
+
+        enemyProjectile.TryDestroy(attackNum);
+        */
+
+        for (int i = 0; i < hitColliders.Length; i++)
+        {
+            Enemy_Attack enemyAttacki = hitColliders[i].GetComponent<Enemy_Attack>();
+            enemyAttacki.TryDestroy(attackNum);
+        }
     }
 
     private void FixedUpdate()
     {
-        if (RB != null)
-            RB.velocity = RB.velocity * decellerateSpeed;
+        if (animationRB != null)
+            animationRB.velocity = animationRB.velocity * decellerateSpeed;
     }
 
+    /*
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "EnemyProjectile")
@@ -35,11 +63,11 @@ public class BladeShot : MonoBehaviour
             //Debug.Log("HIT!");
             other.GetComponent<Enemy_Attack>().TryDestroy(attackNum);
         }
-    }
+    }*/
 
     public void DestroySelf()
     {
-        RB.velocity = new Vector2(0, 0);
+        animationRB.velocity = new Vector3(0, 0, 0);
         Destroy(gameObject);
     }
 }
