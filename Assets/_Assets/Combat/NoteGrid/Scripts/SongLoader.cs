@@ -234,9 +234,9 @@ public class SongLoader : MonoBehaviour
 
         float totalTravelTime = secsPerBeat * startupBeats;
 
-        float normalTravelTime = (51f / 60f);
+        float normalTravelTime = (51f / 60f) + beatTimingOffset;
 
-        float animationScale = (normalTravelTime / totalTravelTime) + beatTimingOffset;
+        float animationScale = (normalTravelTime / totalTravelTime);
 
         attackAnimationSpeedHit = animationScale;
         attackAnimationSpeedDodge = attackAnimationSpeedHit;
@@ -282,7 +282,7 @@ public class SongLoader : MonoBehaviour
         noteArray.Sort((a, b) => a.beatWithOffset.CompareTo(b.beatWithOffset));
 
         //DEBUG PRINTING
-        float howManyToPrint = 5;
+        float howManyToPrint = 0;
         for (int i = 0; i < howManyToPrint; i++)
             Debug.Log("Beatoffset: "+noteArray[i].beatWithOffset + ", AtkNum: " + noteArray[i].attackNum);
     }
