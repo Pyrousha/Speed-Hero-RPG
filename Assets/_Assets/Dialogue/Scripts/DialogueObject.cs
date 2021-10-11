@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [CreateAssetMenu(menuName = "Dialogue/DialogueObject")]
 public class DialogueObject : ScriptableObject
@@ -10,7 +11,6 @@ public class DialogueObject : ScriptableObject
     public DialogueObject nextDialogueObject;
     [SerializeField] private Response[] responses;
 
-    public string[] Dialogue => dialogue;
     public CharacterObject[] Characters => characters;
 
     public bool HasResponses => ((Responses != null) && (Responses.Length > 0));
@@ -46,6 +46,13 @@ public class DialogueObject : ScriptableObject
 
             characters[i] = lastValidSpeaker;
         }
+    }
+
+    public string[] GetDialogue()
+    {
+        if (dialogue == null)
+            Convert();
+        return dialogue;
     }
 }
 

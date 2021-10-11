@@ -90,9 +90,7 @@ public class DialogueUI : MonoBehaviour
 
     private IEnumerator StepThroughDialogue(DialogueObject dialogueObject)
     {
-        //yield return new WaitForSeconds(1.5f);
-
-        for (int i = 0; i< dialogueObject.Dialogue.Length; i++)
+        for (int i = 0; i< dialogueObject.GetDialogue().Length; i++)
         {
             //Set speaker labels + icon
             CharacterObject newSpeaker = dialogueObject.Characters[i];
@@ -104,12 +102,12 @@ public class DialogueUI : MonoBehaviour
             }
 
             //show text
-            string dialogue = dialogueObject.Dialogue[i];
+            string dialogue = dialogueObject.GetDialogue()[i];
             yield return RunTypingEffect(dialogue);
             textLabel.text = dialogue;
 
             //if responses exist, don't let player close text box
-            if ((i == dialogueObject.Dialogue.Length - 1) && (dialogueObject.HasResponses))
+            if ((i == dialogueObject.GetDialogue().Length - 1) && (dialogueObject.HasResponses))
                 break;
 
             //Wait for input to show next slide

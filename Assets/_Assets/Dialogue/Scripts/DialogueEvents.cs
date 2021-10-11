@@ -19,21 +19,21 @@ public class DialogueEvents : MonoBehaviour
     {
         if (dialogueObject == null)
             return;
-        if (events != null && events.Length == dialogueObject.Dialogue.Length)
+        if (events != null && events.Length == dialogueObject.GetDialogue().Length)
             return;
 
         if (events == null)
         {
-            events = new DialogueEvent[dialogueObject.Dialogue.Length];
+            events = new DialogueEvent[dialogueObject.GetDialogue().Length];
         }
         else
         {
-            Array.Resize(ref events, dialogueObject.Dialogue.Length);
+            Array.Resize(ref events, dialogueObject.GetDialogue().Length);
         }
 
-        for(int i = 0; i< dialogueObject.Dialogue.Length; i++)
+        for(int i = 0; i< dialogueObject.GetDialogue().Length; i++)
         {
-            string dialogueText = dialogueObject.Dialogue[i];
+            string dialogueText = dialogueObject.GetDialogue()[i];
 
             if (events[i] != null)
             {
@@ -50,6 +50,6 @@ public class DialogueEvents : MonoBehaviour
         events[pasteIndex] = events[copyIndex];
 
         if(deleteAfterCopy)
-            events[copyIndex] = new DialogueEvent() { name = dialogueObject.Dialogue[copyIndex] };
+            events[copyIndex] = new DialogueEvent() { name = dialogueObject.GetDialogue()[copyIndex] };
     }
 }
