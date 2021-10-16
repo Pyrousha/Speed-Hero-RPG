@@ -17,6 +17,8 @@ public class CameraMove2D : MonoBehaviour
     private float minZ = -9999;
     private float maxZ = 9999;
 
+    //[SerializeField] private float camMoveSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +44,17 @@ public class CameraMove2D : MonoBehaviour
             targetPos.z = Mathf.Clamp(targetPos.z, minZ, maxZ);
 
             transform.position = targetPos;
+
+            //Camera move to position
+            /*float moveSpeedThisFrame = camMoveSpeed * Time.deltaTime;
+
+            if (Vector3.Distance(transform.position, targetPos) <= moveSpeedThisFrame)
+                transform.position = targetPos;
+            else
+            {
+                Vector3 targetDir = (targetPos - transform.position).normalized;
+                transform.position += targetDir * moveSpeedThisFrame;
+            }*/
         }
     }
 }

@@ -2,6 +2,22 @@
 
 public class PlayerMove2D : MonoBehaviour
 {
+    [Header("Debug Stuff")]
+    [SerializeField] private bool hasSpeedCrystal;
+
+    [Header("Dashing")]
+    private KeyCode dashKey = KeyCode.LeftShift;
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private float dashDuration;
+    private float dashTimer;
+    enum dashStateEnum
+    {
+        charged,
+        dashing,
+        recharging
+    }
+    [SerializeField] private dashStateEnum dashState;
+
     [Header("Self References")]
     public Rigidbody heroRB;
     public Animator heroAnim;
@@ -10,6 +26,7 @@ public class PlayerMove2D : MonoBehaviour
 
     [Header("Movement")]
     public Vector2 inputVect;
+    public Vector2 dirFacing;
     public float moveSpeed;
     public float accelSpeed;
     public float frictionSpeed;
@@ -49,7 +66,7 @@ public class PlayerMove2D : MonoBehaviour
     {
         isGrounded = false;
 
-        foreach(GameObject go in raycastPoints)
+        foreach (GameObject go in raycastPoints)
         {
             if (Physics.Raycast(go.transform.position, Vector3.down, raycastHeight, groundLayer))
             {
@@ -65,13 +82,60 @@ public class PlayerMove2D : MonoBehaviour
         else
             inputVect = new Vector2(0, 0);
 
-        if (!isGrounded)
+        if (inputVect.magnitude > 0)
+            dirFacing = inputVect;
+
+        switch (dashState)
         {
-            inputVect *= 0.5f;
-            SetAnimatorValues(new Vector2(0, 0));
+            case dashStateEnum.charged:
+                {
+                    if ((isGrounded) && (Input.GetKeyDown(dashKey)))
+                        StartDash();
+                    break;
+                }
+            case dashStateEnum.dashing:
+                {
+                    dashTimer -= Time.deltaTime;
+                    if (dashTimer <= 0)
+                        EndDash();
+                    break;
+                }
+            case dashStateEnum.recharging:
+                {
+                    break;
+                }
         }
-        else
-            SetAnimatorValues(inputVect);
+
+        if (dashState != dashStateEnum.dashing)
+        {
+            if (!isGrounded)
+            {
+                inputVect *= 0.5f;
+                SetAnimatorValues(new Vector2(0, 0));
+            }
+            else
+                SetAnimatorValues(inputVect);
+        }
+    }
+
+    private void StartDash()
+    {
+        canMove = false;
+        Vector3 dashDir = new Vector3(dirFacing.x, 0, dirFacing.y);
+        heroRB.velocity = dashDir * dashSpeed;
+        heroRB.useGravity = false;
+
+        dashState = dashStateEnum.dashing;
+        dashTimer = dashDuration;
+    }
+
+    private void EndDash()
+    {
+        canMove = true;
+        heroRB.useGravity = true;
+        heroRB.velocity *= (1f / 5f);
+
+        dashState = dashStateEnum.charged;
     }
 
     private void FixedUpdate()
@@ -79,6 +143,14 @@ public class PlayerMove2D : MonoBehaviour
         if(pathMove2D!= null && pathMove2D.enabled)
             return;
 
+        if (dashState == dashStateEnum.dashing)
+            return;
+
+        ApplyFriction();
+    }
+
+    public void ApplyFriction()
+    {
         float currSpeedX = heroRB.velocity.x;
         float currSpeedZ = heroRB.velocity.z;
 
@@ -196,21 +268,25 @@ public class PlayerMove2D : MonoBehaviour
             {
                 case ("Hero-right"):
                     {
+                        dirFacing = new Vector2(1, 0);
                         heroAnim.SetInteger("Dir", 0);
                         break;
                     }
                 case ("Hero-up"):
                     {
+                        dirFacing = new Vector2(0, 1);
                         heroAnim.SetInteger("Dir", 1);
                         break;
                     }
                 case ("Hero-left"):
                     {
+                        dirFacing = new Vector2(-1, 0);
                         heroAnim.SetInteger("Dir", 2);
                         break;
                     }
                 case ("Hero-down"):
                     {
+                        dirFacing = new Vector2(0, -1);
                         heroAnim.SetInteger("Dir", 3);
                         break;
                     }
