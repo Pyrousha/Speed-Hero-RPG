@@ -136,9 +136,10 @@ public class PlayerMove2D : MonoBehaviour
 
     private void TrySpawnAfterImage()
     {
-        if ((true) || (dashSpawnTimer <= 0))
+        if (dashSpawnTimer <= 0)
         {
-            PlayerAfterImagePool.Instance.GetFromPool();
+            GameObject newAfterImage =  PlayerAfterImagePool.Instance.GetFromPool();
+            newAfterImage.transform.position += new Vector3(dirFacing.x, 0, dirFacing.y - 0.1f)*-0.1f;
             dashSpawnTimer = dashSpawnInterval;
         }
         else
