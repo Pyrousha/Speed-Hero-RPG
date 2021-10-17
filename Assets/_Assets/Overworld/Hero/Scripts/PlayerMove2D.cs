@@ -17,6 +17,8 @@ public class PlayerMove2D : MonoBehaviour
         recharging
     }
     [SerializeField] private dashStateEnum dashState;
+    [SerializeField] private float dashSpawnInterval;
+    private float dashSpawnTimer = 0;
 
     [Header("Self References")]
     public Rigidbody heroRB;
@@ -98,6 +100,9 @@ public class PlayerMove2D : MonoBehaviour
                     dashTimer -= Time.deltaTime;
                     if (dashTimer <= 0)
                         EndDash();
+
+                    TrySpawnAfterImage();
+
                     break;
                 }
             case dashStateEnum.recharging:
@@ -127,6 +132,19 @@ public class PlayerMove2D : MonoBehaviour
 
         dashState = dashStateEnum.dashing;
         dashTimer = dashDuration;
+    }
+
+    private void TrySpawnAfterImage()
+    {
+        if ((true) || (dashSpawnTimer <= 0))
+        {
+            PlayerAfterImagePool.Instance.GetFromPool();
+            dashSpawnTimer = dashSpawnInterval;
+        }
+        else
+        {
+            dashSpawnTimer -= Time.deltaTime;
+        }
     }
 
     private void EndDash()
