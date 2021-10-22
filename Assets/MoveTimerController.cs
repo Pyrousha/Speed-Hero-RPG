@@ -63,6 +63,11 @@ public class MoveTimerController : MonoBehaviour
         if (isDoingMove)
         {
             float songPosBeats = songLoader.SongPositionInBeats;
+            float beatsFromStart = songPosBeats - closestNote;
+            float xPos = beatsFromStart * -40f;
+
+            arrowLocationsParent.transform.localPosition = new Vector3(xPos, 0, 0);
+
             if (Input.GetKeyDown(nextInput) && (CheckInputTimeToSongPosition(targetBeats[nextInputIndex])))
             {
                 //correct input
@@ -153,6 +158,7 @@ public class MoveTimerController : MonoBehaviour
         isDoingMove = false;
         currComboInputs = null;
 
+        arrowLocationsParent.transform.localPosition = new Vector3(0, 0, 0);
         //ResetArrowColors();
     }
 

@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public class Hero_Stats_Combat : MonoBehaviour
 {
-    [Header("Debug Toggle Invincible")]
+    [Header("Devhacks")]
     public bool invincible;
     bool dead = false;
+    [SerializeField] private bool infiniteMana = false;
 
     [Header("Stats")]
     public int maxHp;
@@ -42,6 +43,12 @@ public class Hero_Stats_Combat : MonoBehaviour
         UpdateHealthBar();
         UpdateHealBar();
         UpdateManaBar();
+    }
+
+    private void Update()
+    {
+        if ((infiniteMana) && (mp < maxMp))
+            SetManaToMax();
     }
 
     public void SetHealth(int newHp)
@@ -153,6 +160,12 @@ public class Hero_Stats_Combat : MonoBehaviour
     public void SpendMana(int manaUsed)
     {
         mp -= manaUsed;
+        UpdateManaBar();
+    }
+
+    public void SetManaToMax()
+    {
+        mp = maxMp;
         UpdateManaBar();
     }
 
