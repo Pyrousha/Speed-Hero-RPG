@@ -12,17 +12,24 @@ public class Hero_Stats_Combat : MonoBehaviour
 
     [Header("Stats")]
     public int maxHp;
-    int hp;
+    private int hp;
     public int dmg;
+    private int mp;
+    public int GetMP => mp;
 
-    int healCount = 0;
-    int maxhealCount = 8;
-    int hpHealed = 1;
+    [SerializeField] private int maxMp;
+
+    private int healCount = 0;
+    private int maxhealCount = 8;
+    private int hpToHeal = 1;
 
     [Header("Objects")]
     public Text healthBarText;
     public Slider healthBarSlider;
     public Slider healBarSlider;
+    [SerializeField] private Text manaBarText;
+    [SerializeField] private Slider manaBarSlider;
+    [SerializeField] private HeroMenuController heroMenuController;
 
     public bool isNoteEditorMode;
 
@@ -33,6 +40,7 @@ public class Hero_Stats_Combat : MonoBehaviour
 
         UpdateHealthBar();
         UpdateHealBar();
+        UpdateManaBar();
     }
 
     public void SetHealth(int newHp)
@@ -65,12 +73,18 @@ public class Hero_Stats_Combat : MonoBehaviour
 
     public void DestroyEnemyAttack()
     {
+        #region mana bar stuff
+        mp = Mathf.Min(maxMp, mp + 1);
+        UpdateManaBar();
+        #endregion
+
+        #region hp bar stuff
         if (healCount+1 > maxhealCount) //heal bar full
         {
             if (hp < maxHp) //not full hp, use heal
             {
                 healCount = 0;
-                Heal(hpHealed);
+                Heal(hpToHeal);
             }
         }
         else
@@ -79,6 +93,7 @@ public class Hero_Stats_Combat : MonoBehaviour
         }
 
         UpdateHealBar();
+        #endregion
     }
 
     public void takeDamage(int damage)
@@ -109,7 +124,7 @@ public class Hero_Stats_Combat : MonoBehaviour
 
     private void UpdateHealthBar()
     {
-        healthBarText.text = "HP: " + hp + "/" + maxHp;
+        healthBarText.text = "" + hp + "/" + maxHp;
         healthBarSlider.value = ((float)hp) / ((float)maxHp);
     }
 
@@ -119,10 +134,25 @@ public class Hero_Stats_Combat : MonoBehaviour
         healBarSlider.value = newVal;
     }
 
+    void UpdateManaBar()
+    {
+        heroMenuController.OnHeroManaUpdated(mp);
+
+        manaBarText.text = "" + mp + "/" + maxMp;
+        float newVal = ((float)mp / (float)maxMp);
+        manaBarSlider.value = newVal;
+    }
+
     public void Heal(int healing)
     {
         hp = Mathf.Min(maxHp, hp + healing);
         UpdateHealthBar();
+    }
+
+    public void SpendMana(int manaUsed)
+    {
+        mp -= manaUsed;
+        UpdateManaBar();
     }
 
     public void Die()
