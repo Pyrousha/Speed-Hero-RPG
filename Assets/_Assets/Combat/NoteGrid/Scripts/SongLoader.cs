@@ -19,6 +19,7 @@ public class SongLoader : MonoBehaviour
     public GameObject noteParent;
     public GameObject noteEditorCamera;
     [SerializeField] private SongEventHandler songEventHandler;
+    [SerializeField] private MoveTimerController moveTimerController;
     public GameObject combatCameraLights;
     public Camera noteEditorPreviewCam;
     public Camera beatOffsetCamera;
@@ -34,13 +35,15 @@ public class SongLoader : MonoBehaviour
 
 
     [Header("Song Properties (To be loaded, don't change!)")]
-    public float songBPM;
+    [SerializeField] private float songBPM;
+    public float SongBPM => songBPM;
 
     public float secsPerBeat;
 
     public float songPosition; //current song position, in seconds
 
-    public float songPositionInBeats;
+    private float songPositionInBeats;
+    public float SongPositionInBeats => songPositionInBeats;
 
     public float dspSongTime; //How many seconds have passed since the song started
 
@@ -51,7 +54,8 @@ public class SongLoader : MonoBehaviour
 
     [Header("Timing + Settings")]
     public float songStartOffset;
-    public float beatTravelTime;
+    //public float beatTravelTime;
+    public float BeatTravelTime => 0f;
     [SerializeField] private float beatTimingOffset;
     //public float audioLatencySecs;
     public GameObject songTimingPrefab;
@@ -142,7 +146,7 @@ public class SongLoader : MonoBehaviour
     {
         CombatStartingState combatStartingState = startState.GetComponent<CombatStartingState>();
         state = combatStartingState.combatState;
-        beatTravelTime = combatStartingState.beatOffset;
+        //beatTravelTime = combatStartingState.beatOffset;
 
         songToLoadPrefab = combatStartingState.songPrefab;
         enemy.LoadFromEnemyObject(combatStartingState.enemyObject);
@@ -153,7 +157,7 @@ public class SongLoader : MonoBehaviour
         if (songPlaying)
         {
             //determine how many seconds since the song started
-            songPosition = (float)(AudioSettings.dspTime - dspSongTime);
+            songPosition = (float)AudioSettings.dspTime - dspSongTime;
 
             //determine how many beats since the song started
             songPositionInBeats = songPosition / secsPerBeat;
@@ -219,6 +223,9 @@ public class SongLoader : MonoBehaviour
         
         //Set song to play based on song from loaded prefab
         musicSource.clip = songToLoad.GetComponent<AudioSource>().clip;
+
+        //Set BPM for moveTimerController
+        moveTimerController.CalculateOffset();
 
         /*
         #region Old Beat Offset
@@ -343,7 +350,7 @@ public class SongLoader : MonoBehaviour
 
     public void ChangeBeatOffset(float newoffset)
     {
-        beatTravelTime = newoffset;
+        //beatTravelTime = newoffset;
         StopSong();
 
         LoadSongPrefab(songTimingPrefab);

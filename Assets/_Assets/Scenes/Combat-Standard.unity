@@ -7971,7 +7971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c1ed2cd186a3a469c27a19bf0a970c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invincible: 0
+  invincible: 1
   maxHp: 8
   dmg: 1
   maxMp: 16
@@ -9125,7 +9125,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -80.00001, y: 0}
-  m_SizeDelta: {x: 1.5, y: 30}
+  m_SizeDelta: {x: 1.5, y: 32.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1294446612
 MonoBehaviour:
@@ -9140,7 +9140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.8}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -10851,6 +10851,7 @@ MonoBehaviour:
   noteParent: {fileID: 1024982693}
   noteEditorCamera: {fileID: 1511847372}
   songEventHandler: {fileID: 394240087}
+  moveTimerController: {fileID: 1923027835}
   combatCameraLights: {fileID: 1754305405}
   noteEditorPreviewCam: {fileID: 1318024039}
   beatOffsetCamera: {fileID: 563077002}
@@ -10865,11 +10866,9 @@ MonoBehaviour:
   songBPM: 0
   secsPerBeat: 0
   songPosition: 0
-  songPositionInBeats: 0
   dspSongTime: 0
   musicSource: {fileID: 1498556604}
   songStartOffset: 0.5
-  beatTravelTime: 0.7
   beatTimingOffset: -0.15
   songTimingPrefab: {fileID: 5858298540112893502, guid: a00d037abcf750c428ac619d1444b126,
     type: 3}
@@ -11420,7 +11419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1544453254
 Transform:
   m_ObjectHideFlags: 0
@@ -11668,7 +11667,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 90, y: 0}
-  m_SizeDelta: {x: 1.5, y: 30}
+  m_SizeDelta: {x: 1.5, y: 32.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1547495001
 MonoBehaviour:
@@ -13784,6 +13783,10 @@ MonoBehaviour:
   eighthRestSprite: {fileID: 21300000, guid: 8422f6a31fdcde54f815f3ebadaa7a6f, type: 3}
   transparentSprite: {fileID: 21300000, guid: 8422f6a31fdcde54f815f3ebadaa7a6f, type: 3}
   arrowLocationsParent: {fileID: 113686402}
+  songStartCircle: {fileID: 1370884509}
+  useSongloaderOffset: 1
+  songLoader: {fileID: 1498556601}
+  offset: 0
 --- !u!1 &1935169086
 GameObject:
   m_ObjectHideFlags: 0
@@ -20462,7 +20465,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6675362581958454607
 Transform:
   m_ObjectHideFlags: 0

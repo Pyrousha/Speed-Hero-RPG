@@ -256,7 +256,7 @@ public class MenuController : MonoBehaviour
 
         if(updateOffset)
         {
-            persistentGameInfo.GetComponent<CombatStartingState>().beatOffset =  GameObject.Find("Note Grid/State Controller").GetComponent<SongLoader>().beatTravelTime;
+            persistentGameInfo.GetComponent<CombatStartingState>().beatOffset =  GameObject.Find("Note Grid/State Controller").GetComponent<SongLoader>().BeatTravelTime;
         }
 
         persistentGameInfo.GetComponent<BattleTransition>().CloseBeatCalibration();

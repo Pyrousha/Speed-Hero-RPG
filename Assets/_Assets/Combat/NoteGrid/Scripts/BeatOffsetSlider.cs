@@ -10,7 +10,7 @@ public class BeatOffsetSlider : MonoBehaviour
 
     private void Start()
     {
-        slider.value = songLoader.beatTravelTime;
+        slider.value = songLoader.BeatTravelTime;
     }
 
     public void ChangeBeatOffset()

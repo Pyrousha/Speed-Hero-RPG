@@ -11,34 +11,165 @@ public class MoveTimerController : MonoBehaviour
     [SerializeField] private Sprite transparentSprite;
 
     [SerializeField] private Transform arrowLocationsParent;
+    [SerializeField] private Image songStartCircle;
     private Image[] arrowImages;
+
+    [Header("Attack Timing")]
+    [SerializeField] private bool useSongloaderOffset;
+    [SerializeField] private SongLoader songLoader;
+    [SerializeField] private float offset;
+    private float maxOffset;
+    private float closestNote;
+
+    //private ComboAbility currAbility;
+    private ComboAbility.ComboInput[] currComboInputs;
+    private float[] targetBeats;
+    private KeyCode[] targetInputs;
+    private KeyCode nextInput;
+    private int nextInputIndex;
+    private float nextInputTimeEnd;
+    private int totalENotes;
+
+    [System.NonSerialized] private bool doneStart = false;
+
+    [System.NonSerialized] private bool isDoingMove = false;
+    public bool IsDoingMove => isDoingMove;
 
     private void Start()
     {
+        if (doneStart)
+            return;
+
         arrowImages = new Image[arrowLocationsParent.childCount];
 
         for (int i = 0; i < arrowLocationsParent.childCount; i++)
             arrowImages[i] = arrowLocationsParent.GetChild(i).GetComponent<Image>();
+
+        doneStart = true;
+    }
+
+    public void CalculateOffset()
+    {
+        float BPM = songLoader.SongBPM;
+
+        if (useSongloaderOffset)
+            maxOffset = songLoader.gameObject.GetComponent<BeatOffsetTracker>().GetMaxOffset() * (BPM / 60f);
+        else
+            maxOffset = offset * (BPM / 60f);
+    }
+
+    private void Update()
+    {
+        if (isDoingMove)
+        {
+            float songPosBeats = songLoader.SongPositionInBeats;
+            if (Input.GetKeyDown(nextInput) && (CheckInputTimeToSongPosition(targetBeats[nextInputIndex])))
+            {
+                //correct input
+                SetArrowColor(nextInputIndex, Color.green);
+
+                nextInputIndex++;
+                if (nextInputIndex < targetInputs.Length)
+                {
+                    nextInput = targetInputs[nextInputIndex];
+                    nextInputTimeEnd = targetBeats[nextInputIndex] + maxOffset / 2;
+                }
+                else
+                    MoveDone();
+            }
+
+            if (songPosBeats > nextInputTimeEnd)
+            {
+                //Missed note
+                SetArrowColor(nextInputIndex, Color.red);
+
+                nextInputIndex++;
+
+                if (nextInputIndex < targetInputs.Length)
+                {
+                    nextInput = targetInputs[nextInputIndex];
+                    nextInputTimeEnd = targetBeats[nextInputIndex] + maxOffset / 2;
+                }
+                else
+                    MoveDone();
+            }
+        }
+    }
+
+    void SetArrowColor(int index, Color col)
+    {
+        int numArrowsToSkip = index;
+        for(int i = 0; i< arrowImages.Length; i++)
+        {
+            Image currImage = arrowImages[i];
+            if (currImage.sprite == arrowSprite)
+            {
+                if (numArrowsToSkip <= 0)
+                {
+                    currImage.color = col;
+                    return;
+                }
+                else
+                    numArrowsToSkip--;
+            }
+        }
     }
 
     public void TryPerformMove(ComboAbility move)
     {
+        ResetArrowColors();
+
         int currMana = heroStatsCombat.GetMP;
 
         int manaCost = move.GetManaCost;
-        if (currMana >= manaCost)
+        if ((currMana >= manaCost) && (IsInputOnBeat(8)))
         {
+            isDoingMove = true;
+
+            songStartCircle.color = Color.green;
+
+            //currAbility = move;
+            currComboInputs = move.GetComboInputs;
+            targetBeats = new float[currComboInputs.Length];
+            targetInputs = new KeyCode[currComboInputs.Length];
+
+            for (int i = 0; i < currComboInputs.Length; i++)
+            {
+                ComboAbility.ComboInput currInput = currComboInputs[i];
+                targetBeats[i] = closestNote + (currInput.eigthNotesFromStart * 0.5f);
+                targetInputs[i] = AttackDirToKeycode(currInput.attackDirection);
+            }
+
+            nextInput = targetInputs[0];
+            nextInputIndex = 0;
+            nextInputTimeEnd = targetBeats[0] + maxOffset / 2;
+
             heroStatsCombat.SpendMana(manaCost);
         }
     }
 
+    private void MoveDone()
+    {
+        isDoingMove = false;
+        currComboInputs = null;
+
+        //ResetArrowColors();
+    }
+
+    private void ResetArrowColors()
+    {
+        songStartCircle.color = Color.white;
+        foreach (Image img in arrowImages)
+            img.color = Color.white;
+    }
+        
     public void LoadMoveIntoSheetDisplay(ComboAbility move)
     {
         if (arrowImages == null)
             Start();
 
         ComboAbility.ComboInput[] comboInputs = move.GetComboInputs;
-        int totalENotes = comboInputs[comboInputs.Length - 1].eigthNotesFromStart;
+        totalENotes = comboInputs[comboInputs.Length - 1].eigthNotesFromStart;
 
         Sprite[] spritesToUse = new Sprite[totalENotes];
         int[] rotations = new int[totalENotes];
@@ -78,6 +209,8 @@ public class MoveTimerController : MonoBehaviour
                 currArrow.transform.localScale = new Vector3(0.75f, 0.75f, 1);
             }
         }
+
+        ResetArrowColors();
     }
 
     public int AttackDirToDegrees(ComboAbility.attackDir dir)
@@ -98,5 +231,70 @@ public class MoveTimerController : MonoBehaviour
 
         Debug.Log("INVALID ATTACKDIR PASSED IN: " + dir);
         return (-1);
+    }
+
+    public KeyCode AttackDirToKeycode(ComboAbility.attackDir dir)
+    {
+        switch (dir)
+        {
+            case ComboAbility.attackDir.Left:
+                return KeyCode.A;
+            case ComboAbility.attackDir.DiagLeft:
+                return KeyCode.Q;
+            case ComboAbility.attackDir.Up:
+                return KeyCode.W;
+            case ComboAbility.attackDir.DiagRight:
+                return KeyCode.E;
+            case ComboAbility.attackDir.Right:
+                return KeyCode.D;
+        }
+
+        Debug.Log("INVALID ATTACKDIR PASSED IN: " + dir);
+        return KeyCode.Escape;
+    }
+
+    public bool IsInputOnBeat(int notesPerBeat)
+    {
+        float currSongPosInBeats = songLoader.SongPositionInBeats;
+        float locationInBeat = currSongPosInBeats - Mathf.Floor(currSongPosInBeats);
+
+        if (locationInBeat <= (maxOffset / 2)) //within first quarter note
+        {
+            closestNote = (int) currSongPosInBeats;
+            return true;
+        }
+
+        if (locationInBeat >= (1 - (maxOffset / 2))) //within second quarter note
+        {
+            closestNote = (int)currSongPosInBeats + 1;
+            return true;
+        }
+
+        if (notesPerBeat == 8)
+        {
+            locationInBeat = Mathf.Abs(locationInBeat - 0.5f);
+            if (locationInBeat <= maxOffset / 2) //within eigth notes
+            {
+                closestNote = (int)currSongPosInBeats + 0.5f;
+                return true;
+            }
+        }
+
+        closestNote = -1000;
+        return false;
+    }
+
+    public bool CheckInputTimeToSongPosition(float targetBeat)
+    {
+        float currSongPosInBeats = songLoader.SongPositionInBeats;
+        float offsetAhead = currSongPosInBeats - targetBeat;
+
+        if (Mathf.Abs(offsetAhead) <= maxOffset / 2)
+        {
+            //Hit within timing
+            return true;
+        }
+
+        return false;
     }
 }

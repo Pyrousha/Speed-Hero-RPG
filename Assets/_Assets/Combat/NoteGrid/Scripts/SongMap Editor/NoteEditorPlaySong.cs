@@ -52,7 +52,7 @@ public class NoteEditorPlaySong : MonoBehaviour
         if (songIsPlaying)
         {
             //Move camera along with notes
-            beatPos = songLoader.songPositionInBeats;
+            beatPos = songLoader.SongPositionInBeats;
 
             cubePlaceCam.transform.position = camStartPosition + new Vector3(0, 0, 27.68f * (beatPos/4));
         }
@@ -84,9 +84,9 @@ public class NoteEditorPlaySong : MonoBehaviour
         else
         {
             //Set current song time based on camera position
-            bpm = songLoader.songBPM;
+            bpm = songLoader.SongBPM;
             songStartTime = (240 * (cubePlaceCam.transform.position.z - camStartPosition.z)) / (bpm * 27.68f);
-            songStartTime = Mathf.Max(0, songStartTime - songLoader.beatTravelTime);
+            songStartTime = Mathf.Max(0, songStartTime - songLoader.BeatTravelTime);
 
             //Reload notes into array
             songLoader.FillNoteArray(songStartTime);

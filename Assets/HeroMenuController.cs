@@ -16,6 +16,8 @@ public class HeroMenuController : MonoBehaviour
     private HeroMenuMove[] menuMoves;
     private int selectedMoveIndex;
 
+    [System.NonSerialized] private bool movePrefabsLoaded = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,9 @@ public class HeroMenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (moveTimerController.IsDoingMove)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Insert))
             TryStartMove();
 
@@ -55,6 +60,9 @@ public class HeroMenuController : MonoBehaviour
 
     private void LoadMovesIntoMenu()
     {
+        if (movePrefabsLoaded)
+            return;
+
         menuMoves = new HeroMenuMove[availableMoves.Length];
 
         for (int i = 0; i< availableMoves.Length; i++)
@@ -67,6 +75,8 @@ public class HeroMenuController : MonoBehaviour
         }
 
         UpdateSelectionArrow(0);
+
+        movePrefabsLoaded = true;
     }
 
     private void ChangeSelection(int targetIndex)
