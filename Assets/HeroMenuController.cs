@@ -40,6 +40,9 @@ public class HeroMenuController : MonoBehaviour
 
     public void OnHeroManaUpdated(int newMP)
     {
+        if (menuMoves == null)
+            LoadMovesIntoMenu();
+
         foreach (HeroMenuMove menuMove in menuMoves)
             menuMove.UpdateCanUse(newMP, usableColor, unusableColor);
     }

@@ -34,6 +34,9 @@ public class MoveTimerController : MonoBehaviour
 
     public void LoadMoveIntoSheetDisplay(ComboAbility move)
     {
+        if (arrowImages == null)
+            Start();
+
         ComboAbility.ComboInput[] comboInputs = move.GetComboInputs;
         int totalENotes = comboInputs[comboInputs.Length - 1].eigthNotesFromStart;
 

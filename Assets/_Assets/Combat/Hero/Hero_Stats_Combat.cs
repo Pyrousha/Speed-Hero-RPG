@@ -37,6 +37,7 @@ public class Hero_Stats_Combat : MonoBehaviour
     void Start()
     {
         hp = maxHp;
+        mp = 0;
 
         UpdateHealthBar();
         UpdateHealBar();

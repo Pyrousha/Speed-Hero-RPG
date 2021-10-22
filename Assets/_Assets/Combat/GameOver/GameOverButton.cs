@@ -13,6 +13,14 @@ public class GameOverButton : MonoBehaviour
         persistObj = GameObject.Find("PersistentGameInfo")?.GetComponent<BattleTransition>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+            Retry();
+        if (Input.GetKeyDown(KeyCode.E))
+            ExitCombat();
+    }
+
     public void Retry()
     {
         if (SceneManager.GetSceneByName("Zone1").isLoaded)
