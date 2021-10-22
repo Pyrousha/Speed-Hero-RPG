@@ -68,7 +68,8 @@ public class HeroMenuController : MonoBehaviour
 
     private void ChangeSelection(int targetIndex)
     {
-        int newIndex = targetIndex % menuMoves.Length;
+        int numMoves = menuMoves.Length;
+        int newIndex = (targetIndex + numMoves) % numMoves;
         UpdateSelectionArrow(newIndex);
     }
 
@@ -81,5 +82,7 @@ public class HeroMenuController : MonoBehaviour
         selectionArrow.SetParent(menuMoves[newIndex].ArrowLocation, true);
         selectionArrow.localPosition = Vector3.zero;
         selectedMoveIndex = newIndex;
+
+        moveTimerController.LoadMoveIntoSheetDisplay(availableMoves[newIndex]);
     }
 }

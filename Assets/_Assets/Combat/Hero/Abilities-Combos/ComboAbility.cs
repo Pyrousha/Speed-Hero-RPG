@@ -27,14 +27,15 @@ public class ComboAbility : ScriptableObject
     public struct ComboInput
     {
         public attackDir attackDirection;
-        public float eigthNotesFromStart;
+        public int eigthNotesFromStart;
         public int damageAfterPressed;
     }
 
     [SerializeField] private ComboInput[] comboInputs;
+    public ComboInput[] GetComboInputs => comboInputs;
 
     private int[] inputDirs;
-    private float[] inputTimesSecs;
+    private int[] inputTimesENotes;
     private int[] damages;
 
     public int[] GetInputDirs()
@@ -45,12 +46,12 @@ public class ComboAbility : ScriptableObject
         return inputDirs;
     }
 
-    public float[] GetInputTimesSecs()
+    public int[] GetinputTimesENotes()
     {
-        if ((inputTimesSecs == null) || (inputTimesSecs.Length != comboInputs.Length))
+        if ((inputTimesENotes == null) || (inputTimesENotes.Length != comboInputs.Length))
             ConvertComboInputs();
 
-        return inputTimesSecs;
+        return inputTimesENotes;
     }
 
     public int[] GetDamages()
@@ -65,19 +66,19 @@ public class ComboAbility : ScriptableObject
     {
         int numInputs = comboInputs.Length;
         inputDirs = new int[numInputs];
-        inputTimesSecs = new float[numInputs];
+        inputTimesENotes = new int[numInputs];
         damages = new int[numInputs];
 
         for (int i = 0; i< numInputs; i++)
         {
             ComboInput currInput = comboInputs[i];
             inputDirs[i] = AttackDirToInt(currInput.attackDirection);
-            inputTimesSecs[i] = currInput.eigthNotesFromStart / 8f;
+            inputTimesENotes[i] = currInput.eigthNotesFromStart;
             damages[i] = currInput.damageAfterPressed;
         }
     }
 
-    private int AttackDirToInt(attackDir dir)
+    public int AttackDirToInt(attackDir dir)
     {
         switch(dir)
         {
