@@ -15807,6 +15807,7 @@ MonoBehaviour:
   persistObj: {fileID: 0}
   battleObjParent: {fileID: 0}
   blackOverlay: {fileID: 905944081}
+  songAudio: {fileID: 1498556604}
   maxFadeoutTime: 1.5
 --- !u!1 &2132348300
 GameObject:

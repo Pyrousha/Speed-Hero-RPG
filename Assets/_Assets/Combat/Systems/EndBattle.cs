@@ -10,6 +10,8 @@ public class EndBattle : MonoBehaviour
     public GameObject battleObjParent;
     [SerializeField] private Image blackOverlay;
 
+    [SerializeField] private AudioSource songAudio;
+
     //fadeout stuff
     [SerializeField] private float maxFadeoutTime;
     private float fadeoutTimer;
@@ -43,9 +45,12 @@ public class EndBattle : MonoBehaviour
 
         blackOverlay.color = new Color(0, 0, 0, alpha);
 
+        songAudio.volume = 1 - alpha;
+
         if (alpha <= 0)
         {
             EndBattleScene(wonFight);
+            doFadeout = false;
         }
     }
 
