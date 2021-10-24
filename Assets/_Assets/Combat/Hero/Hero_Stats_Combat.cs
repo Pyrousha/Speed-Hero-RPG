@@ -25,12 +25,15 @@ public class Hero_Stats_Combat : MonoBehaviour
     private int hpToHeal = 1;
 
     [Header("Objects")]
+    [SerializeField] private HeroMenuController heroMenuController;
+    [SerializeField] private MoveTimerController moveTimerController;
+
+    [Header("UI References")]
     public Text healthBarText;
     public Slider healthBarSlider;
     public Slider healBarSlider;
     [SerializeField] private Text manaBarText;
     [SerializeField] private Slider manaBarSlider;
-    [SerializeField] private HeroMenuController heroMenuController;
 
     public bool isNoteEditorMode;
 
@@ -127,6 +130,8 @@ public class Hero_Stats_Combat : MonoBehaviour
             UpdateHealBar();
 
             UpdateHealthBar();
+
+            moveTimerController.HeroTakeDamage();
         }
     }
 

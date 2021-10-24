@@ -31,7 +31,7 @@ public class HeroMenuController : MonoBehaviour
             return;
 
         if (Input.GetKeyDown(KeyCode.Insert))
-            TryStartMove();
+            AttackButtonPressed();
 
         //Move selection down 1
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -52,10 +52,10 @@ public class HeroMenuController : MonoBehaviour
             menuMove.UpdateCanUse(newMP, usableColor, unusableColor);
     }
 
-    private void TryStartMove()
+    private void AttackButtonPressed()
     {
         ComboAbility moveToPerform = availableMoves[selectedMoveIndex];
-        moveTimerController.TryPerformMove(moveToPerform);
+        moveTimerController.TryStartMove(moveToPerform);
     }
 
     private void LoadMovesIntoMenu()

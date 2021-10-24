@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fff52217312c0e144b979de151adb32d, type: 3}
-  m_Name: Test Enemy
+  m_Name: Timothy - TestEnemy
   m_EditorClassIdentifier: 
+  enemyName: Timothy, the Slightly Angry Slime
   enemySprite: {fileID: 21300000, guid: 7cb55da9aec2338468bbb44ff4016c2b, type: 3}
-  maxHP: 1
+  maxHP: 35
+  dmg: 0

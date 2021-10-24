@@ -352,7 +352,6 @@ public class Hero_Controller_Combat : MonoBehaviour
     /// <param name="newState">state to start playing</param>
     void ChangeAnimationState(string newState)
     {
-        
         //Don't change to Null
         if (newState == HERO_NULL)
         {

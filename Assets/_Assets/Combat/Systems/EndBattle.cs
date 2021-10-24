@@ -1,12 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class EndBattle : MonoBehaviour
 {
     public BattleTransition persistObj;
     public GameObject battleObjParent;
+    [SerializeField] private Image blackOverlay;
+
+    //fadeout stuff
+    [SerializeField] private float maxFadeoutTime;
+    private float fadeoutTimer;
+    private bool doFadeout;
+
+    private bool wonFight;
 
     // Start is called before the first frame update
     void Start()
@@ -24,10 +33,34 @@ public class EndBattle : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (!doFadeout)
+            return;
 
-    public void EndBattleScene(bool wonFight)
+        fadeoutTimer = Mathf.Max(0, fadeoutTimer -= Time.deltaTime);
+        float alpha = 1f - (fadeoutTimer / maxFadeoutTime);
+
+        blackOverlay.color = new Color(0, 0, 0, alpha);
+
+        if (alpha <= 0)
+        {
+            EndBattleScene(wonFight);
+        }
+    }
+
+    public void StartFadeOut(bool didWinFight)
+    {
+        wonFight = didWinFight;
+
+        fadeoutTimer = maxFadeoutTime;
+
+        doFadeout = true;
+    }
+
+    public void EndBattleScene(bool didWinFight)
     {
         if (persistObj != null)
-            persistObj.TransitionFromBattle(wonFight);
+            persistObj.TransitionFromBattle(didWinFight);
     }
 }

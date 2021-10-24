@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 using UnityEngine.Events;
+using System;
 
 public class SongLoader : MonoBehaviour
 {
@@ -54,6 +55,7 @@ public class SongLoader : MonoBehaviour
 
     [Header("Timing + Settings")]
     public float songStartOffset;
+
     //public float beatTravelTime;
     public float BeatTravelTime => 0f;
     [SerializeField] private float beatTimingOffset;
@@ -86,8 +88,13 @@ public class SongLoader : MonoBehaviour
         songPlaying = false;
 
         startState = GameObject.Find("PersistentGameInfo");
+
         if (startState != null)
             LoadDataFromPersistentGameInfo();
+        else
+            enemy.LoadFromEnemyObject();
+
+        enemy.SetSongLoader(this);
 
         switch (state)
         {
@@ -149,7 +156,8 @@ public class SongLoader : MonoBehaviour
         //beatTravelTime = combatStartingState.beatOffset;
 
         songToLoadPrefab = combatStartingState.songPrefab;
-        enemy.LoadFromEnemyObject(combatStartingState.enemyObject);
+        enemy.SetEnemyObject(combatStartingState.enemyObject);
+        enemy.LoadFromEnemyObject();
     }
 
     private void Update()
@@ -189,7 +197,7 @@ public class SongLoader : MonoBehaviour
                     else
                     {
                         //End the battle
-                        endBattle.EndBattleScene(true);
+                        endBattle.StartFadeOut(true);
                     }
                 }
             }
@@ -342,9 +350,8 @@ public class SongLoader : MonoBehaviour
     public void ClearEnemyAttacks()
     {
         foreach (GameObject go in enemyProjectilesToResume)
-        {
             Destroy(go);
-        }
+
         enemyProjectilesToResume = new GameObject[0];
     }
 
@@ -355,5 +362,20 @@ public class SongLoader : MonoBehaviour
 
         LoadSongPrefab(songTimingPrefab);
         PlaySong(0);
+    }
+
+    public void EnemyKilled()
+    {
+        GameObject[] enemyProjectiles = GameObject.FindGameObjectsWithTag("EnemyProjectile");
+
+        //Clear noteArray
+        noteArray = new List<noteStruct>();
+
+        //Remove all existing attacks
+        foreach (GameObject go in enemyProjectiles)
+            Destroy(go);
+
+        //End the battle
+        endBattle.StartFadeOut(true);
     }
 }

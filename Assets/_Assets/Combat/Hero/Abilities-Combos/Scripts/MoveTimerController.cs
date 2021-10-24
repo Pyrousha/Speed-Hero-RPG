@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MoveTimerController : MonoBehaviour
 {
     [SerializeField] private Hero_Stats_Combat heroStatsCombat;
+    [SerializeField] private Enemy_Stats_Combat enemyStatsCombat;
     [SerializeField] private Sprite arrowSprite;
     [SerializeField] private Sprite eighthRestSprite;
     [SerializeField] private Sprite transparentSprite;
@@ -72,6 +73,7 @@ public class MoveTimerController : MonoBehaviour
             {
                 //correct input
                 SetArrowColor(nextInputIndex, Color.green);
+                enemyStatsCombat.TakeDamage(currComboInputs[nextInputIndex].damageAfterPressed);
 
                 nextInputIndex++;
                 if (nextInputIndex < targetInputs.Length)
@@ -87,9 +89,10 @@ public class MoveTimerController : MonoBehaviour
             {
                 //Missed note
                 SetArrowColor(nextInputIndex, Color.red);
+                int dmgToDeal = Mathf.CeilToInt(currComboInputs[nextInputIndex].damageAfterPressed / 4f);
+                enemyStatsCombat.TakeDamage(dmgToDeal);
 
                 nextInputIndex++;
-
                 if (nextInputIndex < targetInputs.Length)
                 {
                     nextInput = targetInputs[nextInputIndex];
@@ -120,7 +123,7 @@ public class MoveTimerController : MonoBehaviour
         }
     }
 
-    public void TryPerformMove(ComboAbility move)
+    public void TryStartMove(ComboAbility move)
     {
         ResetArrowColors();
 
@@ -151,6 +154,12 @@ public class MoveTimerController : MonoBehaviour
 
             heroStatsCombat.SpendMana(manaCost);
         }
+    }
+
+    public void HeroTakeDamage()
+    {
+        if (isDoingMove)
+            MoveDone();
     }
 
     private void MoveDone()
