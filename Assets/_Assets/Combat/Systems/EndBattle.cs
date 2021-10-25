@@ -47,7 +47,7 @@ public class EndBattle : MonoBehaviour
 
         songAudio.volume = 1 - alpha;
 
-        if (alpha <= 0)
+        if (alpha >= 1)
         {
             EndBattleScene(wonFight);
             doFadeout = false;
