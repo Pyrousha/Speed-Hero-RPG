@@ -7,7 +7,7 @@ public class Enemy_Attack : MonoBehaviour
     public int dmg;
     public int attackNum;
 
-    GameObject heroObj;
+    //GameObject heroObj;
     SongLoader songLoader;
     Hero_Stats_Combat heroStats;
     BeatOffsetTracker offsetTracker;
@@ -25,9 +25,11 @@ public class Enemy_Attack : MonoBehaviour
 
     private void Start()
     {
-        heroObj = GameObject.Find("Hero_Combat");
-        if (heroObj != null)
-            heroStats = heroObj.GetComponent<Hero_Stats_Combat>();
+        //heroObj = GameObject.Find("Hero_Combat");
+        //if (heroObj != null)
+
+        heroStats = FindObjectOfType<Hero_Stats_Combat>();
+        Debug.Log(heroStats);
 
         animator = GetComponent<Animator>();
 
@@ -116,9 +118,7 @@ public class Enemy_Attack : MonoBehaviour
         //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).normalizedTime * 75);
         if (atkType == attackType.Hit) //Attack has reached end, meaning it was not hit by the player
         {
-            //Player should take damage
-            if (heroObj != null)
-                heroStats.takeDamage(dmg);
+            heroStats.takeDamage(dmg);
         }
         OnDestroy();
     }
