@@ -29,7 +29,7 @@ public class Enemy_Attack : MonoBehaviour
         //if (heroObj != null)
 
         heroStats = FindObjectOfType<Hero_Stats_Combat>();
-        Debug.Log(heroStats);
+        //Debug.Log(heroStats);
 
         animator = GetComponent<Animator>();
 

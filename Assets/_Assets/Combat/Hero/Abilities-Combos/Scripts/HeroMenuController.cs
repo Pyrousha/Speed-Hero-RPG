@@ -18,29 +18,47 @@ public class HeroMenuController : MonoBehaviour
 
     [System.NonSerialized] private bool movePrefabsLoaded = false;
 
+    [Header("Controls")]
+    [SerializeField] private bool useIJKL;
+    private KeyCode upMenuButton;
+    private KeyCode downMenuButton;
+    private KeyCode activateAbilityButton;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (useIJKL)
+        {
+            upMenuButton = KeyCode.I;
+            downMenuButton = KeyCode.K;
+            activateAbilityButton = KeyCode.Space;
+        }
+        else
+        {
+            upMenuButton = KeyCode.UpArrow;
+            downMenuButton = KeyCode.DownArrow;
+            activateAbilityButton = KeyCode.Insert;
+        }
+
         LoadMovesIntoMenu();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (moveTimerController.IsDoingMove)
+        if (moveTimerController.AttackMoveState == MoveTimerController.attackMoveStateEnum.attacking)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Insert))
+        if (Input.GetKeyDown(activateAbilityButton))
             AttackButtonPressed();
 
         //Move selection down 1
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(downMenuButton))
             ChangeSelection(selectedMoveIndex + 1);
         
         //Move selection up 1
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(upMenuButton))
             ChangeSelection(selectedMoveIndex - 1);
-
     }
 
     public void OnHeroManaUpdated(int newMP)

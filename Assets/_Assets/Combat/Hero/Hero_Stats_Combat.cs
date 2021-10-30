@@ -109,6 +109,8 @@ public class Hero_Stats_Combat : MonoBehaviour
 
     public void takeDamage(int damage)
     {
+        moveTimerController.HeroTakeDamage(invincible);
+
         if (invincible)
             return;
 
@@ -130,8 +132,6 @@ public class Hero_Stats_Combat : MonoBehaviour
             UpdateHealBar();
 
             UpdateHealthBar();
-
-            moveTimerController.HeroTakeDamage();
         }
     }
 

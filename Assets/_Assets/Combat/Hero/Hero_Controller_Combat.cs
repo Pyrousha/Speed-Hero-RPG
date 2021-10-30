@@ -18,6 +18,9 @@ public class Hero_Controller_Combat : MonoBehaviour
 
     Animator animator;
 
+    //State variables
+    [System.NonSerialized] private bool canAttack = true;
+
     [Header("State Stuff")]
     public string currentState;
     public string nextState;
@@ -27,10 +30,9 @@ public class Hero_Controller_Combat : MonoBehaviour
 
     public float animPercent;
 
-
-    float inputX;
-    float inputY;
-    float inputDiag;
+    //float inputX;
+    //float inputY;
+    //float inputDiag;
 
     public bool xPressedATK;
     public bool yPressedATK;
@@ -290,53 +292,76 @@ public class Hero_Controller_Combat : MonoBehaviour
 
     public void GetInputAndAttack()
     {
-        #region Get nextState based on key down presses
-        if (Input.GetKeyDown(leftButton))
-            nextState = HERO_2_ATTACK;
-        else
+        if (canAttack)
         {
-            if (Input.GetKeyDown(leftDiagButton))
-                nextState = HERO_3_ATTACK;
+            #region Get nextState based on key down presses
+            if (Input.GetKeyDown(leftButton))
+                nextState = HERO_2_ATTACK;
             else
             {
-                if (Input.GetKeyDown(upButton))
-                    nextState = HERO_5_ATTACK;
+                if (Input.GetKeyDown(leftDiagButton))
+                    nextState = HERO_3_ATTACK;
                 else
                 {
-                    if (Input.GetKeyDown(rightDiagButton))
-                        nextState = HERO_7_ATTACK;
+                    if (Input.GetKeyDown(upButton))
+                        nextState = HERO_5_ATTACK;
                     else
                     {
-                        if (Input.GetKeyDown(rightButton))
-                            nextState = HERO_9_ATTACK;
+                        if (Input.GetKeyDown(rightDiagButton))
+                            nextState = HERO_7_ATTACK;
                         else
                         {
-                            if (Input.GetKeyDown(downButton))
-                                nextState = HERO_8_DODGE;
+                            if (Input.GetKeyDown(rightButton))
+                                nextState = HERO_9_ATTACK;
                             else
-                                nextState = HERO_NULL;
+                            {
+                                if (Input.GetKeyDown(downButton))
+                                    nextState = HERO_8_DODGE;
+                                else
+                                    nextState = HERO_NULL;
+                            }
                         }
                     }
                 }
             }
+            #endregion
+
+            #region Set Animator bools for holding attacks
+            animator.SetBool("Pressing_2", Input.GetKey(leftButton));
+            animator.SetBool("Pressing_3", Input.GetKey(leftDiagButton));
+            animator.SetBool("Pressing_5", Input.GetKey(upButton));
+            animator.SetBool("Pressing_7", Input.GetKey(rightDiagButton));
+            animator.SetBool("Pressing_8", Input.GetKey(downButton));
+            animator.SetBool("Pressing_9", Input.GetKey(rightButton));
+            #endregion
+
+            //Change animation state
+            if (nextState != HERO_NULL)
+            {
+                ChangeAnimationState(nextState);
+                nextState = HERO_NULL;
+            }
         }
-        #endregion
-
-        #region Set Animator bools for holding attacks
-        animator.SetBool("Pressing_2", Input.GetKey(leftButton));
-        animator.SetBool("Pressing_3", Input.GetKey(leftDiagButton));
-        animator.SetBool("Pressing_5", Input.GetKey(upButton));
-        animator.SetBool("Pressing_7", Input.GetKey(rightDiagButton));
-        animator.SetBool("Pressing_8", Input.GetKey(downButton));
-        animator.SetBool("Pressing_9", Input.GetKey(rightButton));
-        #endregion
-
-        //Change animation state
-        if (nextState != HERO_NULL)
+        else //hero cannot attack, so act like nothing is being pressed
         {
-            ChangeAnimationState(nextState);
             nextState = HERO_NULL;
+
+            #region Set Animator bools for holding attacks
+            animator.SetBool("Pressing_2", false);
+            animator.SetBool("Pressing_3", false);
+            animator.SetBool("Pressing_5", false);
+            animator.SetBool("Pressing_7", false);
+            animator.SetBool("Pressing_8", false);
+            animator.SetBool("Pressing_9", false);
+            #endregion
         }
+
+
+    }
+
+    public void SetCanAttack(bool newCanAttack)
+    {
+        canAttack = newCanAttack;
     }
 
     public void transitionToIdle()

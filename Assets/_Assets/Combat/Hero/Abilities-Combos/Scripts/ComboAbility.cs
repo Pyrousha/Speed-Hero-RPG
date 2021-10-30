@@ -20,7 +20,8 @@ public class ComboAbility : ScriptableObject
         DiagLeft,
         Up,
         DiagRight,
-        Right
+        Right,
+        Space
     }
 
     [System.Serializable]
