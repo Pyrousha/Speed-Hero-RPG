@@ -9,6 +9,7 @@ public class MoveTimerController : MonoBehaviour
     [SerializeField] private bool useWASDForAttackInput;
     [SerializeField] private bool useComboAbilityTimings;
     [SerializeField] private bool misinputsBreakCombo;
+    [SerializeField] private bool dontCheckForMisinput;
     [SerializeField] private bool mistimingBreaksCombo;
     [SerializeField] private bool dontInterruptComboWhenInvincible;
     [SerializeField] private bool dealAllDamageAtEnd;
@@ -91,7 +92,7 @@ public class MoveTimerController : MonoBehaviour
             attackInputW = KeyCode.W;
             attackInputE = KeyCode.E;
             attackInputD = KeyCode.D;
-            attackInputSpace = KeyCode.Insert;
+            attackInputSpace = KeyCode.Space;
         }
         else
         {
@@ -136,7 +137,7 @@ public class MoveTimerController : MonoBehaviour
         int currMana = heroStatsCombat.GetMP;
 
         int manaCost = move.GetManaCost;
-        if ((currMana >= manaCost) && (IsInputOnBeat(8)))
+        if ((currMana >= manaCost) && (IsInputOnBeat(8) || (!useComboAbilityTimings)))
         {
             attackMoveState = attackMoveStateEnum.attacking;
 
@@ -249,7 +250,7 @@ public class MoveTimerController : MonoBehaviour
         {
             //Missed note
             SetArrowColor(nextInputIndex, Color.red);
-            int dmgToDeal = Mathf.CeilToInt(currComboInputs[nextInputIndex].damageAfterPressed / 4f);
+            int dmgToDeal = currComboInputs[nextInputIndex].damageAfterPressed / 4;
             enemyStatsCombat.TakeDamage(dmgToDeal);
 
             nextInputIndex++;
@@ -282,19 +283,27 @@ public class MoveTimerController : MonoBehaviour
                 //Input was not on-beat
                 SetArrowColor(nextInputIndex, Color.red);
 
-                int dmgToDeal = Mathf.CeilToInt(currComboInputs[nextInputIndex].damageAfterPressed / 4f);
+                int dmgToDeal;
+                if (mistimingBreaksCombo)
+                    dmgToDeal = Mathf.CeilToInt(currComboInputs[nextInputIndex].damageAfterPressed / 4f);
+                else
+                    dmgToDeal = currComboInputs[nextInputIndex].damageAfterPressed / 4;
                 DealDamageAndIncrementUntimed(dmgToDeal, mistimingBreaksCombo);
             }
 
             return;
         }
 
-        if (IncorrectInputPressed(nextInput))
+        if ((!dontCheckForMisinput) && IncorrectInputPressed(nextInput))
         {
             //Wrong note pressed
             SetArrowColor(nextInputIndex, Color.red);
 
-            int dmgToDeal = Mathf.CeilToInt(currComboInputs[nextInputIndex].damageAfterPressed / 4f);
+            int dmgToDeal;
+            if (mistimingBreaksCombo)
+                dmgToDeal = Mathf.CeilToInt(currComboInputs[nextInputIndex].damageAfterPressed / 4f);
+            else
+                dmgToDeal = currComboInputs[nextInputIndex].damageAfterPressed / 4;
             DealDamageAndIncrementUntimed(dmgToDeal, misinputsBreakCombo);
         }
 

@@ -21,6 +21,8 @@ public class SongLoader : MonoBehaviour
     public GameObject noteEditorCamera;
     [SerializeField] private SongEventHandler songEventHandler;
     [SerializeField] private MoveTimerController moveTimerController;
+    [SerializeField] private Animator enemyAnimator;
+    [SerializeField] private Animation blinkanim;
     public GameObject combatCameraLights;
     public Camera noteEditorPreviewCam;
     public Camera beatOffsetCamera;
@@ -147,6 +149,9 @@ public class SongLoader : MonoBehaviour
                     break;
                 }
         }
+
+        //enemyAnimator.speed = (1/((songBPM / 4f) / 60f));
+        enemyAnimator.speed = 0.75f;
     }
 
     private void LoadDataFromPersistentGameInfo()
@@ -322,6 +327,8 @@ public class SongLoader : MonoBehaviour
                 go.GetComponent<Animator>().speed = 1;
         }
         enemyProjectilesToResume = new GameObject[0];
+
+        enemyAnimator.SetTrigger("StartBlink");
     }
 
     public void PauseSong()
