@@ -18,8 +18,8 @@ public class HeroMenuController : MonoBehaviour
 
     [System.NonSerialized] private bool movePrefabsLoaded = false;
 
-    [Header("Controls")]
-    [SerializeField] private bool useIJKL;
+    //[Header("Controls")]
+    //[SerializeField] private bool useIJKL;
     private KeyCode upMenuButton;
     private KeyCode downMenuButton;
     private KeyCode activateAbilityButton;
@@ -27,7 +27,7 @@ public class HeroMenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (useIJKL)
+        /*if (useIJKL)
         {
             upMenuButton = KeyCode.I;
             downMenuButton = KeyCode.K;
@@ -38,9 +38,16 @@ public class HeroMenuController : MonoBehaviour
             upMenuButton = KeyCode.UpArrow;
             downMenuButton = KeyCode.DownArrow;
             activateAbilityButton = KeyCode.Insert;
-        }
+        }*/
 
         LoadMovesIntoMenu();
+    }
+
+    public void LoadControls(CombatControlsManager manager)
+    {
+        upMenuButton = manager.menuInputUp;
+        downMenuButton = manager.menuInputDown;
+        activateAbilityButton = manager.menuInputSelect;
     }
 
     // Update is called once per frame

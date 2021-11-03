@@ -5,12 +5,12 @@ using UnityEngine;
 public class Hero_Controller_Combat : MonoBehaviour
 {
     #region controls
-    KeyCode leftButton = KeyCode.A;
-    KeyCode leftDiagButton = KeyCode.Q;
-    KeyCode upButton = KeyCode.W;
-    KeyCode rightDiagButton = KeyCode.E;
-    KeyCode rightButton = KeyCode.D;
-    KeyCode downButton = KeyCode.S;
+    private KeyCode leftButton; // = KeyCode.A;
+    private KeyCode leftDiagButton; // = KeyCode.Q;
+    private KeyCode upButton; // = KeyCode.W;
+    private KeyCode rightDiagButton; // = KeyCode.E;
+    private KeyCode rightButton; // = KeyCode.D;
+    private KeyCode downButton; // = KeyCode.S;
     #endregion
 
     [Header("Debug Overrides")]
@@ -63,6 +63,16 @@ public class Hero_Controller_Combat : MonoBehaviour
 
         xPressedATK = false;
         yPressedATK = false;
+    }
+
+    public void LoadControls(CombatControlsManager manager)
+    {
+        leftButton = manager.blockInputLeft;
+        leftDiagButton = manager.blockInputDiagLeft;
+        upButton = manager.blockInputUp;
+        rightDiagButton = manager.blockInputDiagRight;
+        rightButton = manager.blockInputRight;
+        downButton = manager.blockInputDown;
     }
 
     /// <summary>
@@ -124,7 +134,7 @@ public class Hero_Controller_Combat : MonoBehaviour
         GetInputAndAttack();
     }
 
-    public void OldInputAttack()
+    /*public void OldInputAttack()
     {
         if (Input.GetKeyDown(KeyCode.Space) && currentState != HERO_1_JUMP)
         {
@@ -288,7 +298,7 @@ public class Hero_Controller_Combat : MonoBehaviour
             ChangeAnimationState(nextState);
             nextState = HERO_NULL;
         }
-    }
+    }*/
 
     public void GetInputAndAttack()
     {

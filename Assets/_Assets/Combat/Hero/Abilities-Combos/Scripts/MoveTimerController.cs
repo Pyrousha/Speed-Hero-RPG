@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MoveTimerController : MonoBehaviour
 {
     [Header("Mechanics/Config")]
-    [SerializeField] private bool useWASDForAttackInput;
+    //[SerializeField] private bool useWASDForAttackInput;
     [SerializeField] private bool useComboAbilityTimings;
     [SerializeField] private bool misinputsBreakCombo;
     [SerializeField] private bool dontCheckForMisinput;
@@ -84,7 +84,7 @@ public class MoveTimerController : MonoBehaviour
         if (doneStart)
             return;
 
-        //Set input vars
+        /*Set input vars
         if(useWASDForAttackInput)
         {
             attackInputA = KeyCode.A;
@@ -102,7 +102,7 @@ public class MoveTimerController : MonoBehaviour
             attackInputE = KeyCode.O;
             attackInputD = KeyCode.L;
             attackInputSpace = KeyCode.Space;
-        }
+        }*/
 
         //Fill attackDirHighlights
         attackdirHighlights = new MeshRenderer[attackdirHighlightsParent.childCount];
@@ -115,6 +115,16 @@ public class MoveTimerController : MonoBehaviour
             arrowImages[i] = arrowLocationsParent.GetChild(i).GetComponent<Image>();
 
         doneStart = true;
+    }
+
+    public void LoadControls(CombatControlsManager manager)
+    {
+        attackInputA = manager.attackInputLeft;
+        attackInputQ = manager.attackInputDiagLeft;
+        attackInputW = manager.attackInputUp;
+        attackInputE = manager.attackInputDiagRight;
+        attackInputD = manager.attackInputRight;
+        attackInputSpace = manager.attackInputFinish;
     }
 
     public void CalculateOffset()
@@ -499,7 +509,7 @@ public class MoveTimerController : MonoBehaviour
             if (i < spritesToUse.Length)
             {
                 currArrow.sprite = spritesToUse[i];
-                currArrow.transform.eulerAngles = new Vector3(0, 0, rotations[i]);
+                currArrow.transform.localEulerAngles = new Vector3(0, 0, rotations[i]);
                 if (currArrow.sprite == eighthRestSprite)
                     currArrow.transform.localScale = new Vector3(0.75f, 0.75f, 1);
                 else
@@ -508,7 +518,7 @@ public class MoveTimerController : MonoBehaviour
             else
             {
                 currArrow.sprite = transparentSprite;
-                currArrow.transform.eulerAngles = Vector3.zero;
+                currArrow.transform.localEulerAngles = Vector3.zero;
                 currArrow.transform.localScale = new Vector3(0.75f, 0.75f, 1);
             }
         }
