@@ -3716,7 +3716,7 @@ GameObject:
   - component: {fileID: 530945100}
   - component: {fileID: 530945102}
   m_Layer: 0
-  m_Name: SongSFXManager
+  m_Name: SongFXManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3734,8 +3734,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7abd874038da42147b1d70be1a7767a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitNoteParticleEffect: {fileID: 3615490037622242103, guid: b0843f2975ed1e64cb19cab2e755be76,
+    type: 3}
   attackHitSFX: {fileID: 8300000, guid: 0a679ada641ba1e4d8a7b0adb2293097, type: 3}
   active: 1
+  earlyColor: {r: 1, g: 0, b: 0, a: 1}
+  perfectColor: {r: 0, g: 1, b: 0.023826122, a: 1}
+  lateColor: {r: 0, g: 0.19350243, b: 1, a: 1}
+  alpha: 0.75
 --- !u!4 &530945101
 Transform:
   m_ObjectHideFlags: 0
@@ -3768,7 +3774,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 256
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -8777,7 +8783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1106119158
 Transform:
   m_ObjectHideFlags: 0
@@ -11882,7 +11888,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 362.1538
@@ -12379,7 +12385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1544453254
 Transform:
   m_ObjectHideFlags: 0
@@ -14289,7 +14295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableMoves:
-  - {fileID: 11400000, guid: 798d67d9b1ad6cc4fab9bbd192303c4b, type: 2}
+  - {fileID: 11400000, guid: 895b3ca46f8ecdb42bbd87423eb8762d, type: 2}
+  - {fileID: 11400000, guid: 4dd0febb1cdb75c45906b45c8eb1e0e8, type: 2}
   selectionArrow: {fileID: 863058396}
   moveListParent: {fileID: 887375741}
   movePrefab: {fileID: 8142957342304967223, guid: 841478db6af506a4c802f2c2a85eb871,

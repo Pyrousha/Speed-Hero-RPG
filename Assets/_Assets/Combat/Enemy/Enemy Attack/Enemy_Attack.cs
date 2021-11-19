@@ -85,7 +85,7 @@ public class Enemy_Attack : MonoBehaviour
                 return;
             }
 
-            Debug.Log("Attack hit on beat: " + FindObjectOfType<SongLoader>().SongPositionInBeats);
+            //Debug.Log("Attack hit on beat: " + FindObjectOfType<SongLoader>().SongPositionInBeats);
 
             //Debug.Log("Recent time hit: " + secsAhead);
 
@@ -93,7 +93,8 @@ public class Enemy_Attack : MonoBehaviour
 
             heroStats.DestroyEnemyAttack();
 
-            FindObjectOfType<SongSFXManager>().EnemyProjectileHit();
+            float aheadOffset = (secsAhead / (maxOffset / 2)); //how far off the hit was, between -1 and 1
+            FindObjectOfType<SongFXManager>().EnemyProjectileHit(transform, aheadOffset);
 
             OnDestroy();
         }

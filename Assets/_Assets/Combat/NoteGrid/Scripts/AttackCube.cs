@@ -89,7 +89,7 @@ public class AttackCube : MonoBehaviour
             }
         }
 
-        if (attackNum == 10)
+        if ((attackNum == 10) && (GetComponent<SongEvent>() == null))
             gameObject.AddComponent<SongEvent>();
     }
 

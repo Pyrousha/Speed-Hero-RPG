@@ -5132,7 +5132,6 @@ GameObject:
   - component: {fileID: 1541880877341632459}
   - component: {fileID: 8357920518548218576}
   - component: {fileID: 1821115877138721751}
-  - component: {fileID: 2112578482975171265}
   m_Layer: 8
   m_Name: AttackCube(Clone)
   m_TagString: AttackCube
@@ -5247,19 +5246,6 @@ MonoBehaviour:
     m_Bits: 256
   attackNum: 10
 --- !u!114 &1821115877138721751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728530423956400195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0fbe24edbeb7f84e87a26033c398eb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  songEventIndex: 0
---- !u!114 &2112578482975171265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13588,7 +13574,6 @@ GameObject:
   - component: {fileID: 4753647120612036525}
   - component: {fileID: 330317591032464969}
   - component: {fileID: 345566790832025295}
-  - component: {fileID: 3368875770619602627}
   m_Layer: 8
   m_Name: AttackCube(Clone)
   m_TagString: AttackCube
@@ -13715,19 +13700,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   songEventIndex: 1
---- !u!114 &3368875770619602627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2212743068373277385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0fbe24edbeb7f84e87a26033c398eb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  songEventIndex: 0
 --- !u!1 &2224475306858724607
 GameObject:
   m_ObjectHideFlags: 0
@@ -15154,7 +15126,6 @@ GameObject:
   - component: {fileID: 6904348502232009675}
   - component: {fileID: 6152015267026321890}
   - component: {fileID: 7385184718347836734}
-  - component: {fileID: 9025803822738100204}
   m_Layer: 8
   m_Name: AttackCube(Clone)
   m_TagString: AttackCube
@@ -15281,19 +15252,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   songEventIndex: 1
---- !u!114 &9025803822738100204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2412250182935106732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0fbe24edbeb7f84e87a26033c398eb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  songEventIndex: 0
 --- !u!1 &2417138748726575585
 GameObject:
   m_ObjectHideFlags: 0
@@ -26949,7 +26907,6 @@ GameObject:
   - component: {fileID: 506764063025225470}
   - component: {fileID: 4250982985574912719}
   - component: {fileID: 2756783444093545281}
-  - component: {fileID: 3323754076482550255}
   - component: {fileID: 2021911570328589449}
   m_Layer: 8
   m_Name: AttackCube(Clone)
@@ -27064,19 +27021,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   attackNum: 10
---- !u!114 &3323754076482550255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4759723426282616723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0fbe24edbeb7f84e87a26033c398eb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  songEventIndex: 0
 --- !u!114 &2021911570328589449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37416,7 +37360,6 @@ GameObject:
   - component: {fileID: 8403125446377774166}
   - component: {fileID: 1068949416973468172}
   - component: {fileID: 134520706827888553}
-  - component: {fileID: 3547172807744099872}
   m_Layer: 8
   m_Name: AttackCube(Clone)
   m_TagString: AttackCube
@@ -37531,19 +37474,6 @@ MonoBehaviour:
     m_Bits: 256
   attackNum: 10
 --- !u!114 &134520706827888553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6431346596858500774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0fbe24edbeb7f84e87a26033c398eb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  songEventIndex: 0
---- !u!114 &3547172807744099872
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40778,7 +40708,6 @@ GameObject:
   - component: {fileID: 5812453869588160276}
   - component: {fileID: 356653551919874545}
   - component: {fileID: 4756395266015072790}
-  - component: {fileID: 940480898815390026}
   m_Layer: 8
   m_Name: AttackCube(Clone)
   m_TagString: AttackCube
@@ -40893,19 +40822,6 @@ MonoBehaviour:
     m_Bits: 256
   attackNum: 10
 --- !u!114 &4756395266015072790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7017677525184896264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0fbe24edbeb7f84e87a26033c398eb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  songEventIndex: 0
---- !u!114 &940480898815390026
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48779,7 +48695,6 @@ GameObject:
   - component: {fileID: 2888043922391942152}
   - component: {fileID: 3009223402105089248}
   - component: {fileID: 4901582177072043583}
-  - component: {fileID: 6377658643146051156}
   m_Layer: 8
   m_Name: AttackCube(Clone)
   m_TagString: AttackCube
@@ -48906,19 +48821,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   songEventIndex: 1
---- !u!114 &6377658643146051156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8347322199876212248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0fbe24edbeb7f84e87a26033c398eb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  songEventIndex: 0
 --- !u!1 &8365202655239775616
 GameObject:
   m_ObjectHideFlags: 0
@@ -49973,7 +49875,6 @@ GameObject:
   - component: {fileID: 1266039759076814437}
   - component: {fileID: 6849698375115429795}
   - component: {fileID: 5630630134639499159}
-  - component: {fileID: 1782462175147676970}
   m_Layer: 8
   m_Name: AttackCube(Clone)
   m_TagString: AttackCube
@@ -50100,19 +50001,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   songEventIndex: 1
---- !u!114 &1782462175147676970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8487978772980265863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0fbe24edbeb7f84e87a26033c398eb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  songEventIndex: 0
 --- !u!1 &8519296935629743551
 GameObject:
   m_ObjectHideFlags: 0
