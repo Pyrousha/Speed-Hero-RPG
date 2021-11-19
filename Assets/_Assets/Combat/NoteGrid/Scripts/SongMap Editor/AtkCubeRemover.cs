@@ -21,7 +21,7 @@ public class AtkCubeRemover : MonoBehaviour
     public void removeCube()
     {
         int xPos = Mathf.RoundToInt(transform.localPosition.x);
-        int zPos = Mathf.RoundToInt(transform.localPosition.z);
+        float zPos = Mathf.RoundToInt(transform.localPosition.z*2)/2f;
         transform.localPosition = new Vector3(xPos, 0, zPos);
 
         gameObject.layer = 0; //change layer so this cube isn't checked for in collision test

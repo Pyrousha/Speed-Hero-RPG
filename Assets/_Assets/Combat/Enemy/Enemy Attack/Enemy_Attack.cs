@@ -85,11 +85,16 @@ public class Enemy_Attack : MonoBehaviour
                 return;
             }
 
+            Debug.Log("Attack hit on beat: " + FindObjectOfType<SongLoader>().SongPositionInBeats);
+
             //Debug.Log("Recent time hit: " + secsAhead);
 
             offsetTracker.AddOffsetNote(secsAhead);
 
             heroStats.DestroyEnemyAttack();
+
+            FindObjectOfType<SongSFXManager>().EnemyProjectileHit();
+
             OnDestroy();
         }
     }

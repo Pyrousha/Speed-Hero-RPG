@@ -31,20 +31,26 @@ public class AttackCube : MonoBehaviour
     public void SetAttackNum()
     {
         int xPos = Mathf.RoundToInt(transform.localPosition.x);
-        int zPos = Mathf.RoundToInt(transform.localPosition.z);
+        float zPos = Mathf.RoundToInt(transform.localPosition.z*2)/2f;
         transform.localPosition = new Vector3(xPos, 0, zPos);
 
         gameObject.layer = 0; //change layer so this cube isn't checked for in collision test
 
-        if (Physics.CheckSphere(transform.position, 0.2f, atkCubelayer))
+        attackNum = xPos + 5;
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 0.2f, atkCubelayer);
+        if (colliders.Length > 0)
         {
-            Debug.Log("Invalid Position, already a cube here");
+            //Debug.Log("Invalid Position, already a cube here");
+
+            if ((Input.GetMouseButtonDown(0))&&(attackNum == 10))
+                colliders[0].GetComponent<SongEvent>().IncrementIndex();
+
             Destroy(gameObject);
         }
 
         gameObject.layer = 8; //reassign layer
 
-        attackNum = xPos + 5;
         changeVisualsToMatchAttackNum(attackNum);
     }
 

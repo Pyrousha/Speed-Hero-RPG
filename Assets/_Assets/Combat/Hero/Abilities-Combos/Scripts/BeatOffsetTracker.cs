@@ -44,4 +44,9 @@ public class BeatOffsetTracker : MonoBehaviour
 
         return avg;
     }
+
+    public void MultiplyOffsetWindow(float multiplier)
+    {
+        maxOffsetToCountAsHit *= multiplier;
+    }
 }
