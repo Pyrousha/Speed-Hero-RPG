@@ -20,9 +20,12 @@ public class Enemy_Stats_Combat : MonoBehaviour
 
     private SongLoader songLoader;
 
+    private Animator anim;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     public void EnemyStartAttack(int attackdir)
@@ -58,6 +61,7 @@ public class Enemy_Stats_Combat : MonoBehaviour
         hp = Mathf.Max(0, hp - dmgToTake);
 
         UpdateHealthBar();
+        flashBlue();
 
         if (hp == 0)
             EnemyKilled();
@@ -72,6 +76,11 @@ public class Enemy_Stats_Combat : MonoBehaviour
     public void SetSongLoader(SongLoader loader)
     {
         songLoader = loader;
+    }
+
+    public void flashBlue()
+    {
+        anim.SetTrigger("FlashBlue");
     }
 
     public void EnemyKilled()

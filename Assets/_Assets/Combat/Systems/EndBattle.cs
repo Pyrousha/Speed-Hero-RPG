@@ -56,6 +56,9 @@ public class EndBattle : MonoBehaviour
 
     public void StartFadeOut(bool didWinFight)
     {
+        if (doFadeout)
+            return;
+
         wonFight = didWinFight;
 
         fadeoutTimer = maxFadeoutTime;

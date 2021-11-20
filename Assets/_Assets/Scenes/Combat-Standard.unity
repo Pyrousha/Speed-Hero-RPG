@@ -1755,6 +1755,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newSkybox: {fileID: 2100000, guid: b3f518de408c9d847868bcd3e9a40cbc, type: 2}
+--- !u!1 &247572934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 247572935}
+  m_Layer: 11
+  m_Name: Hero Attack Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &247572935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247572934}
+  m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
+  m_LocalPosition: {x: 6.6241264, y: 3.6527405, z: -11.41}
+  m_LocalScale: {x: 0.7, y: 0.70000005, z: 0.70000005}
+  m_Children: []
+  m_Father: {fileID: 550251217}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &258049488
 GameObject:
   m_ObjectHideFlags: 0
@@ -2423,7 +2453,7 @@ GameObject:
   m_Layer: 0
   m_Name: SongEventHandler
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3718,7 +3748,7 @@ GameObject:
   m_Layer: 0
   m_Name: SongFXManager
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3887,8 +3917,9 @@ Transform:
   - {fileID: 1935169090}
   - {fileID: 1775807548}
   - {fileID: 1923027834}
+  - {fileID: 247572935}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &559567544
 GameObject:
@@ -4847,7 +4878,7 @@ GameObject:
   m_Layer: 0
   m_Name: Enemy Stuff
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4867,7 +4898,7 @@ Transform:
   - {fileID: 374864821}
   - {fileID: 717600909}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &670472527
 GameObject:
@@ -8714,6 +8745,9 @@ MonoBehaviour:
   diagPressedATK: 0
   attackInput: {x: 0, y: 0}
   spawnAttack: {fileID: 0}
+  heroAttackSpawner: {fileID: 247572935}
+  heroAttackPrefab: {fileID: 7564695383388705275, guid: 4a8dded799d073548ad51e1423eb4d5f,
+    type: 3}
 --- !u!65 &1098036438
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12006,7 +12040,7 @@ GameObject:
   m_Layer: 0
   m_Name: CubePlacerCam
   m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 2800000, guid: fc6ef1f219527d74cac8f3beb90f3ccc, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

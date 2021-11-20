@@ -14,7 +14,8 @@ public class Hero_Stats_Combat : MonoBehaviour
     [Header("Stats")]
     public int maxHp;
     private int hp;
-    public int dmg;
+    [SerializeField] private int dmg;
+    public int Dmg => dmg;
     private int mp;
     public int GetMP => mp;
 

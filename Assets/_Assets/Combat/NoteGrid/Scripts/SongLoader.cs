@@ -151,7 +151,7 @@ public class SongLoader : MonoBehaviour
         }
 
         //enemyAnimator.speed = (1/((songBPM / 4f) / 60f));
-        enemyAnimator.speed = 0.75f;
+        //enemyAnimator.speed = 0.75f;
     }
 
     private void LoadDataFromPersistentGameInfo()
@@ -328,7 +328,7 @@ public class SongLoader : MonoBehaviour
         }
         enemyProjectilesToResume = new GameObject[0];
 
-        enemyAnimator.SetTrigger("StartBlink");
+        //enemyAnimator.SetTrigger("StartBlink");
     }
 
     public void PauseSong()

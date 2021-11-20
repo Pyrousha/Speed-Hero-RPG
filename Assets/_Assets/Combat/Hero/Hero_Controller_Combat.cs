@@ -41,6 +41,9 @@ public class Hero_Controller_Combat : MonoBehaviour
     public Vector2 attackInput;
 
     public HeroSpawnAttack spawnAttack;
+    private Hero_Stats_Combat heroStatsCombat;
+    [SerializeField] private Transform heroAttackSpawner;
+    [SerializeField] private GameObject heroAttackPrefab;
 
     //Animation States
     const string HERO_NULL = "This is not a valid animation";
@@ -58,6 +61,7 @@ public class Hero_Controller_Combat : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         spawnAttack = GetComponent<HeroSpawnAttack>();
+        heroStatsCombat = GetComponent<Hero_Stats_Combat>();
         currentState = HERO_IDLE;
         nextState = HERO_NULL;
 
@@ -130,6 +134,12 @@ public class Hero_Controller_Combat : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.J))
+        {
+            GameObject attackObj = Instantiate(heroAttackPrefab, null);
+            attackObj.GetComponent<Hero_Attack_Projectile>().SetDamage(heroStatsCombat.Dmg);
+        }
+
         //OldInputAttack();
         GetInputAndAttack();
     }
