@@ -22,6 +22,9 @@ public class SongFXManager : MonoBehaviour
     private SongLoader songLoader;
     private AudioSource audioSource;
 
+    [Header("Camera Shake Stuff")]
+    [SerializeField] private Animator cameraAnim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,13 +43,14 @@ public class SongFXManager : MonoBehaviour
         
     }
 
-    public void EnemyProjectileHit(Transform parentTransform, float aheadOffset)
+    public void EnemyProjectileHit(Transform parentTransform, float aheadOffset, int attackNum)
     {
         if (active)
         {
             PlayHitSound();
         }
 
+        //Spawn particles
         GameObject newParticle = Instantiate(hitNoteParticleEffect, parentTransform);
         newParticle.transform.localPosition = Vector3.zero;
         newParticle.transform.localEulerAngles = Vector3.zero;
@@ -54,6 +58,43 @@ public class SongFXManager : MonoBehaviour
 
         ParticleSystem.MainModule main = newParticle.GetComponent<ParticleSystem>().main;  
         main.startColor = new ParticleSystem.MinMaxGradient(GetColor(aheadOffset));
+
+        //Reset all Triggers
+        cameraAnim.ResetTrigger("Left");
+        cameraAnim.ResetTrigger("DiagLeft");
+        cameraAnim.ResetTrigger("Up");
+        cameraAnim.ResetTrigger("DiagRight");
+        cameraAnim.ResetTrigger("Right");
+
+        //Trigger Camera Shake
+        switch (attackNum)
+        {
+            case 2:
+                {
+                    cameraAnim.SetTrigger("Left");
+                    break;
+                }
+            case 3:
+                {
+                    cameraAnim.SetTrigger("DiagLeft");
+                    break;
+                }
+            case 5:
+                {
+                    cameraAnim.SetTrigger("Up");
+                    break;
+                }
+            case 7:
+                {
+                    cameraAnim.SetTrigger("DiagRight");
+                    break;
+                }
+            case 9:
+                {
+                    cameraAnim.SetTrigger("Right");
+                    break;
+                }
+        }
     }
 
     private Color GetColor(float aheadOffset)

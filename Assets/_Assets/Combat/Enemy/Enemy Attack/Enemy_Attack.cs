@@ -94,7 +94,7 @@ public class Enemy_Attack : MonoBehaviour
             heroStats.DestroyEnemyAttack();
 
             float aheadOffset = (secsAhead / (maxOffset / 2)); //how far off the hit was, between -1 and 1
-            FindObjectOfType<SongFXManager>().EnemyProjectileHit(transform, aheadOffset);
+            FindObjectOfType<SongFXManager>().EnemyProjectileHit(transform, aheadOffset, attackNum);
 
             OnDestroy();
         }
