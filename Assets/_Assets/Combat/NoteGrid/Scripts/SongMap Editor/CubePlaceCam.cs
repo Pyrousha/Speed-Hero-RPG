@@ -27,6 +27,8 @@ public class CubePlaceCam : MonoBehaviour
 
     float scrollInput;
 
+    [SerializeField] private Transform newNoteTransform;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,9 +50,13 @@ public class CubePlaceCam : MonoBehaviour
     void Update()
     {
         if (buttonController.songIsPlaying)
+        {
+            if (Input.GetMouseButtonDown(0))
+                PlaceCubeWhilePlaying();
             return;
-        
-        //add notes
+        }
+
+            //add notes
         if (Input.GetMouseButton(0))
         {
             PlaceCube();
@@ -87,6 +93,20 @@ public class CubePlaceCam : MonoBehaviour
         
     }
 
+    void PlaceCubeWhilePlaying()
+    {
+        RaycastHit hitInfo;
+        Ray ray = thisCam.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out hitInfo, noteGridLayer))
+        {
+            GameObject atkCubeObj = Instantiate(attackCubePrefab) as GameObject;
+            atkCubeObj.transform.position = newNoteTransform.position;
+            atkCubeObj.transform.parent = noteParent.transform;
+            atkCubeObj.GetComponent<AttackCube>().SetAttackNum();
+        }
+    }
+
     void PlaceCube()
     {
         RaycastHit hitInfo;
@@ -99,7 +119,6 @@ public class CubePlaceCam : MonoBehaviour
             atkCubeObj.transform.parent = noteParent.transform;
             atkCubeObj.GetComponent<AttackCube>().SetAttackNum();
         }
-
     }
 
     void RemoveCube()

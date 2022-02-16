@@ -7,7 +7,8 @@ public class SongFXManager : MonoBehaviour
 {
     [SerializeField] private GameObject hitNoteParticleEffect;
     [SerializeField] private AudioClip attackHitSFX;
-    [SerializeField] private bool active;
+    [SerializeField] private bool playHitSFX;
+    [SerializeField] private bool screenShake;
 
     [Header("colors")]
     [SerializeField] private Color earlyColor;
@@ -45,7 +46,7 @@ public class SongFXManager : MonoBehaviour
 
     public void EnemyProjectileHit(Transform parentTransform, float aheadOffset, int attackNum)
     {
-        if (active)
+        if (playHitSFX)
         {
             PlayHitSound();
         }
@@ -59,41 +60,44 @@ public class SongFXManager : MonoBehaviour
         ParticleSystem.MainModule main = newParticle.GetComponent<ParticleSystem>().main;  
         main.startColor = new ParticleSystem.MinMaxGradient(GetColor(aheadOffset));
 
-        //Reset all Triggers
-        cameraAnim.ResetTrigger("Left");
-        cameraAnim.ResetTrigger("DiagLeft");
-        cameraAnim.ResetTrigger("Up");
-        cameraAnim.ResetTrigger("DiagRight");
-        cameraAnim.ResetTrigger("Right");
-
-        //Trigger Camera Shake
-        switch (attackNum)
+        if (screenShake)
         {
-            case 2:
-                {
-                    cameraAnim.SetTrigger("Left");
-                    break;
-                }
-            case 3:
-                {
-                    cameraAnim.SetTrigger("DiagLeft");
-                    break;
-                }
-            case 5:
-                {
-                    cameraAnim.SetTrigger("Up");
-                    break;
-                }
-            case 7:
-                {
-                    cameraAnim.SetTrigger("DiagRight");
-                    break;
-                }
-            case 9:
-                {
-                    cameraAnim.SetTrigger("Right");
-                    break;
-                }
+            //Reset all Triggers
+            cameraAnim.ResetTrigger("Left");
+            cameraAnim.ResetTrigger("DiagLeft");
+            cameraAnim.ResetTrigger("Up");
+            cameraAnim.ResetTrigger("DiagRight");
+            cameraAnim.ResetTrigger("Right");
+
+            //Trigger Camera Shake
+            switch (attackNum)
+            {
+                case 2:
+                    {
+                        cameraAnim.SetTrigger("Left");
+                        break;
+                    }
+                case 3:
+                    {
+                        cameraAnim.SetTrigger("DiagLeft");
+                        break;
+                    }
+                case 5:
+                    {
+                        cameraAnim.SetTrigger("Up");
+                        break;
+                    }
+                case 7:
+                    {
+                        cameraAnim.SetTrigger("DiagRight");
+                        break;
+                    }
+                case 9:
+                    {
+                        cameraAnim.SetTrigger("Right");
+                        break;
+                    }
+            }
         }
     }
 

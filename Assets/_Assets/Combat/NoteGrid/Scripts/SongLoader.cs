@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
@@ -201,6 +202,9 @@ public class SongLoader : MonoBehaviour
                     }
                     else
                     {
+                        //if(SceneManager.sceneCount == 2) //combat version only
+                            //Application.Quit();
+
                         //End the battle
                         endBattle.StartFadeOut(true);
                     }
@@ -328,7 +332,8 @@ public class SongLoader : MonoBehaviour
         }
         enemyProjectilesToResume = new GameObject[0];
 
-        //enemyAnimator.SetTrigger("StartBlink");
+        enemyAnimator.SetTrigger("DanceTime!");
+        enemyAnimator.speed = (songBPM / 60f)/2f;
     }
 
     public void PauseSong()

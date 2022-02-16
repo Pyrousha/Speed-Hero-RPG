@@ -2383,9 +2383,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 6.6241264, y: 1.67, z: 6.74}
   m_LocalScale: {x: 7, y: 7, z: 7}
-  m_Children: []
+  m_Children:
+  - {fileID: 812930108}
   m_Father: {fileID: 649105811}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &374864822
 MonoBehaviour:
@@ -3800,7 +3801,8 @@ MonoBehaviour:
   hitNoteParticleEffect: {fileID: 3615490037622242103, guid: b0843f2975ed1e64cb19cab2e755be76,
     type: 3}
   attackHitSFX: {fileID: 8300000, guid: 0a679ada641ba1e4d8a7b0adb2293097, type: 3}
-  active: 1
+  playHitSFX: 0
+  screenShake: 0
   earlyColor: {r: 1, g: 0, b: 0, a: 1}
   perfectColor: {r: 0, g: 1, b: 0.023826122, a: 1}
   lateColor: {r: 0, g: 0.19350243, b: 1, a: 1}
@@ -4925,7 +4927,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 812930108}
   - {fileID: 1964326460}
   - {fileID: 374864821}
   - {fileID: 717600909}
@@ -5414,7 +5415,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 649105811}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &717600910
 MonoBehaviour:
@@ -6172,10 +6173,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 812930107}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.6241264, y: 1.67, z: 6.74}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 649105811}
+  m_Father: {fileID: 374864821}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &812930109
@@ -11928,7 +11929,7 @@ MonoBehaviour:
   state: 1
   songToLoadPrefab: {fileID: 7826053146810542370, guid: b1abf9a9e1da339409cfa9579b3a50e8,
     type: 3}
-  attackTravelTimeInBeats: 2
+  attackTravelTimeInBeats: 1.5
   noteParent: {fileID: 1024982693}
   noteEditorCamera: {fileID: 1511847372}
   songEventHandler: {fileID: 394240087}
@@ -11952,7 +11953,7 @@ MonoBehaviour:
   dspSongTime: 0
   musicSource: {fileID: 1498556604}
   songStartOffset: 0.5
-  beatTimingOffset: 0
+  beatTimingOffset: -0.3
   songTimingPrefab: {fileID: 5858298540112893502, guid: a00d037abcf750c428ac619d1444b126,
     type: 3}
   thingsToToggleEnableForSettingOffset:
@@ -12212,6 +12213,7 @@ MonoBehaviour:
   noteGridLayer:
     serializedVersion: 2
     m_Bits: 512
+  newNoteTransform: {fileID: 0}
 --- !u!114 &1511847377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15291,7 +15293,7 @@ RectTransform:
   - {fileID: 498179109}
   - {fileID: 559567547}
   m_Father: {fileID: 649105811}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
