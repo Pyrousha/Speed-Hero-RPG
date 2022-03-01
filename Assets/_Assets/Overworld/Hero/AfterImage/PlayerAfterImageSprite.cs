@@ -6,39 +6,41 @@ public class PlayerAfterImageSprite : MonoBehaviour
 {
     private float alpha;
     [SerializeField] private float startAlpha;
-    [SerializeField] private float alphaDecreasePerSec;
+    [SerializeField] private float duration;
 
-    private Transform playerTransform;
+    private float spawnTime;
 
-    private SpriteRenderer spriteRenderer;
-    private SpriteRenderer playerSpriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     [SerializeField] private Color startColor;
     private Color color;
+    private bool counting;
 
-    private void OnEnable()
+    public void SetSprite(Sprite spr)
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        playerTransform = GameObject.Find("Hero Sprite").transform;
-        playerSpriteRenderer = playerTransform.GetComponent<SpriteRenderer>();
+        spawnTime = Time.time;
+        counting = true;
 
-        alpha = startAlpha;
-        spriteRenderer.sprite = playerSpriteRenderer.sprite;
-        transform.position = playerTransform.position;
-        transform.rotation = playerTransform.rotation;
-
+        spriteRenderer.sprite = spr;
         color = startColor;
     }
 
     private void Update()
     {
-        alpha -= alphaDecreasePerSec*Time.deltaTime;
-        color.a = alpha;
-        spriteRenderer.color = color;
+        if (counting == false)
+            return;
 
-        if ( alpha <= 0.05f)
+        if (Time.time >= spawnTime + duration)
         {
             PlayerAfterImagePool.Instance.AddToPool(gameObject);
+        }
+        else
+        {
+            float ratio = (Time.time - spawnTime) / duration;
+
+            alpha = 1 - ratio;
+            color.a = alpha;
+            spriteRenderer.color = color;
         }
     }
 }

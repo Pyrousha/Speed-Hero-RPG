@@ -10,7 +10,6 @@ public class DialogueActivator : MonoBehaviour, IInteractable
     [SerializeField] private DialogueObject dialogueObject;
     [SerializeField] private bool playWithoutInput;
     [SerializeField] private PlayOptions playOption;
-    private OverworldInputHandler overworldInputHandler;
 
     private enum PlayOptions
     {
@@ -23,7 +22,6 @@ public class DialogueActivator : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        overworldInputHandler = FindObjectOfType<OverworldInputHandler>();
         if (playOnStart)
             TryInteract();
     }
@@ -65,11 +63,10 @@ public class DialogueActivator : MonoBehaviour, IInteractable
         if (played && playOnce)
             return;
 
-        if (playWithoutInput || overworldInputHandler.pressedDownConfirm)
+        if (playWithoutInput || InputHandler.Instance.DialogueInteractPressed)
         {
             played = true;
             player.DialogueUI.ShowDialogue(dialogueObject, gameObject);
-            overworldInputHandler.pressedDownConfirm = false;
 
             switch (playOption)
             {

@@ -6,7 +6,6 @@ using TMPro;
 public class TypewriterEffect : MonoBehaviour
 {
     [SerializeField] private float writingSpeed = 50;
-    public OverworldInputHandler OverworldInputHandler;
 
     public bool isRunning { get; private set; }
 
@@ -15,11 +14,6 @@ public class TypewriterEffect : MonoBehaviour
         new Punctuation(new HashSet<char>(){'.','!','?'}, 0.6f),
         new Punctuation(new HashSet<char>(){','}, 0.3f)
     };
-
-    private void Start()
-    {
-        OverworldInputHandler = FindObjectOfType<OverworldInputHandler>();
-    }
 
     private Coroutine typingCoroutine;
 

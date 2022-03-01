@@ -5,7 +5,6 @@ using UnityEngine;
 public class HeroDialogueInteract : MonoBehaviour
 {
     [Header("Dialogue References")]
-    [SerializeField] private OverworldInputHandler overworldInputHandler;
     [SerializeField] private DialogueUI dialogueUI;
 
     public DialogueUI DialogueUI => dialogueUI;
@@ -20,7 +19,6 @@ public class HeroDialogueInteract : MonoBehaviour
             if (Interactable != null)
             {
                 Interactable.TryInteract(this);
-                overworldInputHandler.pressedDownConfirm = false;
             }
         }
     }

@@ -5,40 +5,26 @@ public class PlayerMove2D : MonoBehaviour
     [Header("Debug Stuff")]
     [SerializeField] private bool hasSpeedCrystal;
 
-    [Header("Dashing")]
-    private KeyCode dashKey = KeyCode.LeftShift;
-    [SerializeField] private float dashSpeed;
-    [SerializeField] private float dashDuration;
-    private float dashTimer;
-    enum dashStateEnum
-    {
-        charged,
-        dashing,
-        recharging
-    }
-    [SerializeField] private dashStateEnum dashState;
-    [SerializeField] private float dashSpawnInterval;
-    private float dashSpawnTimer = 0;
-
     [Header("Self References")]
     public Rigidbody heroRB;
     public Animator heroAnim;
     public SpriteRenderer heroSprite;
     private PathMove2D pathMove2D;
+    [SerializeField] private HeroDashManager dashManager;
 
     [Header("Movement")]
     public Vector2 inputVect;
-    public Vector2 dirFacing;
-    public float moveSpeed;
+    public Vector2 dirFacing { get; private set; }
+    public float maxMoveSpeed;
     public float accelSpeed;
     public float frictionSpeed;
 
-    public bool canMove;
+    public bool canMove { get; private set; }
     public Vector3 startingVelocity;
 
     [Header("Ground checking")]
     public LayerMask groundLayer;
-    bool isGrounded = true;
+    public bool isGrounded {get; private set;}
 
     [SerializeField] private float raycastHeight;
     public GameObject[] raycastPoints;
@@ -47,12 +33,13 @@ public class PlayerMove2D : MonoBehaviour
     private Vector3 respawnLocation; 
 
     [Header("Dialogue References")]
-    [SerializeField] private OverworldInputHandler overworldInputHandler;
     [SerializeField] private DialogueUI dialogueUI;
 
     // Start is called before the first frame update
     void Start()
     {
+        canMove = true;
+
         if (respawnTransform != null)
             respawnLocation = respawnTransform.position;
         else
@@ -77,8 +64,6 @@ public class PlayerMove2D : MonoBehaviour
             }
         }
 
-        //if (Mathf.Abs(heroRB.velocity.y) < 0.1)
-        //  isGrounded = true;
         if ((canMove) && (!dialogueUI.isOpen))
             inputVect = GetDirectionFromInput();
         else
@@ -86,75 +71,6 @@ public class PlayerMove2D : MonoBehaviour
 
         if (inputVect.magnitude > 0)
             dirFacing = inputVect;
-
-        switch (dashState)
-        {
-            case dashStateEnum.charged:
-                {
-                    if ((isGrounded) && (Input.GetKeyDown(dashKey)))
-                        StartDash();
-                    break;
-                }
-            case dashStateEnum.dashing:
-                {
-                    dashTimer -= Time.deltaTime;
-                    if (dashTimer <= 0)
-                        EndDash();
-
-                    TrySpawnAfterImage();
-
-                    break;
-                }
-            case dashStateEnum.recharging:
-                {
-                    break;
-                }
-        }
-
-        if (dashState != dashStateEnum.dashing)
-        {
-            if (!isGrounded)
-            {
-                inputVect *= 0.5f;
-                SetAnimatorValues(new Vector2(0, 0));
-            }
-            else
-                SetAnimatorValues(inputVect);
-        }
-    }
-
-    private void StartDash()
-    {
-        canMove = false;
-        Vector3 dashDir = new Vector3(dirFacing.x, 0, dirFacing.y);
-        heroRB.velocity = dashDir * dashSpeed;
-        heroRB.useGravity = false;
-
-        dashState = dashStateEnum.dashing;
-        dashTimer = dashDuration;
-    }
-
-    private void TrySpawnAfterImage()
-    {
-        if (dashSpawnTimer <= 0)
-        {
-            GameObject newAfterImage =  PlayerAfterImagePool.Instance.GetFromPool();
-            newAfterImage.transform.position += new Vector3(dirFacing.x, 0, dirFacing.y - 0.1f)*-0.1f;
-            dashSpawnTimer = dashSpawnInterval;
-        }
-        else
-        {
-            dashSpawnTimer -= Time.deltaTime;
-        }
-    }
-
-    private void EndDash()
-    {
-        canMove = true;
-        heroRB.useGravity = true;
-        heroRB.velocity *= (1f / 5f);
-
-        dashState = dashStateEnum.charged;
     }
 
     private void FixedUpdate()
@@ -162,120 +78,104 @@ public class PlayerMove2D : MonoBehaviour
         if(pathMove2D!= null && pathMove2D.enabled)
             return;
 
-        if (dashState == dashStateEnum.dashing)
+        if (dashManager.DashState == HeroDashManager.dashStateEnum.dashing)
             return;
 
-        ApplyFriction();
+        ApplyFrictionAndAcceleration();
     }
 
-    public void ApplyFriction()
+    public void ApplyFrictionAndAcceleration()
     {
+        if (!isGrounded)
+            return;
+
         float currSpeedX = heroRB.velocity.x;
         float currSpeedZ = heroRB.velocity.z;
 
         float newSpeedX = currSpeedX;
         float newSpeedZ = currSpeedZ;
 
-        if (isGrounded)
+        #region Apply Friction
+        //X-Friction
+        if (currSpeedX < 0) //moving left
         {
-            #region calculate xSpeed
-            if (inputVect.x < 0) //pressing left
+            newSpeedX = Mathf.Min(0, currSpeedX + frictionSpeed);
+        }
+        else
+        {
+            if (currSpeedX > 0) //moving right
             {
-                //if (currSpeedX > moveSpeed * inputVect.x)
-                {
-                    //accelerate left
-                    newSpeedX = Mathf.Max(currSpeedX - accelSpeed, moveSpeed * inputVect.x);
-                }
+                newSpeedX = Mathf.Max(0, currSpeedX - frictionSpeed);
             }
-            else
-            {
-                if (inputVect.x > 0) //pressing right
-                {
-                    //if (currSpeedX < moveSpeed * inputVect.x)
-                    {
-                        //accelerate right
-                        newSpeedX = Mathf.Min(currSpeedX + accelSpeed, moveSpeed * inputVect.x);
-                    }
-                }
-                else //pressing nothing, x-friction
-                {
-                    //if (isGrounded)
-                    {
-                        if (currSpeedX < 0) //moving left
-                        {
-                            newSpeedX = Mathf.Min(0, currSpeedX + frictionSpeed);
-                        }
-                        else
-                        {
-                            if (currSpeedX > 0) //moving right
-                            {
-                                newSpeedX = Mathf.Max(0, currSpeedX - frictionSpeed);
-                            }
-                        }
-                    }
-                }
-            }
-            #endregion
-
-            #region calculate zSpeed
-            if (inputVect.y < 0) //pressing down
-            {
-                //if (currSpeedZ > -moveSpeed)
-                {
-                    //accelerate down
-                    newSpeedZ = Mathf.Max(currSpeedZ - accelSpeed, moveSpeed * inputVect.y);
-                }
-            }
-            else
-            {
-                if (inputVect.y > 0) //pressing up
-                {
-                    //if (currSpeedZ < moveSpeed)
-                    {
-                        //accelerate up
-                        newSpeedZ = Mathf.Min(currSpeedZ + accelSpeed, moveSpeed * inputVect.y);
-                    }
-                }
-                else //pressing nothing, z-friction
-                {
-                    //if (isGrounded)
-                    {
-                        if (currSpeedZ < 0) //moving left
-                        {
-                            newSpeedZ = Mathf.Min(0, currSpeedZ + frictionSpeed);
-                        }
-                        else
-                        {
-                            if (currSpeedZ > 0) //moving right
-                            {
-                                newSpeedZ = Mathf.Max(0, currSpeedZ - frictionSpeed);
-                            }
-                        }
-                    }
-                }
-            }
-            #endregion
         }
 
-        //heroRB.MovePosition(heroRB.position + new Vector3(inputVect.x, 0, inputVect.y) * moveSpeed * Time.fixedDeltaTime);
+        //Z-Friction
+        if (currSpeedZ < 0) //moving left
+        {
+            newSpeedZ = Mathf.Min(0, currSpeedZ + frictionSpeed);
+        }
+        else
+        {
+            if (currSpeedZ > 0) //moving right
+            {
+                newSpeedZ = Mathf.Max(0, currSpeedZ - frictionSpeed);
+            }
+        }
+        #endregion
 
-        //heroRB.velocity = new Vector3(inputVect.x * moveSpeed, heroRB.velocity.y, inputVect.y * moveSpeed);
+        #region Apply Acceleration
+        //X-Acceleration
+        if (inputVect.x < 0) //pressing left
+        {
+            if (currSpeedX > maxMoveSpeed * inputVect.x) //can accelerate more left
+            {
+                //accelerate left
+                newSpeedX = Mathf.Max(currSpeedX - accelSpeed, maxMoveSpeed * inputVect.x);
+            }
+        }
+        else
+        {
+            if (inputVect.x > 0) //pressing right
+            {
+                if (currSpeedX < maxMoveSpeed * inputVect.x) //can accelerate more right
+                {
+                    //accelerate right
+                    newSpeedX = Mathf.Min(currSpeedX + accelSpeed, maxMoveSpeed * inputVect.x);
+                }
+            }
+        }
+
+        //Z-Acceleration
+        if (inputVect.y < 0) //pressing down
+        {
+            if (currSpeedZ > maxMoveSpeed * inputVect.y) //can accelerate more down
+            {
+                //accelerate down
+                newSpeedZ = Mathf.Max(currSpeedZ - accelSpeed, maxMoveSpeed * inputVect.y);
+            }
+        }
+        else
+        {
+            if (inputVect.y > 0) //pressing up
+            {
+                if (currSpeedZ < maxMoveSpeed * inputVect.y) //can accelerate more up
+                {
+                    //accelerate up
+                    newSpeedZ = Mathf.Min(currSpeedZ + accelSpeed, maxMoveSpeed * inputVect.y);
+                }
+            }
+        }
+        #endregion
 
         heroRB.velocity = new Vector3(newSpeedX, heroRB.velocity.y, newSpeedZ);
     }
 
     public Vector2 GetDirectionFromInput()
     {
-        //Vertical Input
-        float inputY = Input.GetAxisRaw("Vertical");
+        Vector2 dir = InputHandler.Instance.Direction;
+        SetAnimatorValues(dir);
 
-        //Horizontal Input
-        float inputX = Input.GetAxisRaw("Horizontal"); 
-
-        Vector2 dirVector = new Vector2(inputX, inputY);
-        dirVector.Normalize();
-
-        return dirVector;
+        return dir;
     }
 
     public void SetAnimatorValues(Vector2 inputVect)

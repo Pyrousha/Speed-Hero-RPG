@@ -45,8 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startAlpha: 0.8
-  alphaDecreasePerSec: 7
-  startColor: {r: 0, g: 0.76088315, b: 0.8396226, a: 1}
+  duration: 0.15
+  spriteRenderer: {fileID: 1948783842434907435}
+  startColor: {r: 0.18252002, g: 0.6769054, b: 0.78, a: 1}
 --- !u!212 &1948783842434907435
 SpriteRenderer:
   m_ObjectHideFlags: 0

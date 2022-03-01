@@ -22,35 +22,27 @@ public class MenuController : MonoBehaviour
     int maxIndex;
     int input;
 
-    //Controls
-    KeyCode menuButton = KeyCode.Escape;
-    KeyCode selectButton = KeyCode.Space;
-    KeyCode upButton = KeyCode.W;
-    KeyCode downbutton = KeyCode.S;
-    KeyCode leftButton = KeyCode.A;
-    KeyCode rightButton = KeyCode.D;
-
     [Header("Submenus")]
     public GameObject beatOffsetParent;
 
     //Beat Offset
-    bool bOCancelSelected = true;
+    //bool bOCancelSelected = true;
     public Transform bOTriangleIndicator;
     public Text bOCancelText;
     public Text bOSaveText;
 
-    enum MenuState
+    /*enum MenuState
     {
         normal, 
         beatOffset
     }
 
-    MenuState menuState;
+    MenuState menuState;*/
 
     // Start is called before the first frame update
     void Start()
     {
-        menuState = MenuState.normal;
+        //menuState = MenuState.normal;
 
         for (int i = 0; i< selectableParent.childCount; i++)
         {
@@ -63,11 +55,63 @@ public class MenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (menuState)
+        if (InputHandler.Instance.Menu.down)
+        {
+            Debug.Log("pressed ESC");
+           
+            //Toggle Menu
+
+            if (!interactable)
+                OpenMenu();
+            else
+                CloseMenu();
+        }
+
+        if (!interactable)
+            return;
+
+        //Get input if selection should move up/down
+        input = 0;
+        if (InputHandler.Instance.Up.down)
+            input++;
+        if (InputHandler.Instance.Down.down)
+            input--;
+
+        if (input > 0)
+        {
+            //move up
+            if (selectedIndex == 0)
+                selectedIndex = maxIndex;
+            else
+                selectedIndex--;
+
+            UpdateSelection();
+        }
+        else
+        {
+            if (input < 0)
+            {
+                //move down
+                if (selectedIndex == maxIndex)
+                    selectedIndex = 0;
+                else
+                    selectedIndex++;
+
+                UpdateSelection();
+            }
+        }
+
+        //Select specified button
+        if (InputHandler.Instance.Interact.down)
+        {
+            SelectMenuButton(selectedIndex);
+        }
+
+        /*switch (menuState)
         {
             case (MenuState.normal):
                 {
-                    if (Input.GetKeyDown(menuButton))
+                    if (InputHandler.Instance.Menu.down)
                     {
                         //Toggle Menu
 
@@ -82,10 +126,10 @@ public class MenuController : MonoBehaviour
 
                     //Get input if selection should move up/down
                     input = 0;
-                    if (Input.GetKeyDown(downbutton))
-                        input--;
-                    if (Input.GetKeyDown(upButton))
+                    if (InputHandler.Instance.Up.down)
                         input++;
+                    if (InputHandler.Instance.Down.down)
+                        input--;
 
                     if (input > 0)
                     {
@@ -112,7 +156,7 @@ public class MenuController : MonoBehaviour
                     }
 
                     //Select specified button
-                    if (Input.GetKeyDown(selectButton))
+                    if (InputHandler.Instance.Interact.down)
                     {
                         SelectMenuButton(selectedIndex);
                     }
@@ -121,7 +165,7 @@ public class MenuController : MonoBehaviour
                 }
             case (MenuState.beatOffset):
                 {
-                    if (Input.GetKeyDown(menuButton))
+                    if (InputHandler.Instance.Button_Menu.down)
                     {
                         CloseBeatCalbiration(false);
                         break;
@@ -138,7 +182,7 @@ public class MenuController : MonoBehaviour
 
                     break;
                 }
-        }
+        }*/
 
     }
 
@@ -154,7 +198,8 @@ public class MenuController : MonoBehaviour
         oldSelectedIndex = selectedIndex;
     }
 
-    private void UpdateBOSelection()
+
+    /*private void UpdateBOSelection()
     {
         if (bOCancelSelected)
         {
@@ -172,7 +217,7 @@ public class MenuController : MonoBehaviour
 
             bOTriangleIndicator.position = bOSaveText.transform.GetChild(0).position;
         }
-    }
+    }*/
 
     public void SelectMenuButton(int selected)
     {
@@ -199,7 +244,7 @@ public class MenuController : MonoBehaviour
             case 3:
                 {
                     //BeatCalibration
-                    OpenBeatCalibration();
+                    //OpenBeatCalibration();
 
                     break;
                 }
@@ -215,6 +260,8 @@ public class MenuController : MonoBehaviour
 
     public void OpenMenu()
     {
+        Debug.Log("open menu");
+
         //Set default parameters
         oldSelectedIndex = 0;
         selectedIndex = 0;
@@ -226,11 +273,11 @@ public class MenuController : MonoBehaviour
         triangleIndicator.localPosition = new Vector3(0, 0, 0);
 
         interactable = true;
-        hero.canMove = false;
+        hero.SetCanMove(false);
         menuParent.SetActive(true);
     }
 
-    void OpenBeatCalibration()
+    /*void OpenBeatCalibration()
     {
         //Set default variable values
         bOCancelText.color = onColor;
@@ -261,12 +308,12 @@ public class MenuController : MonoBehaviour
 
         persistentGameInfo.GetComponent<BattleTransition>().CloseBeatCalibration();
         persistentGameInfo.GetComponent<CombatStartingState>().combatState = SongLoader.CombatState.Playing;
-    }
+    }*/
 
     public void CloseMenu()
     {
         interactable = false;
-        hero.canMove = true;
+        hero.SetCanMove(true);
         menuParent.SetActive(false);
     }
 }
