@@ -32,9 +32,6 @@ public class PlayerMove2D : MonoBehaviour
     [SerializeField] private Transform respawnTransform;
     private Vector3 respawnLocation; 
 
-    [Header("Dialogue References")]
-    [SerializeField] private DialogueUI dialogueUI;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -64,10 +61,14 @@ public class PlayerMove2D : MonoBehaviour
             }
         }
 
-        if ((canMove) && (!dialogueUI.isOpen))
+        if ((canMove) && (DialogueUI.Instance.isOpen == false))
+        {
             inputVect = GetDirectionFromInput();
+        }
         else
+        {
             inputVect = new Vector2(0, 0);
+        }
 
         if (inputVect.magnitude > 0)
             dirFacing = inputVect;
@@ -173,15 +174,17 @@ public class PlayerMove2D : MonoBehaviour
     public Vector2 GetDirectionFromInput()
     {
         Vector2 dir = InputHandler.Instance.Direction;
-        SetAnimatorValues(dir);
+        //SetAnimatorValues(dir);
 
         return dir;
     }
 
     public void SetAnimatorValues(Vector2 inputVect)
     {
+        Debug.Log(inputVect);
+
         //Player stopped moving keys, set dir value to get idle anim
-        if (inputVect.sqrMagnitude < 0.01)
+        if (inputVect.sqrMagnitude < 0.05f)        
         {
             switch(heroAnim.GetCurrentAnimatorClipInfo(0)[0].clip.name)
             {
@@ -212,6 +215,7 @@ public class PlayerMove2D : MonoBehaviour
             }
 
         }
+
         heroAnim.SetFloat("Horizontal", inputVect.x * 2);
         heroAnim.SetFloat("Vertical", inputVect.y);
         heroAnim.SetFloat("Speed", inputVect.sqrMagnitude);
@@ -232,6 +236,16 @@ public class PlayerMove2D : MonoBehaviour
 
     public void SetCanMove(bool newCanMove)
     {
+        if(newCanMove)
+        {
+            //Trying to set to true, check if valid to be able to move
+            if ((MenuController.Instance.Interactable) || (dashManager.DashState == HeroDashManager.dashStateEnum.dashing))
+            {
+                //Don't set ability to move
+                return;
+            }
+        }
+
         canMove = newCanMove;
     }
 }

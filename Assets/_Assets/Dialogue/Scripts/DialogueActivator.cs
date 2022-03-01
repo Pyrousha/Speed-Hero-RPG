@@ -66,7 +66,7 @@ public class DialogueActivator : MonoBehaviour, IInteractable
         if (playWithoutInput || InputHandler.Instance.DialogueInteractPressed)
         {
             played = true;
-            player.DialogueUI.ShowDialogue(dialogueObject, gameObject);
+            DialogueUI.Instance.ShowDialogue(dialogueObject, gameObject);
 
             switch (playOption)
             {

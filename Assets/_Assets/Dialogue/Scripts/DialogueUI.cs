@@ -19,6 +19,8 @@ public class DialogueUI : MonoBehaviour
 
     public DialogueEvent[] dialogueEvents;
 
+    public static DialogueUI Instance;
+
     public bool isOpen { get; private set; }
 
     private TypewriterEffect typewriterEffect;
@@ -26,6 +28,9 @@ public class DialogueUI : MonoBehaviour
 
     private void Start()
     {
+        if (Instance == null)
+            Instance = this;
+
         typewriterEffect = GetComponent<TypewriterEffect>();
         responseHandler = GetComponent<ResponseHandler>();
     }

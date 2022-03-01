@@ -87,6 +87,9 @@ public class HeroDashManager : MonoBehaviour
         dir = directionHeld;
 
         //No movin
+        if (playerController.canMove == false)
+            return;
+
         playerController.SetCanMove(false);
 
         //No gravy
@@ -106,9 +109,6 @@ public class HeroDashManager : MonoBehaviour
 
     private void EndDash(bool refundDash)
     {
-        //Can move again
-        playerController.SetCanMove(true);
-
         //Make gravy normal
         rb.useGravity = true;
 
@@ -119,6 +119,9 @@ public class HeroDashManager : MonoBehaviour
             dashState = dashStateEnum.charged;
         else
             dashState = dashStateEnum.recharging;
+
+        //Can move again
+        playerController.SetCanMove(true);
     }
 
     private void SpawnAfterImage()

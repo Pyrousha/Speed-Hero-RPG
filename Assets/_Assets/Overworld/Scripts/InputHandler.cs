@@ -70,7 +70,7 @@ public class InputHandler : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         dialogueInteractPressed = interact.down;
 
@@ -105,6 +105,8 @@ public class InputHandler : MonoBehaviour
 
         Vector2 dir = new Vector2(x, y);
         dir = dir.normalized;
+
+        //Debug.Log(dir);
 
         return dir;
     }

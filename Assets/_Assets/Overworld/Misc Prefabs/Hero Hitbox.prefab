@@ -941,6 +941,7 @@ GameObject:
   - component: {fileID: 200467641326303917}
   - component: {fileID: 200467641326303915}
   - component: {fileID: 200467641326303912}
+  - component: {fileID: 8142013863785795777}
   m_Layer: 16
   m_Name: Hero Hitbox
   m_TagString: Player
@@ -1001,19 +1002,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200467641326303918}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 880c4ee3d21eb8446bc67e4e4c706682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasSpeedCrystal: 0
   heroRB: {fileID: 200467641326303914}
   heroAnim: {fileID: 200467639874018738}
   heroSprite: {fileID: 200467639874018741}
+  dashManager: {fileID: 8142013863785795777}
   inputVect: {x: 0, y: 0}
-  moveSpeed: 4
+  maxMoveSpeed: 5
   accelSpeed: 0.7
   frictionSpeed: 0.8
-  canMove: 1
   startingVelocity: {x: 0, y: 0, z: 0}
   groundLayer:
     serializedVersion: 2
@@ -1026,8 +1028,6 @@ MonoBehaviour:
   - {fileID: 200467640092228501}
   - {fileID: 200467640704863167}
   respawnTransform: {fileID: 0}
-  overworldInputHandler: {fileID: 0}
-  dialogueUI: {fileID: 0}
 --- !u!114 &200467641326303915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1088,8 +1088,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de44e8eb115e7cc4dbca1484194f3cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overworldInputHandler: {fileID: 0}
   dialogueUI: {fileID: 0}
+--- !u!114 &8142013863785795777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200467641326303918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1774b9aecc6d34fa37f8c75254e8b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashState: 0
+  dashDurationSecs: 0.25
+  dashSpeed: 24
+  secondsPerAfterimage: 0.01
+  endDashSpeedMultiplier: 0.1
+  playerController: {fileID: 200467641326303917}
+  playerVisualTransform: {fileID: 200467639874018740}
+  rb: {fileID: 200467641326303914}
+  spriteRenderer: {fileID: 200467639874018741}
 --- !u!1 &200467641368404244
 GameObject:
   m_ObjectHideFlags: 0

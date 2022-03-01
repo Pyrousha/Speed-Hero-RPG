@@ -99,12 +99,12 @@ public class PathMove2D : MonoBehaviour
             //move towards point
             else
             {
-                SetVelocity(shouldMove = true);
+                SetVelocity(true);
             }
         }
         else
         {
-            SetVelocity(shouldMove = false);
+            SetVelocity(false);
         }
     }
 
@@ -129,7 +129,6 @@ public class PathMove2D : MonoBehaviour
     {
         frictionSpeed = tempFrictionSpeed;
     }
-
 
 
     public void AllowMovement()
@@ -167,69 +166,80 @@ public class PathMove2D : MonoBehaviour
         float newSpeedX = 0;
         float newSpeedZ = 0;
 
-        #region calculate xSpeed
+        #region Apply Friction
+        //X-Friction
+        if (currSpeedX < 0) //moving left
+        {
+            newSpeedX = Mathf.Min(0, currSpeedX + frictionSpeed);
+        }
+        else
+        {
+            if (currSpeedX > 0) //moving right
+            {
+                newSpeedX = Mathf.Max(0, currSpeedX - frictionSpeed);
+            }
+        }
+
+        //Z-Friction
+        if (currSpeedZ < 0) //moving left
+        {
+            newSpeedZ = Mathf.Min(0, currSpeedZ + frictionSpeed);
+        }
+        else
+        {
+            if (currSpeedZ > 0) //moving right
+            {
+                newSpeedZ = Mathf.Max(0, currSpeedZ - frictionSpeed);
+            }
+        }
+        #endregion
+
+        #region Apply Acceleration
+        //X-Acceleration
         if (inputVect.x < 0) //pressing left
         {
-            //accelerate left
-            newSpeedX = Mathf.Max(currSpeedX - accelSpeed, moveSpeed * inputVect.x);
+            if (currSpeedX > maxMoveSpeed * inputVect.x) //can accelerate more left
+            {
+                //accelerate left
+                newSpeedX = Mathf.Max(currSpeedX - accelSpeed, maxMoveSpeed * inputVect.x);
+            }
         }
         else
         {
             if (inputVect.x > 0) //pressing right
             {
-                //accelerate right
-                newSpeedX = Mathf.Min(currSpeedX + accelSpeed, moveSpeed * inputVect.x);
-            }
-            else //pressing nothing, x-friction
-            {
-                if (currSpeedX < 0) //moving left
+                if (currSpeedX < maxMoveSpeed * inputVect.x) //can accelerate more right
                 {
-                    newSpeedX = Mathf.Min(0, currSpeedX + frictionSpeed);
-                }
-                else
-                {
-                    if (currSpeedX > 0) //moving right
-                    {
-                        newSpeedX = Mathf.Max(0, currSpeedX - frictionSpeed);
-                    }
+                    //accelerate right
+                    newSpeedX = Mathf.Min(currSpeedX + accelSpeed, maxMoveSpeed * inputVect.x);
                 }
             }
         }
-        #endregion
 
-        #region calculate zSpeed
+        //Z-Acceleration
         if (inputVect.y < 0) //pressing down
         {
-            //if (currSpeedZ > -moveSpeed)
+            if (currSpeedZ > maxMoveSpeed * inputVect.y) //can accelerate more down
             {
                 //accelerate down
-                newSpeedZ = Mathf.Max(currSpeedZ - accelSpeed, moveSpeed * inputVect.y);
+                newSpeedZ = Mathf.Max(currSpeedZ - accelSpeed, maxMoveSpeed * inputVect.y);
             }
         }
         else
         {
             if (inputVect.y > 0) //pressing up
             {
-                //accelerate up
-                newSpeedZ = Mathf.Min(currSpeedZ + accelSpeed, moveSpeed * inputVect.y);
-
-            }
-            else //pressing nothing, z-friction
-            {
-                if (currSpeedZ < 0) //moving left
+                if (currSpeedZ < maxMoveSpeed * inputVect.y) //can accelerate more up
                 {
-                    newSpeedZ = Mathf.Min(0, currSpeedZ + frictionSpeed);
-                }
-                else
-                {
-                    if (currSpeedZ > 0) //moving right
-                    {
-                        newSpeedZ = Mathf.Max(0, currSpeedZ - frictionSpeed);
-                    }
+                    //accelerate up
+                    newSpeedZ = Mathf.Min(currSpeedZ + accelSpeed, maxMoveSpeed * inputVect.y);
                 }
             }
         }
         #endregion
+
+
+        //Debug.Log(inputVect);
 
         //Set velocity after calculation
         rb.velocity = new Vector3(newSpeedX, rb.velocity.y, newSpeedZ);

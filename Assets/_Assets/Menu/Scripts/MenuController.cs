@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
+    public static MenuController Instance;
+
     public Transform selectableParent;
     public Transform triangleIndicator;
     public GameObject menuParent;
@@ -14,6 +16,7 @@ public class MenuController : MonoBehaviour
     public Color onColor;
 
     bool interactable;
+    public bool Interactable => interactable;
 
     public List<Text> selectablesList = new List<Text>();
     
@@ -42,6 +45,11 @@ public class MenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (Instance == null)
+            Instance = this;
+        else
+            Debug.LogError("Oh no");
+
         //menuState = MenuState.normal;
 
         for (int i = 0; i< selectableParent.childCount; i++)
@@ -56,9 +64,7 @@ public class MenuController : MonoBehaviour
     void Update()
     {
         if (InputHandler.Instance.Menu.down)
-        {
-            Debug.Log("pressed ESC");
-           
+        {  
             //Toggle Menu
 
             if (!interactable)
@@ -260,8 +266,6 @@ public class MenuController : MonoBehaviour
 
     public void OpenMenu()
     {
-        Debug.Log("open menu");
-
         //Set default parameters
         oldSelectedIndex = 0;
         selectedIndex = 0;
