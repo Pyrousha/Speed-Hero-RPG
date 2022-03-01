@@ -24,7 +24,8 @@ public class PlayerMove2D : MonoBehaviour
 
     [Header("Ground checking")]
     public LayerMask groundLayer;
-    public bool isGrounded {get; private set;}
+    private bool isGrounded = true;
+    public bool IsGrounded => isGrounded;
 
     [SerializeField] private float raycastHeight;
     public GameObject[] raycastPoints;
@@ -34,7 +35,7 @@ public class PlayerMove2D : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    { 
         canMove = true;
 
         if (respawnTransform != null)
@@ -72,6 +73,8 @@ public class PlayerMove2D : MonoBehaviour
 
         if (inputVect.magnitude > 0)
             dirFacing = inputVect;
+
+        SetAnimatorValues(inputVect);
     }
 
     private void FixedUpdate()
@@ -174,15 +177,12 @@ public class PlayerMove2D : MonoBehaviour
     public Vector2 GetDirectionFromInput()
     {
         Vector2 dir = InputHandler.Instance.Direction;
-        //SetAnimatorValues(dir);
 
         return dir;
     }
 
     public void SetAnimatorValues(Vector2 inputVect)
     {
-        Debug.Log(inputVect);
-
         //Player stopped moving keys, set dir value to get idle anim
         if (inputVect.sqrMagnitude < 0.05f)        
         {

@@ -66,7 +66,7 @@ public class HeroDashManager : MonoBehaviour
                 }
             case dashStateEnum.recharging:
                 {
-                    if (playerController.isGrounded)
+                    if (playerController.IsGrounded)
                     {
                         dashState = dashStateEnum.charged;
                     }

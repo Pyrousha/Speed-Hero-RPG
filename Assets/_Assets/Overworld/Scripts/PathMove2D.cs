@@ -26,6 +26,7 @@ public class PathMove2D : MonoBehaviour
 
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed;
+    private float maxMoveSpeed; //= moveSpeed;
     [SerializeField] private float accelSpeed;
     [SerializeField] private float frictionSpeed;
     private float tempFrictionSpeed;
@@ -34,6 +35,8 @@ public class PathMove2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        maxMoveSpeed = moveSpeed;
+
         if (raycastPointParent != null)
         {
             raycastPoints = new Transform[raycastPointParent.childCount];
@@ -87,6 +90,9 @@ public class PathMove2D : MonoBehaviour
             {
                 if (pathPoints.Count <= 1) //No points left, or this is the last one
                 {
+                    if (GetComponent<PlayerMove2D>() != null)
+                        GetComponent<PlayerMove2D>().SetAnimatorValues(Vector2.zero);
+
                     afterPathFinished.Invoke();
                     DisableMovement();
                 }
