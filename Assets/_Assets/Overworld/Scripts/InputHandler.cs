@@ -52,9 +52,12 @@ public class InputHandler : MonoBehaviour
     private ButtonState right;
     public ButtonState Right => right;
 
-    //Buttons
+    //Interaction Buttons
     private ButtonState dash;
     public ButtonState Dash => dash;
+
+    private ButtonState attack;
+    public ButtonState Attack => attack;
 
     private ButtonState interact;
     public ButtonState Interact => interact;
@@ -84,6 +87,7 @@ public class InputHandler : MonoBehaviour
 
         //reset input stuff
         dash.Reset();
+        attack.Reset();
         interact.Reset();
         menu.Reset();
     }
@@ -136,6 +140,10 @@ public class InputHandler : MonoBehaviour
     public void Button_Menu(InputAction.CallbackContext ctx)
     {
         menu.Set(ctx);
+    }
+    public void Button_Attack(InputAction.CallbackContext ctx)
+    {
+        attack.Set(ctx);
     }
     public void Button_Interact(InputAction.CallbackContext ctx)
     {

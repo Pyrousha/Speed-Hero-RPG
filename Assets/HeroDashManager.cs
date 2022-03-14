@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HeroDashManager : MonoBehaviour
 {
+    public static HeroDashManager Instance;
+
     public enum dashStateEnum
     {
         charged,
@@ -31,6 +33,14 @@ public class HeroDashManager : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     Vector2 dir;
+
+    void Start()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Debug.LogError("Multiple HeroDashManagers found");
+    }
 
     private void Update()
     {
@@ -86,11 +96,9 @@ public class HeroDashManager : MonoBehaviour
 
         dir = directionHeld;
 
-        //No movin
+        //Don't start dash if player can't move
         if (playerController.canMove == false)
             return;
-
-        playerController.SetCanMove(false);
 
         //No gravy
         rb.useGravity = false;
@@ -119,9 +127,6 @@ public class HeroDashManager : MonoBehaviour
             dashState = dashStateEnum.charged;
         else
             dashState = dashStateEnum.recharging;
-
-        //Can move again
-        playerController.SetCanMove(true);
     }
 
     private void SpawnAfterImage()

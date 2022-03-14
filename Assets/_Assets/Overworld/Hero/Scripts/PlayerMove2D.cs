@@ -2,6 +2,8 @@
 
 public class PlayerMove2D : MonoBehaviour
 {
+    public static PlayerMove2D Instance;
+
     [Header("Debug Stuff")]
     [SerializeField] private bool hasSpeedCrystal;
 
@@ -10,7 +12,6 @@ public class PlayerMove2D : MonoBehaviour
     public Animator heroAnim;
     public SpriteRenderer heroSprite;
     private PathMove2D pathMove2D;
-    [SerializeField] private HeroDashManager dashManager;
 
     [Header("Movement")]
     public Vector2 inputVect;
@@ -35,7 +36,12 @@ public class PlayerMove2D : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    { 
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Debug.LogError("Multiple PlayerMove2Ds found");
+
         canMove = true;
 
         if (respawnTransform != null)
@@ -53,16 +59,23 @@ public class PlayerMove2D : MonoBehaviour
     {
         isGrounded = false;
 
-        foreach (GameObject go in raycastPoints)
-        {
-            if (Physics.Raycast(go.transform.position, Vector3.down, raycastHeight, groundLayer))
-            {
-                isGrounded = true;
-                break;
-            }
-        }
+        //Not dashing, menu is closed, dialogue is closed, not attacking
+        canMove =  (HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) &&        //Not dashing
+                   (MenuController.Instance.Interactable == false) &&                                      //Menu closed
+                   (DialogueUI.Instance.isOpen == false) &&                                                //Dialogue closed
+                   (PlayerSwordHandler.Instance.AttackState == PlayerSwordHandler.AttackStateEnum.idle);   //Not attacking
 
-        if ((canMove) && (DialogueUI.Instance.isOpen == false))
+
+            foreach (GameObject go in raycastPoints) //check ground positions
+            {
+                if (Physics.Raycast(go.transform.position, Vector3.down, raycastHeight, groundLayer))
+                {
+                    isGrounded = true;
+                    break;
+                }
+            }
+
+        if (canMove)
         {
             inputVect = GetDirectionFromInput();
         }
@@ -82,7 +95,7 @@ public class PlayerMove2D : MonoBehaviour
         if(pathMove2D!= null && pathMove2D.enabled)
             return;
 
-        if (dashManager.DashState == HeroDashManager.dashStateEnum.dashing)
+        if (HeroDashManager.Instance.DashState == HeroDashManager.dashStateEnum.dashing)
             return;
 
         ApplyFrictionAndAcceleration();
@@ -174,6 +187,16 @@ public class PlayerMove2D : MonoBehaviour
         heroRB.velocity = new Vector3(newSpeedX, heroRB.velocity.y, newSpeedZ);
     }
 
+    public void NudgeHero(float nudgeStrength)
+    {
+        heroRB.velocity = new Vector3(nudgeStrength * dirFacing.x, heroRB.velocity.y, nudgeStrength * dirFacing.y);
+    }
+
+    public void StopNudge()
+    {
+        heroRB.velocity = new Vector3(0, heroRB.velocity.y, 0);
+    }
+
     public Vector2 GetDirectionFromInput()
     {
         Vector2 dir = InputHandler.Instance.Direction;
@@ -219,7 +242,7 @@ public class PlayerMove2D : MonoBehaviour
         heroAnim.SetFloat("Horizontal", inputVect.x * 2);
         heroAnim.SetFloat("Vertical", inputVect.y);
         heroAnim.SetFloat("Speed", inputVect.sqrMagnitude);
-        heroAnim.SetBool("InAir", !isGrounded);
+        heroAnim.SetBool("InAir", !isGrounded && HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing);
     }
 
     public void SetRespawnLocation(Transform newRespawn)
@@ -232,20 +255,5 @@ public class PlayerMove2D : MonoBehaviour
         transform.position = respawnLocation;
         heroRB.velocity = new Vector3(0, 0, 0);
         heroSprite.sortingOrder = 1;
-    }
-
-    public void SetCanMove(bool newCanMove)
-    {
-        if(newCanMove)
-        {
-            //Trying to set to true, check if valid to be able to move
-            if ((MenuController.Instance.Interactable) || (dashManager.DashState == HeroDashManager.dashStateEnum.dashing))
-            {
-                //Don't set ability to move
-                return;
-            }
-        }
-
-        canMove = newCanMove;
     }
 }

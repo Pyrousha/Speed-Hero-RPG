@@ -277,7 +277,6 @@ public class MenuController : MonoBehaviour
         triangleIndicator.localPosition = new Vector3(0, 0, 0);
 
         interactable = true;
-        hero.SetCanMove(false);
         menuParent.SetActive(true);
     }
 
@@ -317,7 +316,6 @@ public class MenuController : MonoBehaviour
     public void CloseMenu()
     {
         interactable = false;
-        hero.SetCanMove(true);
         menuParent.SetActive(false);
     }
 }

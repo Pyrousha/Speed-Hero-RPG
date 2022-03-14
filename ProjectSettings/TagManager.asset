@@ -28,8 +28,8 @@ TagManager:
   - CameraBounds
   - OverworldPlayer
   - OverworldNPC
-  - 
-  - 
+  - Hero_Sword
+  - Enemy_Hitbox
   - 
   - 
   - 
