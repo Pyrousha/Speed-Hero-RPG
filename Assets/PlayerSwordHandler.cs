@@ -12,11 +12,15 @@ public class PlayerSwordHandler : MonoBehaviour
 
     private bool canQueueNextAttack = true;
 
+    [SerializeField] private bool useMousePosForAttackDir;
+
+    private Vector2 attackDir;
+
     public enum AttackStateEnum
     {
         idle,
         attacking,
-        endLad
+        endLag
     }
 
     private AttackStateEnum attackState;
@@ -43,23 +47,50 @@ public class PlayerSwordHandler : MonoBehaviour
 
     private void StartAttack()
     {
-        //if (PlayerMove2D.Instance.canMove == false)
-            //return;
+        if (CanStartAttack() == false)
+            return;
+
+        if(useMousePosForAttackDir)
+        {
+            attackDir = new Vector2(0, 0);
+        }
+        else
+        {
+            attackDir = PlayerMove2D.Instance.GetDirectionFromInput();
+
+            if (attackDir.magnitude < 0.05f) //if not pressing a move button
+                attackDir = PlayerMove2D.Instance.dirFacing;
+        }
 
         StopNudge();
 
         swordAnimator.SetTrigger("StartSwing");
 
-        float angle = Vector2.SignedAngle(PlayerMove2D.Instance.dirFacing, new Vector2(-1, 0));
+        float angle = Vector2.SignedAngle(attackDir, new Vector2(-1, 0));
         swordParent.transform.eulerAngles = new Vector3(0, angle, 0);
 
         attackState = AttackStateEnum.attacking;
+        canQueueNextAttack = false;
+    }
+
+    public bool CanStartAttack()
+    {
+        bool canMove = (HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) &&        //Not dashing
+           (MenuController.Instance.Interactable == false) &&                                                  //Menu closed
+           (DialogueUI.Instance.isOpen == false);                                                              //Dialogue closed
+
+        return canMove;
     }
 
     public void NudgeHero()
     {
+        //canQueueNextAttack = true;
+        PlayerMove2D.Instance.NudgeHero(attackDir, nudgeStrength);
+    }
+
+    public void SetQueueNextAttackTrue()
+    {
         canQueueNextAttack = true;
-        PlayerMove2D.Instance.NudgeHero(nudgeStrength);
     }
 
     public void StopNudge()
@@ -68,7 +99,13 @@ public class PlayerSwordHandler : MonoBehaviour
         PlayerMove2D.Instance.StopNudge();
     }
 
-    public void EndAttack()
+    public void OnEndlagStart()
+    {
+        canQueueNextAttack = true;
+        attackState = AttackStateEnum.endLag;
+    }
+
+    public void OnEndAttack()
     {
         attackState = AttackStateEnum.idle;
     }

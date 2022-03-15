@@ -63,7 +63,7 @@ public class PlayerMove2D : MonoBehaviour
         canMove =  (HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) &&        //Not dashing
                    (MenuController.Instance.Interactable == false) &&                                      //Menu closed
                    (DialogueUI.Instance.isOpen == false) &&                                                //Dialogue closed
-                   (PlayerSwordHandler.Instance.AttackState == PlayerSwordHandler.AttackStateEnum.idle);   //Not attacking
+                   (PlayerSwordHandler.Instance.AttackState != PlayerSwordHandler.AttackStateEnum.attacking);   //Not attacking
 
 
             foreach (GameObject go in raycastPoints) //check ground positions
@@ -187,14 +187,17 @@ public class PlayerMove2D : MonoBehaviour
         heroRB.velocity = new Vector3(newSpeedX, heroRB.velocity.y, newSpeedZ);
     }
 
-    public void NudgeHero(float nudgeStrength)
+    public void NudgeHero(Vector2 dir, float nudgeStrength)
     {
-        heroRB.velocity = new Vector3(nudgeStrength * dirFacing.x, heroRB.velocity.y, nudgeStrength * dirFacing.y);
+        heroRB.velocity = new Vector3(nudgeStrength * dir.x, heroRB.velocity.y, nudgeStrength * dir.y);
+
+        SetAnimatorValues(dir);
     }
 
     public void StopNudge()
     {
-        heroRB.velocity = new Vector3(0, heroRB.velocity.y, 0);
+        if(HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing)
+            heroRB.velocity = new Vector3(0, heroRB.velocity.y, 0);
     }
 
     public Vector2 GetDirectionFromInput()
