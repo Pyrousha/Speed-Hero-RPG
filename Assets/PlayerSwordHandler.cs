@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerSwordHandler : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class PlayerSwordHandler : MonoBehaviour
     private bool canQueueNextAttack = true;
 
     [SerializeField] private bool useMousePosForAttackDir;
+    [SerializeField] private LayerMask attackLayer;
 
     private Vector2 attackDir;
 
@@ -52,7 +54,20 @@ public class PlayerSwordHandler : MonoBehaviour
 
         if(useMousePosForAttackDir)
         {
-            attackDir = new Vector2(0, 0);
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+            if (Physics.Raycast(ray, out hit, 100f, attackLayer))
+            {
+                Vector3 dir = hit.point - transform.position;
+                attackDir = new Vector2(dir.x, dir.z);
+                attackDir = attackDir.normalized;
+            }
+            else
+            {
+                attackDir = new Vector2(0, 0);
+                Debug.LogError("Did not click a point??");
+            }
         }
         else
         {
