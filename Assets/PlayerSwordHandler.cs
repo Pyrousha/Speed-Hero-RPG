@@ -18,6 +18,8 @@ public class PlayerSwordHandler : MonoBehaviour
 
     private Vector2 attackDir;
 
+    List<Enemy_Stats> hitEnemies;
+
     public enum AttackStateEnum
     {
         idle,
@@ -37,6 +39,8 @@ public class PlayerSwordHandler : MonoBehaviour
             Instance = this;
         else
             Debug.LogError("Multiple PlayerSwordHandlers found");
+
+        hitEnemies = new List<Enemy_Stats>();
     }
 
     private void Update()
@@ -118,10 +122,22 @@ public class PlayerSwordHandler : MonoBehaviour
     {
         canQueueNextAttack = true;
         attackState = AttackStateEnum.endLag;
+
+        hitEnemies = new List<Enemy_Stats>();
     }
 
     public void OnEndAttack()
     {
         attackState = AttackStateEnum.idle;
+    }
+
+    public void EnemyHit(Enemy_Stats enemy)
+    {
+        if (!hitEnemies.Contains(enemy))
+        {
+            //Enemy has not been hit yet
+            hitEnemies.Add(enemy);
+            enemy.TakeDamage(Hero_Stats.Instance.Damage);
+        }
     }
 }
