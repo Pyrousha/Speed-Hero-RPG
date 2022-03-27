@@ -31,6 +31,7 @@ public class HeroDashManager : MonoBehaviour
     [SerializeField] private Transform playerVisualTransform;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator anim;
 
     Vector2 dir;
 
@@ -100,9 +101,11 @@ public class HeroDashManager : MonoBehaviour
         if (playerController.canMove == false)
             return;
 
+        //Set dash sprite
+        SetDashAnim(dir);
+
         //No gravy
         rb.useGravity = false;
-
 
         //Set timer and state
         dashState = dashStateEnum.dashing;
@@ -115,12 +118,43 @@ public class HeroDashManager : MonoBehaviour
         SpawnAfterImage();
     }
 
+    private void SetDashAnim(Vector2 dir)
+    {
+        anim.ResetTrigger("DashEnd");
+
+        if (dir.x >= 0.5f)
+        {
+            anim.Play("Hero_Dash_Right");
+            return;
+        }
+
+        if (dir.x <= -0.5f)
+        {
+            anim.Play("Hero_Dash_Left");
+            return;
+        }
+
+        if (dir.y >= 0.5f)
+        {
+            anim.Play("Hero_Dash_Up");
+            return;
+        }
+
+        if (dir.y <= -0.5f)
+        {
+            anim.Play("Hero_Dash_Down");
+            return;
+        }
+    }
+
     private void EndDash(bool refundDash)
     {
         //Make gravy normal
         rb.useGravity = true;
 
         rb.velocity *= endDashSpeedMultiplier;
+
+        anim.SetTrigger("DashEnd");
 
         //Set state
         if (refundDash)
@@ -138,7 +172,7 @@ public class HeroDashManager : MonoBehaviour
         //if(dir.y <= 0)
         {
             //Give priority to hero sprite over afterimage ones
-            newAfterImage.transform.position += new Vector3(0, -0.05f, 0.05f);
+            newAfterImage.transform.position += new Vector3(0, -0.005f, 0.005f);
         }
 
         newAfterImage.GetComponent<PlayerAfterImageSprite>().SetSprite(spriteRenderer.sprite);

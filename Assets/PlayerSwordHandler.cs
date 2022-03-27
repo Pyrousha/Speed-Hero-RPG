@@ -10,6 +10,7 @@ public class PlayerSwordHandler : MonoBehaviour
     [SerializeField] private Transform swordParent;
 
     [SerializeField] private float nudgeStrength;
+    [SerializeField] private float bigNudgeStrength;
 
     private bool canQueueNextAttack = true;
 
@@ -105,6 +106,12 @@ public class PlayerSwordHandler : MonoBehaviour
     {
         //canQueueNextAttack = true;
         PlayerMove2D.Instance.NudgeHero(attackDir, nudgeStrength);
+    }
+
+    public void BigNudgeHero()
+    {
+        //canQueueNextAttack = true;
+        PlayerMove2D.Instance.NudgeHero(attackDir, bigNudgeStrength);
     }
 
     public void SetQueueNextAttackTrue()
