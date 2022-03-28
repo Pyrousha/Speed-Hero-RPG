@@ -111,8 +111,11 @@ public class HeroDashManager : MonoBehaviour
         dashState = dashStateEnum.dashing;
         dashEndTime = Time.time + dashDurationSecs;
 
+        //Move player up slightly
+        transform.position += new Vector3(0, 0.025f, 0);
+
         //Set velocity
-        rb.velocity = new Vector3(dir.x * dashSpeed, rb.velocity.y+0.1f, dir.y * dashSpeed);
+        rb.velocity = new Vector3(dir.x * dashSpeed, 0, dir.y * dashSpeed);
 
         //Spawn first afterimage + afterimage timer
         SpawnAfterImage();
@@ -172,7 +175,7 @@ public class HeroDashManager : MonoBehaviour
         //if(dir.y <= 0)
         {
             //Give priority to hero sprite over afterimage ones
-            newAfterImage.transform.position += new Vector3(0, -0.005f, 0.005f);
+            newAfterImage.transform.position += new Vector3(0, -0.025f, 0.025f);
         }
 
         newAfterImage.GetComponent<PlayerAfterImageSprite>().SetSprite(spriteRenderer.sprite);
