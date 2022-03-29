@@ -134,11 +134,11 @@ public class Hero_Controller_Combat : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.J))
+        /*if(Input.GetKeyDown(KeyCode.J))
         {
             GameObject attackObj = Instantiate(heroAttackPrefab, null);
             attackObj.GetComponent<Hero_Attack_Projectile>().SetDamage(heroStatsCombat.Dmg);
-        }
+        }*/
 
         //OldInputAttack();
         GetInputAndAttack();

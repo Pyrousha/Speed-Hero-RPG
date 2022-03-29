@@ -258,5 +258,7 @@ public class PlayerMove2D : MonoBehaviour
         transform.position = respawnLocation;
         heroRB.velocity = new Vector3(0, 0, 0);
         heroSprite.sortingOrder = 1;
+
+        Hero_Stats.Instance.TakeDamage(0.5f);
     }
 }
