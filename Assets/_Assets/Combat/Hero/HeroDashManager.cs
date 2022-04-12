@@ -171,6 +171,7 @@ public class HeroDashManager : MonoBehaviour
         GameObject newAfterImage = PlayerAfterImagePool.Instance.GetFromPool();
         newAfterImage.transform.position = playerVisualTransform.position;
         newAfterImage.transform.rotation = playerVisualTransform.rotation;
+        newAfterImage.transform.parent = null;
 
         //if(dir.y <= 0)
         {
