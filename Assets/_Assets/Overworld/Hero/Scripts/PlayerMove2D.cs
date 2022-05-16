@@ -12,6 +12,8 @@ public class PlayerMove2D : MonoBehaviour
     public Animator heroAnim;
     public SpriteRenderer heroSprite;
     private PathMove2D pathMove2D;
+    [SerializeField] private Transform playerTransform;
+    public Transform PlayerTransform => playerTransform;
 
     [Header("Movement")]
     public Vector2 inputVect;
