@@ -23,24 +23,24 @@ TagManager:
   - HeroBladeShot
   - EnemyAttackProjectile
   - HeroCombatHitbox
-  - OverworldSprite
-  - OverworldTerrain
+  - ^^ Unused ^^
+  - Terrain
   - CameraBounds
-  - OverworldPlayer
-  - OverworldNPC
-  - Hero_Sword
-  - Enemy_Hitbox
+  - Hero-Hitbox
+  - Hero-Hurtbox
+  - Hero-Attack
+  - Enemy-Hitbox
+  - Enemy-Hurtbox
+  - Enemy-Attack
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - Hero_Mouse_Pos_Plane
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
   - Obj Spawner
   m_SortingLayers:
   - name: Default
