@@ -68,6 +68,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -77,11 +79,11 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -99,9 +101,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -528,6 +533,22 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      bridge planks_10: -3471921487168261029
+      bridge planks_7: 8523053491906711466
+      bridge planks_6: 2317903981221086399
+      bridge planks_0: -7685295091142175859
+      bridge planks_13: 7090735865860224634
+      bridge planks_1: 8562885877148230602
+      bridge planks_14: -4972516911285721532
+      bridge planks_5: -1959631688037222622
+      bridge planks_12: -3081311283625183314
+      bridge planks_8: 8865222602402183044
+      bridge planks_2: 1505492161424538244
+      bridge planks_11: 4990592754279736903
+      bridge planks_4: 4869347660424668279
+      bridge planks_9: 3325055468953271665
+      bridge planks_3: 2950436212009475801
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

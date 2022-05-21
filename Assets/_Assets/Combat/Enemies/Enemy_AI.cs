@@ -8,8 +8,8 @@ public class Enemy_AI : MonoBehaviour
     [SerializeField] private float distanceToAggro;
     [Header("References")]
     [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private NavMeshAgent distanceCalculator;
     [SerializeField] private Animator anim;
+    [SerializeField] private Transform attackParent;
 
     public enum EnemyStateEnum
     {
@@ -22,11 +22,10 @@ public class Enemy_AI : MonoBehaviour
     private EnemyStateEnum state;
 
     [Header("Strafe Properties")]
-    [SerializeField] private float maxStrafeSpeed;
+    [SerializeField] private float strafeSpeed;
     [SerializeField] private float minRandStrafeTime;
     [SerializeField] private float maxRandStrafeTime;
     private float nextStrafeSwapTime;
-    private float strafeSpeed;
 
     [Header("Attack Properties")]
     [SerializeField] private float minRandAttackTime;
@@ -46,13 +45,19 @@ public class Enemy_AI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GetNextAttack();
     }
 
-    // Update is called once per frame
-    void Update()
+    public float DistToPlayer()
     {
-        
+        Vector3 thisPos = transform.position;
+        Vector3 playerPos = PlayerMove2D.Instance.PlayerTransform.position;
+        thisPos.y = 0;
+        playerPos.y = 0;
+
+        float distToTarg = (thisPos - playerPos).magnitude;
+
+        return distToTarg;
     }
 
     private void FixedUpdate()
@@ -61,10 +66,10 @@ public class Enemy_AI : MonoBehaviour
         {
             case EnemyStateEnum.Roaming:
                 {
-                    distanceCalculator.SetDestination(PlayerMove2D.Instance.PlayerTransform.position);
-                    float distToPlayer = distanceCalculator.remainingDistance;
+                    //distanceCalculator.SetDestination(PlayerMove2D.Instance.PlayerTransform.position);
+                    //float distToPlayer = distanceCalculator.remainingDistance;
 
-                    if(distToPlayer <= distanceToAggro)
+                    if(DistToPlayer() <= distanceToAggro)
                     {
                         state = EnemyStateEnum.Aggrod;
                     }
@@ -81,7 +86,7 @@ public class Enemy_AI : MonoBehaviour
                         else
                             sign = -1;
 
-                        strafeSpeed = sign * maxStrafeSpeed;
+                        strafeSpeed = sign * strafeSpeed;
 
                         nextStrafeSwapTime = Time.time + Random.Range(minRandStrafeTime, maxRandStrafeTime);
                     }
@@ -93,17 +98,14 @@ public class Enemy_AI : MonoBehaviour
                         {
                             //Start Attack
                             DoAttack();
-                            state = EnemyStateEnum.Attacking;
+                            //state = EnemyStateEnum.Attacking;
 
                             //Stop strafing
                             agent.SetDestination(transform.position);
-                            agent.speed = 0;
+                              //agent.speed = 0;
 
                             //Look at player
-                            Vector3 lookPos = PlayerMove2D.Instance.PlayerTransform.position - transform.position;
-                            lookPos.y = 0;
-                            Quaternion rot = Quaternion.LookRotation(lookPos);
-                            transform.rotation = rot;
+                            LookAtPlayer();
 
                             return;
                         }
@@ -117,7 +119,7 @@ public class Enemy_AI : MonoBehaviour
                             dir = Quaternion.Euler(0, 90, 0) * dir;
                             dir *= strafeSpeed / 8f;
 
-                            Debug.Log("Dir after rotate: " + dir);
+                            //Debug.Log("Dir after rotate: " + dir);
 
                             //Adjust target position based on distance to player
                             float distanceAway = (PlayerMove2D.Instance.PlayerTransform.position - transform.position).magnitude;
@@ -125,20 +127,17 @@ public class Enemy_AI : MonoBehaviour
                             dir += ((PlayerMove2D.Instance.PlayerTransform.position - transform.position).normalized * distToMoveForward);
                             dir.y = 0;
 
-                            Debug.Log("Dir plus towards/away player: " + dir);
+                            //Debug.Log("Dir plus towards/away player: " + dir);
 
                             //Move in target direction
                             agent.SetDestination(transform.position + dir);
 
                             //Look at player (not needed for sprites)
-                            /*Vector3 lookPos = PlayerMove2D.Instance.PlayerTransform.position - transform.position;
-                            lookPos.y = 0;
-                            Quaternion rot = Quaternion.LookRotation(lookPos);
-                            transform.rotation = rot;*/
+                            LookAtPlayer();
 
                             //Set animation values + navmesh Speed
                             //float strafeSpeedLerped = Mathf.Lerp(anim.GetFloat("StrafeSpeed"), strafeSpeed, Time.deltaTime * 8);
-                            agent.speed = Mathf.Abs(strafeSpeed);
+                              //agent.speed = Mathf.Abs(strafeSpeed);
                             //anim.SetFloat("Speed", Mathf.Abs(strafeSpeed));
                         }
                     }
@@ -164,14 +163,11 @@ public class Enemy_AI : MonoBehaviour
                         agent.SetDestination(transform.position + dir);
 
                         //Look at player
-                        Vector3 lookPos = PlayerMove2D.Instance.PlayerTransform.position - transform.position;
-                        lookPos.y = 0;
-                        Quaternion rot = Quaternion.LookRotation(lookPos);
-                        transform.rotation = rot;
+                        LookAtPlayer();
 
                         //Set animation values + navmesh Speed
                         //float strafeSpeedLerped = Mathf.Lerp(anim.GetFloat("StrafeSpeed"), strafeSpeed, Time.deltaTime * 8);
-                        agent.speed = Mathf.Abs(strafeSpeed);
+                          //agent.speed = Mathf.Abs(strafeSpeed);
                         //anim.SetFloat("Speed", Mathf.Abs(strafeSpeed));
                     }
 
@@ -186,16 +182,11 @@ public class Enemy_AI : MonoBehaviour
 
     public bool InRange()
     {
-        Vector3 dragPos = transform.position;
-        Vector3 playerPos = PlayerMove2D.Instance.PlayerTransform.position;
-        dragPos.y = 0;
-        playerPos.y = 0;
+        float distToTarg = Mathf.Abs(DistToPlayer() - nextAttack.targDistance);
 
-        float distToTarg = Mathf.Abs((dragPos - playerPos).magnitude - nextAttack.targDistance);
+        //Debug.Log("DistToTarg: " + distToTarg);
 
-        Debug.Log("DistToTarg: " + distToTarg);
-
-        if (distToTarg <= 2.5f)
+        if (distToTarg <= 0.5f)
             return true;
 
         return false;
@@ -212,8 +203,8 @@ public class Enemy_AI : MonoBehaviour
 
     private void GetNextAttack()
     {
-        //Make next attack unique from the last one
         int nextAttackIndex = Random.Range(0, attacks.Length);
+
         /*while (nextAttackIndex == lastAttackIndex) //make attacks unique
         {
             nextAttackIndex = Random.Range(0, attacks.Length);
@@ -223,5 +214,13 @@ public class Enemy_AI : MonoBehaviour
         //lastAttackIndex = nextAttackIndex;
 
         nextAttackTime = Time.time + Random.Range(minRandAttackTime, maxRandAttackTime);
+    }
+
+    private void LookAtPlayer()
+    {
+        Vector3 lookPos = PlayerMove2D.Instance.PlayerTransform.position - attackParent.position;
+        lookPos.y = 0;
+        Quaternion rot = Quaternion.LookRotation(lookPos);
+        attackParent.rotation = rot;
     }
 }

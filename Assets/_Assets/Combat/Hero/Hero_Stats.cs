@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Hero_Stats : MonoBehaviour
+public class Hero_Stats : Singleton<Hero_Stats>
 {
-    public static Hero_Stats Instance;
-
     [Header("Stats")]
     [SerializeField] private float maxHp;
     private float hp;
@@ -25,11 +23,6 @@ public class Hero_Stats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Debug.LogError("Multiple Hero_Stats found");
-
         hp = maxHp;
         UpdateHPbar();
     }
