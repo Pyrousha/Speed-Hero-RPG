@@ -22,9 +22,12 @@ public class Enemy_AI : MonoBehaviour
     private EnemyStateEnum state;
 
     [Header("Strafe Properties")]
-    [SerializeField] private float strafeSpeed;
+    private float strafSpeed;
+    [SerializeField] private float minStrafeSpeed;
+    [SerializeField] private float maxStrafeSpeed;
     [SerializeField] private float minRandStrafeTime;
     [SerializeField] private float maxRandStrafeTime;
+    [SerializeField] private float distFromRingForMaxSpeed;
     private float nextStrafeSwapTime;
 
     [Header("Attack Properties")]
@@ -48,7 +51,7 @@ public class Enemy_AI : MonoBehaviour
         GetNextAttack();
     }
 
-    public float DistToPlayer()
+    private float DistToPlayer()
     {
         Vector3 thisPos = transform.position;
         Vector3 playerPos = PlayerMove2D.Instance.PlayerTransform.position;
@@ -59,6 +62,18 @@ public class Enemy_AI : MonoBehaviour
 
         return distToTarg;
     }
+
+    private float SpeedFromRingDist()
+    {
+        float distToRing = Mathf.Abs(DistToPlayer() - nextAttack.targDistance); ;
+
+        if (distToRing >= distFromRingForMaxSpeed)
+            return maxStrafeSpeed;
+
+        return Mathf.Lerp(minStrafeSpeed, maxStrafeSpeed, distToRing / distFromRingForMaxSpeed);
+    }
+
+    private float strafeSign;
 
     private void FixedUpdate()
     {
@@ -86,7 +101,7 @@ public class Enemy_AI : MonoBehaviour
                         else
                             sign = -1;
 
-                        strafeSpeed = sign * strafeSpeed;
+                        strafeSign = sign;
 
                         nextStrafeSwapTime = Time.time + Random.Range(minRandStrafeTime, maxRandStrafeTime);
                     }
@@ -101,75 +116,48 @@ public class Enemy_AI : MonoBehaviour
                             //state = EnemyStateEnum.Attacking;
 
                             //Stop strafing
-                            agent.SetDestination(transform.position);
-                              //agent.speed = 0;
+                            //agent.SetDestination(transform.position);
+                            agent.speed = 0;
 
                             //Look at player
                             LookAtPlayer();
 
                             return;
                         }
-                        else //Move towards target
-                        {
-                            //get direction to player
-                            Vector3 dir = (PlayerMove2D.Instance.PlayerTransform.position - transform.position).normalized;
-                            dir.y = 0;
-
-                            //spir dir left or right depending on strafe speed
-                            dir = Quaternion.Euler(0, 90, 0) * dir;
-                            dir *= strafeSpeed / 8f;
-
-                            //Debug.Log("Dir after rotate: " + dir);
-
-                            //Adjust target position based on distance to player
-                            float distanceAway = (PlayerMove2D.Instance.PlayerTransform.position - transform.position).magnitude;
-                            float distToMoveForward = distanceAway - nextAttack.targDistance;
-                            dir += ((PlayerMove2D.Instance.PlayerTransform.position - transform.position).normalized * distToMoveForward);
-                            dir.y = 0;
-
-                            //Debug.Log("Dir plus towards/away player: " + dir);
-
-                            //Move in target direction
-                            agent.SetDestination(transform.position + dir);
-
-                            //Look at player (not needed for sprites)
-                            LookAtPlayer();
-
-                            //Set animation values + navmesh Speed
-                            //float strafeSpeedLerped = Mathf.Lerp(anim.GetFloat("StrafeSpeed"), strafeSpeed, Time.deltaTime * 8);
-                              //agent.speed = Mathf.Abs(strafeSpeed);
-                            //anim.SetFloat("Speed", Mathf.Abs(strafeSpeed));
-                        }
                     }
-                    else  //Circle around player
-                    {
-                        //get direction to player
-                        Vector3 dir = (PlayerMove2D.Instance.PlayerTransform.position - transform.position).normalized;
-                        dir.y = 0;
 
-                        //spir dir left or right depending on strafe speed
-                        dir = Quaternion.Euler(0, 90, 0) * dir;
-                        dir *= strafeSpeed;
+                    //Move towards target and rotate around player
 
-                        //Adjust target position based on distance to player
-                        float distanceAway = (PlayerMove2D.Instance.PlayerTransform.position - transform.position).magnitude;
-                        float distDiff = distanceAway - nextAttack.targDistance;
-                        Vector3 toPlayer = (PlayerMove2D.Instance.PlayerTransform.position - transform.position).normalized * distDiff;
-                        toPlayer.y = 0;
+                    //get direction to player
+                    Vector3 dir = (PlayerMove2D.Instance.PlayerTransform.position - transform.position).normalized;
+                    dir.y = 0;
 
-                        dir += toPlayer;
+                    //spir dir left or right depending on strafe speed
+                    dir = Quaternion.Euler(0, 90, 0) * dir;
+                    dir *= strafeSign;
 
-                        //Move in target direction
-                        agent.SetDestination(transform.position + dir);
+                    //Debug.Log("Dir after rotate: " + dir);
 
-                        //Look at player
-                        LookAtPlayer();
+                    //Adjust target position based on distance to player
+                    float distanceAway = (PlayerMove2D.Instance.PlayerTransform.position - transform.position).magnitude;
+                    float distToMoveForward = distanceAway - nextAttack.targDistance;
+                    dir += ((PlayerMove2D.Instance.PlayerTransform.position - transform.position).normalized * distToMoveForward);
+                    dir.y = 0;
 
-                        //Set animation values + navmesh Speed
-                        //float strafeSpeedLerped = Mathf.Lerp(anim.GetFloat("StrafeSpeed"), strafeSpeed, Time.deltaTime * 8);
-                          //agent.speed = Mathf.Abs(strafeSpeed);
-                        //anim.SetFloat("Speed", Mathf.Abs(strafeSpeed));
-                    }
+                    //Debug.Log("Dir plus towards/away player: " + dir);
+
+                    //Move in target direction
+                    agent.SetDestination(transform.position + dir);
+
+                    agent.speed = SpeedFromRingDist();
+
+                    //Look at player (not needed for sprites)
+                    LookAtPlayer();
+
+                    //Set animation values + navmesh Speed
+                    //float strafeSpeedLerped = Mathf.Lerp(anim.GetFloat("StrafeSpeed"), strafeSpeed, Time.deltaTime * 8);
+                    //agent.speed = Mathf.Abs(strafeSpeed);
+                    //anim.SetFloat("Speed", Mathf.Abs(strafeSpeed));
 
                     break;
                 }

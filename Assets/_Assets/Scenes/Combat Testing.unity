@@ -1716,7 +1716,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 553091288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.162, y: 0.533, z: 0}
+  m_LocalPosition: {x: -0.162, y: 0.533, z: 1.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1743,15 +1743,17 @@ MonoBehaviour:
   agent: {fileID: 553091296}
   anim: {fileID: 1392984294}
   attackParent: {fileID: 1953536647}
-  strafeSpeed: 5
+  minStrafeSpeed: 3
+  maxStrafeSpeed: 9
   minRandStrafeTime: 1
   maxRandStrafeTime: 3
+  distFromRingForMaxSpeed: 2
   minRandAttackTime: 1
   maxRandAttackTime: 2
   attacks:
   - triggerNames:
     - Claw1
-    targDistance: 1
+    targDistance: 1.2
   - triggerNames:
     - Claw1
     - Claw2
@@ -1770,7 +1772,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.2
   m_Speed: 5
-  m_Acceleration: 999
+  m_Acceleration: 25
   avoidancePriority: 50
   m_AngularSpeed: 0
   m_StoppingDistance: 0
@@ -5034,7 +5036,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1091554399}
   - component: {fileID: 1091554400}
-  m_Layer: 16
+  - component: {fileID: 1091554401}
+  m_Layer: 17
   m_Name: Hero Hurtbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5064,12 +5067,25 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091554398}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6734971284496136167, guid: b2db31370db0843419f860028f1e128f, type: 3}
+--- !u!114 &1091554401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091554398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15358891bdd0b3d42ad0c0559dbae279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroStats: {fileID: 410684994404603934}
 --- !u!1 &1091575938
 GameObject:
   m_ObjectHideFlags: 0
