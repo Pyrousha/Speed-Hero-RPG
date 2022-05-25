@@ -44,10 +44,12 @@ public class Enemy_AI : MonoBehaviour
     [SerializeField] private attack[] attacks;
 
     private attack nextAttack;
+    private int lastAttackIndex;
 
     // Start is called before the first frame update
     void Start()
     {
+        lastAttackIndex = -1;
         GetNextAttack();
     }
 
@@ -193,13 +195,13 @@ public class Enemy_AI : MonoBehaviour
     {
         int nextAttackIndex = Random.Range(0, attacks.Length);
 
-        /*while (nextAttackIndex == lastAttackIndex) //make attacks unique
+        while (nextAttackIndex == lastAttackIndex) //make attacks unique
         {
             nextAttackIndex = Random.Range(0, attacks.Length);
-        }*/
+        }
 
         nextAttack = attacks[nextAttackIndex];
-        //lastAttackIndex = nextAttackIndex;
+        lastAttackIndex = nextAttackIndex;
 
         nextAttackTime = Time.time + Random.Range(minRandAttackTime, maxRandAttackTime);
     }
@@ -210,5 +212,10 @@ public class Enemy_AI : MonoBehaviour
         lookPos.y = 0;
         Quaternion rot = Quaternion.LookRotation(lookPos);
         attackParent.rotation = rot;
+    }
+
+    public void NudgeTowardsPlayer(float nudgeAmount)
+    {
+        agent.velocity += (PlayerMove2D.Instance.PlayerTransform.position - attackParent.position) * nudgeAmount;
     }
 }

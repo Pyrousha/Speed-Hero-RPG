@@ -1716,7 +1716,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 553091288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.162, y: 0.533, z: 1.13}
+  m_LocalPosition: {x: 9.39, y: 0.533, z: -5.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1745,19 +1745,19 @@ MonoBehaviour:
   attackParent: {fileID: 1953536647}
   minStrafeSpeed: 3
   maxStrafeSpeed: 9
-  minRandStrafeTime: 1
-  maxRandStrafeTime: 3
+  minRandStrafeTime: 0
+  maxRandStrafeTime: 2.6
   distFromRingForMaxSpeed: 2
-  minRandAttackTime: 1
-  maxRandAttackTime: 2
+  minRandAttackTime: 1.25
+  maxRandAttackTime: 2.5
   attacks:
   - triggerNames:
     - Claw1
-    targDistance: 1.2
+    targDistance: 1.4
   - triggerNames:
     - Claw1
     - Claw2
-    targDistance: 1
+    targDistance: 1.15
   - triggerNames:
     - Dive
     targDistance: 2
@@ -6826,6 +6826,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1392984293}
   - component: {fileID: 1392984294}
+  - component: {fileID: 1392984295}
   m_Layer: 19
   m_Name: Enemy Attack Animator
   m_TagString: Untagged
@@ -6870,6 +6871,83 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1392984295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392984292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4e229690fbc2464e8af748111ee4470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventArray:
+  - name: ClawAttack-NudgeForward
+    eventToDo:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 553091295}
+          m_TargetAssemblyTypeName: Enemy_AI, Assembly-CSharp
+          m_MethodName: NudgeTowardsPlayer
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 4.25
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: Dive-NudgeBack
+    eventToDo:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 553091295}
+          m_TargetAssemblyTypeName: Enemy_AI, Assembly-CSharp
+          m_MethodName: NudgeTowardsPlayer
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: -3
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: Dive-ChargeForward
+    eventToDo:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 553091295}
+          m_TargetAssemblyTypeName: Enemy_AI, Assembly-CSharp
+          m_MethodName: NudgeTowardsPlayer
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 6
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: KnockedBack
+    eventToDo:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 553091295}
+          m_TargetAssemblyTypeName: Enemy_AI, Assembly-CSharp
+          m_MethodName: NudgeTowardsPlayer
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: -5
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1404476438
 GameObject:
   m_ObjectHideFlags: 0
