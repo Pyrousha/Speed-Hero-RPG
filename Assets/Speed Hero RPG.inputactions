@@ -11,7 +11,8 @@
                     "id": "8b5c12bc-3a80-4eb2-8211-e6cee8293ee9",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Down",
@@ -19,7 +20,8 @@
                     "id": "b69fb0d4-7b2a-4687-a69f-0f0373b2a1f2",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Left",
@@ -27,7 +29,8 @@
                     "id": "88448240-d1c3-4b09-b646-bbe041ea5d60",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Right",
@@ -35,7 +38,8 @@
                     "id": "9c83660c-1394-4f6c-8fa2-d64b391954f7",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Menu",
@@ -43,7 +47,8 @@
                     "id": "539804d1-0023-4d6b-90bc-17cf625758d7",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Interact",
@@ -51,7 +56,8 @@
                     "id": "6c6ce953-a39d-41f6-ad40-349559f40d71",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Dash",
@@ -59,7 +65,8 @@
                     "id": "e7b11c7e-816c-409d-a902-738a973fa8ab",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Attack",
@@ -67,7 +74,17 @@
                     "id": "a85e0702-08e0-4090-91ea-fe833292ba6a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Parry",
+                    "type": "Button",
+                    "id": "771c3d64-9243-4aaa-9ee1-4286667dd58d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -200,6 +217,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80563678-88fc-47b8-bad3-6ecdae5e7752",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Parry",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

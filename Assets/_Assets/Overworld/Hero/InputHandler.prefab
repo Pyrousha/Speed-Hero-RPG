@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.72763634, y: -0.768762, z: -48.561417}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,6 +74,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5585859611536651809}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Button_Up
         m_Mode: 0
         m_Arguments:
@@ -88,6 +90,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5585859611536651809}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Button_Down
         m_Mode: 0
         m_Arguments:
@@ -103,6 +106,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5585859611536651809}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Button_Left
         m_Mode: 0
         m_Arguments:
@@ -118,6 +122,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5585859611536651809}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Button_Right
         m_Mode: 0
         m_Arguments:
@@ -133,6 +138,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5585859611536651809}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Button_Menu
         m_Mode: 0
         m_Arguments:
@@ -148,6 +154,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5585859611536651809}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Button_Interact
         m_Mode: 0
         m_Arguments:
@@ -163,6 +170,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5585859611536651809}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Button_Dash
         m_Mode: 0
         m_Arguments:
@@ -178,6 +186,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5585859611536651809}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Button_Attack
         m_Mode: 0
         m_Arguments:
@@ -190,6 +199,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a85e0702-08e0-4090-91ea-fe833292ba6a
     m_ActionName: Player/Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5585859611536651809}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: Button_Parry
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 771c3d64-9243-4aaa-9ee1-4286667dd58d
+    m_ActionName: Player/Parry[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

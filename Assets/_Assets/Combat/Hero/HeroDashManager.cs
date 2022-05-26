@@ -97,9 +97,12 @@ public class HeroDashManager : MonoBehaviour
 
         dir = directionHeld;
 
-        //Don't start dash if player can't move
-        if (playerController.canMove == false)
+        //Don't start dash if any menus are open
+        if (playerController.MenusClosed() == false)
             return;
+
+        //Stop attack
+        PlayerSwordHandler.Instance.TryCancelAttack();
 
         //Set dash sprite
         SetDashAnim(dir);

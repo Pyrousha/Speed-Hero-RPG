@@ -9,6 +9,7 @@ public class Enemy_Stats : MonoBehaviour
     private float hp;
 
     [SerializeField] private Slider hpSlider;
+    [SerializeField] private Enemy_AI enemyAI;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,8 @@ public class Enemy_Stats : MonoBehaviour
 
     public void TakeDamage(float dmg)
     {
+        //enemyAI.HitByHero();
+
         hp -= dmg;
 
         if(hp <= 0)

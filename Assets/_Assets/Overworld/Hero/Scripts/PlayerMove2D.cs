@@ -36,6 +36,24 @@ public class PlayerMove2D : MonoBehaviour
     [SerializeField] private Transform respawnTransform;
     private Vector3 respawnLocation; 
 
+    public bool MenusClosed()
+    {
+        //menu is closed, dialogue is closed
+        return (MenuController.Instance.Interactable == false) && (DialogueUI.Instance.isOpen == false);                                                      
+    }
+
+    public bool CanParry()
+    {
+        //Not dashing, menu is closed, dialogue is closed
+        bool canDash = ((HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) &&        //Not dashing
+               (MenuController.Instance.Interactable == false) &&                                               //Menu closed
+               (DialogueUI.Instance.isOpen == false));                                                          //Dialogue closed
+
+        PlayerSwordHandler.Instance.TryCancelAttack();
+
+        return canDash;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

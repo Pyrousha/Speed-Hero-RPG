@@ -52,13 +52,17 @@ public class InputHandler : MonoBehaviour
     private ButtonState right;
     public ButtonState Right => right;
 
-    //Interaction Buttons
+    //Combat Buttons
     private ButtonState dash;
     public ButtonState Dash => dash;
 
     private ButtonState attack;
     public ButtonState Attack => attack;
 
+    private ButtonState parry;
+    public ButtonState Parry => parry;
+
+    //Interaction buttons
     private ButtonState interact;
     public ButtonState Interact => interact;
 
@@ -88,6 +92,8 @@ public class InputHandler : MonoBehaviour
         //reset input stuff
         dash.Reset();
         attack.Reset();
+        parry.Reset();
+
         interact.Reset();
         menu.Reset();
     }
@@ -145,6 +151,11 @@ public class InputHandler : MonoBehaviour
     {
         attack.Set(ctx);
     }
+    public void Button_Parry(InputAction.CallbackContext ctx)
+    {
+        parry.Set(ctx);
+    }
+
     public void Button_Interact(InputAction.CallbackContext ctx)
     {
         interact.Set(ctx);

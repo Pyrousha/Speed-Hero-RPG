@@ -147,4 +147,22 @@ public class PlayerSwordHandler : MonoBehaviour
             enemy.TakeDamage(Hero_Stats.Instance.Damage);
         }
     }
+
+    /// <summary>
+    /// Called when wanting to stop the player from attacking.
+    /// For example: being stunned, using dash, or using parry
+    /// </summary>
+    public void TryCancelAttack()
+    {
+        if(attackState != AttackStateEnum.idle)
+        {
+            //Stop animation
+            swordAnimator.ResetTrigger("StartSwing");
+            swordAnimator.Play("Idle");
+
+            //Reset attack state and hit array
+            attackState = AttackStateEnum.idle;
+            hitEnemies = new List<Enemy_Stats>();
+        }
+    }
 }
