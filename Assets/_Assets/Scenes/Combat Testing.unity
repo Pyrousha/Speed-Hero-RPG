@@ -8723,7 +8723,7 @@ PrefabInstance:
     - target: {fileID: 3235203170108935281, guid: 45be8e08c60831d42ac6193648939e9d,
         type: 3}
       propertyPath: m_Name
-      value: Enemy NavMeshAgent (1)
+      value: Enemy | NavMeshAgent (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3235203170108935284, guid: 45be8e08c60831d42ac6193648939e9d,
         type: 3}
@@ -10001,7 +10001,7 @@ PrefabInstance:
     - target: {fileID: 3235203170108935281, guid: 45be8e08c60831d42ac6193648939e9d,
         type: 3}
       propertyPath: m_Name
-      value: Enemy NavMeshAgent
+      value: Enemy | NavMeshAgent
       objectReference: {fileID: 0}
     - target: {fileID: 3235203170108935284, guid: 45be8e08c60831d42ac6193648939e9d,
         type: 3}

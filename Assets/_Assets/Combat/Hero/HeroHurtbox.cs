@@ -15,8 +15,10 @@ public class HeroHurtbox : MonoBehaviour
         }
         else
         {
-            other.transform.parent.parent.parent.parent.GetComponent<Enemy_AI>().StunnedByHero();
-            HeroParryManager.Instance.ParryParticleSystem.Play();
+            heroStats.BecomeInvincible();
+
+            //Do Parry
+            HeroParryManager.Instance.DoParry(other);
         }
 
         other.gameObject.SetActive(false);

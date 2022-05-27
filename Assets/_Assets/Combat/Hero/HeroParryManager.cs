@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class HeroParryManager : Singleton<HeroParryManager>
     [Header("References")]
     [SerializeField] private Animator anim;
     [SerializeField] private ParticleSystem parryParticleSystem;
+    [SerializeField] private SingleSFXManager parrySFXManager;
     public ParticleSystem ParryParticleSystem => parryParticleSystem;
 
     public enum ParryStateEnum
@@ -17,6 +19,7 @@ public class HeroParryManager : Singleton<HeroParryManager>
     }
 
     private ParryStateEnum parryState;
+
     public ParryStateEnum ParryState => parryState;
 
     [Header("Values")]
@@ -25,6 +28,8 @@ public class HeroParryManager : Singleton<HeroParryManager>
 
     private float parryEndTime;
     private float parryRefreshedTime;
+
+    private bool parrySuccess;
 
     // Update is called once per frame
     void Update()
@@ -35,6 +40,8 @@ public class HeroParryManager : Singleton<HeroParryManager>
                 {
                     if (InputHandler.Instance.Parry.down)
                     {
+                        parrySuccess = false;
+
                         parryState = ParryStateEnum.parrying;
                         parryEndTime = Time.time + parryDuration;
                         anim.SetTrigger("StartParry");
@@ -54,7 +61,7 @@ public class HeroParryManager : Singleton<HeroParryManager>
                 }
             case ParryStateEnum.endlag:
                 {
-                    if(Time.time >= parryRefreshedTime)
+                    if((Time.time >= parryRefreshedTime) || (parrySuccess))
                     {
                         parryState = ParryStateEnum.idle;
                     }
@@ -62,5 +69,14 @@ public class HeroParryManager : Singleton<HeroParryManager>
                     break;
                 }
         }
+    }
+
+    public void DoParry(Collider other)
+    {
+        other.transform.parent.parent.parent.parent.GetComponent<Enemy_AI>().StunnedByHero();
+        ParryParticleSystem.Play();
+        parrySFXManager.PlayClip(0);
+
+        parrySuccess = true;
     }
 }

@@ -56,8 +56,13 @@ public class Hero_Stats : Singleton<Hero_Stats>
         UpdateHPbar();
 
         //Make player invincible
-        isInvincible = true;
+        BecomeInvincible();
         heroSpriteRend.color = invincibleColor;
+    }
+
+    public void BecomeInvincible()
+    {
+        isInvincible = true;
         endInvincibleTime = Time.time + invincibleDuration;
     }
 
