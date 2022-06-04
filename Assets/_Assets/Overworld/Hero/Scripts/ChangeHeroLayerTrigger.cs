@@ -20,7 +20,7 @@ public class ChangeHeroLayerTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.name == "Hero Hitbox")
+        if (collision.gameObject.name == "Hero Hitbox Prefab")
         {
             collision.transform.Find("Hero Sprite").GetComponent<SpriteRenderer>().sortingOrder = newLayer;
         }

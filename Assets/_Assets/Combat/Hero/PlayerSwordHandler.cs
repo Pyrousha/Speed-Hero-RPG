@@ -71,7 +71,7 @@ public class PlayerSwordHandler : MonoBehaviour
             else
             {
                 attackDir = new Vector2(0, 0);
-                Debug.LogError("Did not click a point??");
+                Debug.Log("Did not click a point??");
             }
         }
         else
@@ -105,13 +105,13 @@ public class PlayerSwordHandler : MonoBehaviour
     public void NudgeHero()
     {
         //canQueueNextAttack = true;
-        PlayerMove2D.Instance.NudgeHero(attackDir, nudgeStrength);
+        PlayerMove2D.Instance?.NudgeHero(attackDir, nudgeStrength);
     }
 
     public void BigNudgeHero()
     {
         //canQueueNextAttack = true;
-        PlayerMove2D.Instance.NudgeHero(attackDir, bigNudgeStrength);
+        PlayerMove2D.Instance?.NudgeHero(attackDir, bigNudgeStrength);
     }
 
     public void SetQueueNextAttackTrue()
@@ -122,7 +122,7 @@ public class PlayerSwordHandler : MonoBehaviour
     public void StopNudge()
     {
         canQueueNextAttack = true;
-        PlayerMove2D.Instance.StopNudge();
+        PlayerMove2D.Instance?.StopNudge();
     }
 
     public void OnEndlagStart()

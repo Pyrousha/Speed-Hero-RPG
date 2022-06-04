@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class PathMove2D : MonoBehaviour
 {
+    [SerializeField] private bool debugSpeed;
+
     [Header("Pathing")]
     [SerializeField] private bool shouldMove = false;
     [SerializeField] private Transform pathObjectParent;
@@ -86,7 +88,7 @@ public class PathMove2D : MonoBehaviour
         if (shouldMove)
         {
             //if close enough to consider this point reached
-            if (Vector3.Distance(transform.position, targetPosition) < 0.25f)
+            if (Vector3.Distance(transform.position, targetPosition) <= 0.5f)
             {
                 if (pathPoints.Count <= 1) //No points left, or this is the last one
                 {
@@ -146,6 +148,7 @@ public class PathMove2D : MonoBehaviour
     public void DisableMovement()
     {
         shouldMove = false;
+        //rb.velocity = Vector3.zero;
         //rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
     }
 
@@ -201,44 +204,47 @@ public class PathMove2D : MonoBehaviour
         #endregion
 
         #region Apply Acceleration
-        //X-Acceleration
-        if (inputVect.x < 0) //pressing left
+        if (shouldMove)
         {
-            if (currSpeedX > maxMoveSpeed * inputVect.x) //can accelerate more left
+            //X-Acceleration
+            if (inputVect.x < 0) //pressing left
             {
-                //accelerate left
-                newSpeedX = Mathf.Max(currSpeedX - accelSpeed, maxMoveSpeed * inputVect.x);
-            }
-        }
-        else
-        {
-            if (inputVect.x > 0) //pressing right
-            {
-                if (currSpeedX < maxMoveSpeed * inputVect.x) //can accelerate more right
+                if (currSpeedX > maxMoveSpeed * inputVect.x) //can accelerate more left
                 {
-                    //accelerate right
-                    newSpeedX = Mathf.Min(currSpeedX + accelSpeed, maxMoveSpeed * inputVect.x);
+                    //accelerate left
+                    newSpeedX = Mathf.Max(currSpeedX - accelSpeed, maxMoveSpeed * inputVect.x);
                 }
             }
-        }
-
-        //Z-Acceleration
-        if (inputVect.y < 0) //pressing down
-        {
-            if (currSpeedZ > maxMoveSpeed * inputVect.y) //can accelerate more down
+            else
             {
-                //accelerate down
-                newSpeedZ = Mathf.Max(currSpeedZ - accelSpeed, maxMoveSpeed * inputVect.y);
-            }
-        }
-        else
-        {
-            if (inputVect.y > 0) //pressing up
-            {
-                if (currSpeedZ < maxMoveSpeed * inputVect.y) //can accelerate more up
+                if (inputVect.x > 0) //pressing right
                 {
-                    //accelerate up
-                    newSpeedZ = Mathf.Min(currSpeedZ + accelSpeed, maxMoveSpeed * inputVect.y);
+                    if (currSpeedX < maxMoveSpeed * inputVect.x) //can accelerate more right
+                    {
+                        //accelerate right
+                        newSpeedX = Mathf.Min(currSpeedX + accelSpeed, maxMoveSpeed * inputVect.x);
+                    }
+                }
+            }
+
+            //Z-Acceleration
+            if (inputVect.y < 0) //pressing down
+            {
+                if (currSpeedZ > maxMoveSpeed * inputVect.y) //can accelerate more down
+                {
+                    //accelerate down
+                    newSpeedZ = Mathf.Max(currSpeedZ - accelSpeed, maxMoveSpeed * inputVect.y);
+                }
+            }
+            else
+            {
+                if (inputVect.y > 0) //pressing up
+                {
+                    if (currSpeedZ < maxMoveSpeed * inputVect.y) //can accelerate more up
+                    {
+                        //accelerate up
+                        newSpeedZ = Mathf.Min(currSpeedZ + accelSpeed, maxMoveSpeed * inputVect.y);
+                    }
                 }
             }
         }
@@ -247,8 +253,15 @@ public class PathMove2D : MonoBehaviour
 
         //Debug.Log(inputVect);
 
+ 
+
+        Vector3 newVelocity = new Vector3(newSpeedX, rb.velocity.y, newSpeedZ);
+
+        if(debugSpeed)
+            Debug.Log("NewVelocity: "+newVelocity);
+
         //Set velocity after calculation
-        rb.velocity = new Vector3(newSpeedX, rb.velocity.y, newSpeedZ);
+        rb.velocity = newVelocity;
 
         if(GetComponent<PlayerMove2D>() != null)
             GetComponent<PlayerMove2D>().SetAnimatorValues(inputVect);

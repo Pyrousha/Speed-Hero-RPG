@@ -33,12 +33,26 @@ Material:
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - Vector1_71F665A1: 1
     - Vector1_DFCC9991: 5
     - _AngleOffset: 26.35
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _StarSize: 64.63151
     m_Colors:
     - Color_2725C0E7: {r: 0.06013036, g: 0.01090245, b: 0.06603771, a: 1}
