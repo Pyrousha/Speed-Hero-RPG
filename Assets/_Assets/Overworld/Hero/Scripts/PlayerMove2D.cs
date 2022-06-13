@@ -112,19 +112,27 @@ public class PlayerMove2D : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(pathMove2D!= null && pathMove2D.enabled)
+        if (pathMove2D != null && pathMove2D.enabled)
             return;
 
         if (HeroDashManager.Instance.DashState == HeroDashManager.dashStateEnum.dashing)
             return;
 
-        ApplyFrictionAndAcceleration();
+        //Apply directional gravity when in air
+        if (!isGrounded)
+        {
+            //Vector3 zGrav = new Vector3(0, 0, -9.81f);
+            //heroRB.AddForce(zGrav * heroRB.mass);
+        }
+        else
+        {
+            ApplyFrictionAndAcceleration();
+        }
     }
 
     public void ApplyFrictionAndAcceleration()
     {
-        if (!isGrounded)
-            return;
+        //This is only called when the player is grounded
 
         float currSpeedX = heroRB.velocity.x;
         float currSpeedZ = heroRB.velocity.z;
