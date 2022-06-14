@@ -19,18 +19,14 @@ public class DialogueUI : MonoBehaviour
 
     public DialogueEvent[] dialogueEvents;
 
-    public static DialogueUI Instance;
-
     public bool isOpen { get; private set; }
 
+    public OverworldInputHandler overworldInputHandler;
     private TypewriterEffect typewriterEffect;
     private ResponseHandler responseHandler;
 
     private void Start()
     {
-        if (Instance == null)
-            Instance = this;
-
         typewriterEffect = GetComponent<TypewriterEffect>();
         responseHandler = GetComponent<ResponseHandler>();
     }
@@ -116,7 +112,8 @@ public class DialogueUI : MonoBehaviour
 
             //Wait for input to show next slide
             yield return null;
-            yield return new WaitUntil(() => InputHandler.Instance.DialogueInteractPressed);
+            yield return new WaitUntil(() => overworldInputHandler.pressedDownConfirm);
+            overworldInputHandler.pressedDownConfirm = false;
 
             //Handle Dialogue Events if they exist
             if ((dialogueEvents != null) && (dialogueEvents.Length > 0) && (i < dialogueEvents.Length))
@@ -150,8 +147,9 @@ public class DialogueUI : MonoBehaviour
         {
             yield return null;
 
-            if (InputHandler.Instance.DialogueInteractPressed)
+            if (overworldInputHandler.pressedDownConfirm)
             {
+                overworldInputHandler.pressedDownConfirm = false;
                 typewriterEffect.Stop();
             }
         }

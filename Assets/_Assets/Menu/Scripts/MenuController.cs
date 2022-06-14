@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    public static MenuController Instance;
-
     public Transform selectableParent;
     public Transform triangleIndicator;
     public GameObject menuParent;
@@ -16,7 +14,6 @@ public class MenuController : MonoBehaviour
     public Color onColor;
 
     bool interactable;
-    public bool Interactable => interactable;
 
     public List<Text> selectablesList = new List<Text>();
     
@@ -25,32 +22,35 @@ public class MenuController : MonoBehaviour
     int maxIndex;
     int input;
 
+    //Controls
+    KeyCode menuButton = KeyCode.Escape;
+    KeyCode selectButton = KeyCode.Space;
+    KeyCode upButton = KeyCode.W;
+    KeyCode downbutton = KeyCode.S;
+    KeyCode leftButton = KeyCode.A;
+    KeyCode rightButton = KeyCode.D;
+
     [Header("Submenus")]
     public GameObject beatOffsetParent;
 
     //Beat Offset
-    //bool bOCancelSelected = true;
+    bool bOCancelSelected = true;
     public Transform bOTriangleIndicator;
     public Text bOCancelText;
     public Text bOSaveText;
 
-    /*enum MenuState
+    enum MenuState
     {
         normal, 
         beatOffset
     }
 
-    MenuState menuState;*/
+    MenuState menuState;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Debug.LogError("Oh no");
-
-        //menuState = MenuState.normal;
+        menuState = MenuState.normal;
 
         for (int i = 0; i< selectableParent.childCount; i++)
         {
@@ -63,61 +63,11 @@ public class MenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (InputHandler.Instance.Menu.down)
-        {  
-            //Toggle Menu
-
-            if (!interactable)
-                OpenMenu();
-            else
-                CloseMenu();
-        }
-
-        if (!interactable)
-            return;
-
-        //Get input if selection should move up/down
-        input = 0;
-        if (InputHandler.Instance.Up.down)
-            input++;
-        if (InputHandler.Instance.Down.down)
-            input--;
-
-        if (input > 0)
-        {
-            //move up
-            if (selectedIndex == 0)
-                selectedIndex = maxIndex;
-            else
-                selectedIndex--;
-
-            UpdateSelection();
-        }
-        else
-        {
-            if (input < 0)
-            {
-                //move down
-                if (selectedIndex == maxIndex)
-                    selectedIndex = 0;
-                else
-                    selectedIndex++;
-
-                UpdateSelection();
-            }
-        }
-
-        //Select specified button
-        if (InputHandler.Instance.Interact.down)
-        {
-            SelectMenuButton(selectedIndex);
-        }
-
-        /*switch (menuState)
+        switch (menuState)
         {
             case (MenuState.normal):
                 {
-                    if (InputHandler.Instance.Menu.down)
+                    if (Input.GetKeyDown(menuButton))
                     {
                         //Toggle Menu
 
@@ -132,10 +82,10 @@ public class MenuController : MonoBehaviour
 
                     //Get input if selection should move up/down
                     input = 0;
-                    if (InputHandler.Instance.Up.down)
-                        input++;
-                    if (InputHandler.Instance.Down.down)
+                    if (Input.GetKeyDown(downbutton))
                         input--;
+                    if (Input.GetKeyDown(upButton))
+                        input++;
 
                     if (input > 0)
                     {
@@ -162,7 +112,7 @@ public class MenuController : MonoBehaviour
                     }
 
                     //Select specified button
-                    if (InputHandler.Instance.Interact.down)
+                    if (Input.GetKeyDown(selectButton))
                     {
                         SelectMenuButton(selectedIndex);
                     }
@@ -171,7 +121,7 @@ public class MenuController : MonoBehaviour
                 }
             case (MenuState.beatOffset):
                 {
-                    if (InputHandler.Instance.Button_Menu.down)
+                    if (Input.GetKeyDown(menuButton))
                     {
                         CloseBeatCalbiration(false);
                         break;
@@ -188,7 +138,7 @@ public class MenuController : MonoBehaviour
 
                     break;
                 }
-        }*/
+        }
 
     }
 
@@ -204,8 +154,7 @@ public class MenuController : MonoBehaviour
         oldSelectedIndex = selectedIndex;
     }
 
-
-    /*private void UpdateBOSelection()
+    private void UpdateBOSelection()
     {
         if (bOCancelSelected)
         {
@@ -223,7 +172,7 @@ public class MenuController : MonoBehaviour
 
             bOTriangleIndicator.position = bOSaveText.transform.GetChild(0).position;
         }
-    }*/
+    }
 
     public void SelectMenuButton(int selected)
     {
@@ -250,7 +199,7 @@ public class MenuController : MonoBehaviour
             case 3:
                 {
                     //BeatCalibration
-                    //OpenBeatCalibration();
+                    OpenBeatCalibration();
 
                     break;
                 }
@@ -277,10 +226,11 @@ public class MenuController : MonoBehaviour
         triangleIndicator.localPosition = new Vector3(0, 0, 0);
 
         interactable = true;
+        hero.canMove = false;
         menuParent.SetActive(true);
     }
 
-    /*void OpenBeatCalibration()
+    void OpenBeatCalibration()
     {
         //Set default variable values
         bOCancelText.color = onColor;
@@ -311,11 +261,12 @@ public class MenuController : MonoBehaviour
 
         persistentGameInfo.GetComponent<BattleTransition>().CloseBeatCalibration();
         persistentGameInfo.GetComponent<CombatStartingState>().combatState = SongLoader.CombatState.Playing;
-    }*/
+    }
 
     public void CloseMenu()
     {
         interactable = false;
+        hero.canMove = true;
         menuParent.SetActive(false);
     }
 }

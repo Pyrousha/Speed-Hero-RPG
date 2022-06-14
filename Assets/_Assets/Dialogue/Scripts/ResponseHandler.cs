@@ -36,7 +36,7 @@ public class ResponseHandler : MonoBehaviour
             return;
 
         //Press Down
-        if (InputHandler.Instance.Down.down)
+        if (Input.GetKeyDown(KeyCode.S))
         {
             responseIndex++;
             if (responseIndex > (responseObjects.Length - 1))
@@ -45,7 +45,7 @@ public class ResponseHandler : MonoBehaviour
         }
 
         //Press up
-        if (InputHandler.Instance.Up.down)
+        if (Input.GetKeyDown(KeyCode.W))
         {
             responseIndex--;
             if (responseIndex < 0)
@@ -54,7 +54,7 @@ public class ResponseHandler : MonoBehaviour
         }
 
         //Press Space
-        if (InputHandler.Instance.Interact.down)
+        if (Input.GetKeyDown(KeyCode.Space))
             OnPickedResponse(responseArray[responseIndex], responseIndex);
     }
 
@@ -97,6 +97,8 @@ public class ResponseHandler : MonoBehaviour
 
         responsesEnabled = true;
     }
+
+
 
     private void SetIndicator()
     {

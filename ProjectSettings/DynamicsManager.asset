@@ -7,7 +7,6 @@ PhysicsManager:
   m_Gravity: {x: 0, y: -9.81, z: 0}
   m_DefaultMaterial: {fileID: 0}
   m_BounceThreshold: 1000
-  m_DefaultMaxDepenetrationVelocity: 10
   m_SleepThreshold: 0.005
   m_DefaultContactOffset: 0.01
   m_DefaultSolverIterations: 6
@@ -18,7 +17,7 @@ PhysicsManager:
   m_ClothInterCollisionDistance: 0
   m_ClothInterCollisionStiffness: 0
   m_ContactsGeneration: 1
-  m_LayerCollisionMatrix: ff03493fff03003fff03003fffffffffff03003fff03003fffffffffffffffffff03003fff03003fc808003fc814003fc808003fc800003fc800493fc800013fc9c0c03fc800203fc800103fc940003fc800043fc800023fc940013fc800013fffffffffffffffffffffffffffffffffffffffffffffffffc800003fc800003f
+  m_LayerCollisionMatrix: ff63ffffff63ffffff63ffffffffffffff63ffffff63ffffffffffffffffffffff63ffffff63ffffc868ffffc814fc7fc868ffffff77ffffff77ffffc800fd7ffff7ffffff77ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff77ffff
   m_AutoSimulation: 1
   m_AutoSyncTransforms: 0
   m_ReuseCollisionCallbacks: 1
@@ -33,6 +32,5 @@ PhysicsManager:
   m_FrictionType: 0
   m_EnableEnhancedDeterminism: 0
   m_EnableUnifiedHeightmaps: 1
-  m_ImprovedPatchFriction: 0
   m_SolverType: 0
   m_DefaultMaxAngularSpeed: 7

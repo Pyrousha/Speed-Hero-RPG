@@ -5,8 +5,6 @@ using UnityEngine.Events;
 
 public class PathMove2D : MonoBehaviour
 {
-    [SerializeField] private bool debugSpeed;
-
     [Header("Pathing")]
     [SerializeField] private bool shouldMove = false;
     [SerializeField] private Transform pathObjectParent;
@@ -28,7 +26,6 @@ public class PathMove2D : MonoBehaviour
 
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed;
-    private float maxMoveSpeed; //= moveSpeed;
     [SerializeField] private float accelSpeed;
     [SerializeField] private float frictionSpeed;
     private float tempFrictionSpeed;
@@ -37,8 +34,6 @@ public class PathMove2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxMoveSpeed = moveSpeed;
-
         if (raycastPointParent != null)
         {
             raycastPoints = new Transform[raycastPointParent.childCount];
@@ -88,13 +83,10 @@ public class PathMove2D : MonoBehaviour
         if (shouldMove)
         {
             //if close enough to consider this point reached
-            if (Vector3.Distance(transform.position, targetPosition) <= 0.5f)
+            if (Vector3.Distance(transform.position, targetPosition) < 0.25f)
             {
                 if (pathPoints.Count <= 1) //No points left, or this is the last one
                 {
-                    if (GetComponent<PlayerMove2D>() != null)
-                        GetComponent<PlayerMove2D>().SetAnimatorValues(Vector2.zero);
-
                     afterPathFinished.Invoke();
                     DisableMovement();
                 }
@@ -107,12 +99,12 @@ public class PathMove2D : MonoBehaviour
             //move towards point
             else
             {
-                SetVelocity(true);
+                SetVelocity(shouldMove = true);
             }
         }
         else
         {
-            SetVelocity(false);
+            SetVelocity(shouldMove = false);
         }
     }
 
@@ -139,6 +131,7 @@ public class PathMove2D : MonoBehaviour
     }
 
 
+
     public void AllowMovement()
     {
         shouldMove = true;
@@ -148,7 +141,6 @@ public class PathMove2D : MonoBehaviour
     public void DisableMovement()
     {
         shouldMove = false;
-        //rb.velocity = Vector3.zero;
         //rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
     }
 
@@ -175,93 +167,72 @@ public class PathMove2D : MonoBehaviour
         float newSpeedX = 0;
         float newSpeedZ = 0;
 
-        #region Apply Friction
-        //X-Friction
-        if (currSpeedX < 0) //moving left
+        #region calculate xSpeed
+        if (inputVect.x < 0) //pressing left
         {
-            newSpeedX = Mathf.Min(0, currSpeedX + frictionSpeed);
+            //accelerate left
+            newSpeedX = Mathf.Max(currSpeedX - accelSpeed, moveSpeed * inputVect.x);
         }
         else
         {
-            if (currSpeedX > 0) //moving right
+            if (inputVect.x > 0) //pressing right
             {
-                newSpeedX = Mathf.Max(0, currSpeedX - frictionSpeed);
+                //accelerate right
+                newSpeedX = Mathf.Min(currSpeedX + accelSpeed, moveSpeed * inputVect.x);
             }
-        }
-
-        //Z-Friction
-        if (currSpeedZ < 0) //moving left
-        {
-            newSpeedZ = Mathf.Min(0, currSpeedZ + frictionSpeed);
-        }
-        else
-        {
-            if (currSpeedZ > 0) //moving right
+            else //pressing nothing, x-friction
             {
-                newSpeedZ = Mathf.Max(0, currSpeedZ - frictionSpeed);
-            }
-        }
-        #endregion
-
-        #region Apply Acceleration
-        if (shouldMove)
-        {
-            //X-Acceleration
-            if (inputVect.x < 0) //pressing left
-            {
-                if (currSpeedX > maxMoveSpeed * inputVect.x) //can accelerate more left
+                if (currSpeedX < 0) //moving left
                 {
-                    //accelerate left
-                    newSpeedX = Mathf.Max(currSpeedX - accelSpeed, maxMoveSpeed * inputVect.x);
+                    newSpeedX = Mathf.Min(0, currSpeedX + frictionSpeed);
                 }
-            }
-            else
-            {
-                if (inputVect.x > 0) //pressing right
+                else
                 {
-                    if (currSpeedX < maxMoveSpeed * inputVect.x) //can accelerate more right
+                    if (currSpeedX > 0) //moving right
                     {
-                        //accelerate right
-                        newSpeedX = Mathf.Min(currSpeedX + accelSpeed, maxMoveSpeed * inputVect.x);
-                    }
-                }
-            }
-
-            //Z-Acceleration
-            if (inputVect.y < 0) //pressing down
-            {
-                if (currSpeedZ > maxMoveSpeed * inputVect.y) //can accelerate more down
-                {
-                    //accelerate down
-                    newSpeedZ = Mathf.Max(currSpeedZ - accelSpeed, maxMoveSpeed * inputVect.y);
-                }
-            }
-            else
-            {
-                if (inputVect.y > 0) //pressing up
-                {
-                    if (currSpeedZ < maxMoveSpeed * inputVect.y) //can accelerate more up
-                    {
-                        //accelerate up
-                        newSpeedZ = Mathf.Min(currSpeedZ + accelSpeed, maxMoveSpeed * inputVect.y);
+                        newSpeedX = Mathf.Max(0, currSpeedX - frictionSpeed);
                     }
                 }
             }
         }
         #endregion
 
+        #region calculate zSpeed
+        if (inputVect.y < 0) //pressing down
+        {
+            //if (currSpeedZ > -moveSpeed)
+            {
+                //accelerate down
+                newSpeedZ = Mathf.Max(currSpeedZ - accelSpeed, moveSpeed * inputVect.y);
+            }
+        }
+        else
+        {
+            if (inputVect.y > 0) //pressing up
+            {
+                //accelerate up
+                newSpeedZ = Mathf.Min(currSpeedZ + accelSpeed, moveSpeed * inputVect.y);
 
-        //Debug.Log(inputVect);
-
- 
-
-        Vector3 newVelocity = new Vector3(newSpeedX, rb.velocity.y, newSpeedZ);
-
-        if(debugSpeed)
-            Debug.Log("NewVelocity: "+newVelocity);
+            }
+            else //pressing nothing, z-friction
+            {
+                if (currSpeedZ < 0) //moving left
+                {
+                    newSpeedZ = Mathf.Min(0, currSpeedZ + frictionSpeed);
+                }
+                else
+                {
+                    if (currSpeedZ > 0) //moving right
+                    {
+                        newSpeedZ = Mathf.Max(0, currSpeedZ - frictionSpeed);
+                    }
+                }
+            }
+        }
+        #endregion
 
         //Set velocity after calculation
-        rb.velocity = newVelocity;
+        rb.velocity = new Vector3(newSpeedX, rb.velocity.y, newSpeedZ);
 
         if(GetComponent<PlayerMove2D>() != null)
             GetComponent<PlayerMove2D>().SetAnimatorValues(inputVect);
