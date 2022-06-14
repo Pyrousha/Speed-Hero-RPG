@@ -16,15 +16,15 @@ TagManager:
   - 
   - Water
   - UI
+  - TriggerA
+  - TriggerB
   - 
   - 
-  - AtkCube
-  - NoteGrid
-  - HeroBladeShot
-  - EnemyAttackProjectile
-  - HeroCombatHitbox
-  - ^^ Unused ^^
-  - Terrain
+  - Trigger-HeroOnly
+  - 
+  - Terrain-Unwalkable
+  - Sprite
+  - Terrain-Walkable
   - CameraBounds
   - Hero-Hitbox
   - Hero-Hurtbox

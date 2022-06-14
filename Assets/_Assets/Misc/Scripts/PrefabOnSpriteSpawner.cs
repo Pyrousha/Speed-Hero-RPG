@@ -55,7 +55,7 @@ public class PrefabOnSpriteSpawner : MonoBehaviour
             {
                 for (float z = startZ + grid.startZOffset; z <= endZ; z += grid.gridsize)
                 {
-                    CheckSpawnTree(x, z);
+                    CheckSpawnObject(x, z);
                 }
             }
         }
@@ -91,7 +91,7 @@ public class PrefabOnSpriteSpawner : MonoBehaviour
         return -1;
     }
 
-    private void CheckSpawnTree(float x, float z)
+    private void CheckSpawnObject(float x, float z)
     {
         //Debug.Log("checking position " + x + "," + z);
         RaycastHit hit;
