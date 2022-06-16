@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 300}
   m_MaxSize: {x: 24288, y: 24288}
   vertical: 0
-  controlID: 10689
+  controlID: 10497
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -87,7 +87,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 300}
   m_MaxSize: {x: 16192, y: 24288}
   vertical: 1
-  controlID: 10690
+  controlID: 10385
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 0
-  controlID: 10691
+  controlID: 10386
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -187,8 +187,8 @@ MonoBehaviour:
     y: 0
     width: 359
     height: 667
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 6}
   m_Panes:
   - {fileID: 6}
@@ -225,10 +225,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: a0cefbffe8f8fffff2f8fffff6f8ffff32fbffff2e610000626100008663000068b70600
+      scrollPos: {x: 0, y: 30623}
+      m_SelectedIDs: be11f8ff
+      m_LastClickedID: -519746
+      m_ExpandedIDs: c211f8ff2216f8ff3ae2fbff46e3fbff0ce4fbff38e4fbff6c70fcff32b5ffff32b8ffffc47f0b0002810b00a4810b00e8810b00a2cb0b0042210c00
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 10653
+  controlID: 10387
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -296,8 +296,8 @@ MonoBehaviour:
     y: 0
     width: 823
     height: 567
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 9}
   m_Panes:
   - {fileID: 9}
@@ -531,9 +531,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -2.8016615, y: 1.927431, z: -34.47531}
+    m_Target: {x: 17.694426, y: -1.0499637, z: -56.845886}
     speed: 2
-    m_Value: {x: -2.8016615, y: 1.927431, z: -34.47531}
+    m_Value: {x: 17.694426, y: -1.0499637, z: -56.845886}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -580,13 +580,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.11363239, y: -0.16550727, z: 0.019201469, w: 0.9794512}
+    m_Target: {x: 0.356474, y: -0.007006863, z: 0.002673985, w: 0.93428046}
     speed: 2
-    m_Value: {x: 0.11363249, y: -0.16550742, z: 0.019201485, w: 0.9794521}
+    m_Value: {x: 0.35646787, y: -0.008408234, z: 0.0032086773, w: 0.9342643}
   m_Size:
-    m_Target: 2.4595618
+    m_Target: 15.699495
     speed: 2
-    m_Value: 2.4595618
+    m_Value: 15.02344
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -777,8 +777,8 @@ MonoBehaviour:
     y: 567
     width: 823
     height: 100
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 101, y: 121}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -815,7 +815,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 439776
+  m_LastSelectedObjectID: -519746
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -885,22 +885,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/_Assets/Scenes
+    - Assets/_Assets/Overworld/Terrain/Sprites
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/_Assets/Scenes
+  - Assets/_Assets/Overworld/Terrain/Sprites
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\tboyd\Github\Speed-Hero-RPG
+  m_LastProjectPath: H:\Github\Repositories\Speed-Hero-RPG
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 335}
-    m_SelectedIDs: 08190100
-    m_LastClickedID: 71944
-    m_ExpandedIDs: 000000000219010004190100061901000819010000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 337}
+    m_SelectedIDs: c2201100
+    m_LastClickedID: 1122498
+    m_ExpandedIDs: 000000008e46040090460400be460400c04604000c310c001c310c0000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -928,7 +928,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000000219010004190100061901000819010000ca9a3bffffff7f
+    m_ExpandedIDs: 0000000090460400be460400c04604000c310c0000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -953,8 +953,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: e0b50600
-    m_LastClickedInstanceID: 439776
+    m_SelectedInstanceIDs: be11f8ff
+    m_LastClickedInstanceID: -519746
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c623000090110100
     m_RenameOverlay:
@@ -972,7 +972,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 14}
+      m_ClientGUIView: {fileID: 0}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -1037,7 +1037,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 10684
+  controlID: 10498
 --- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1057,8 +1057,8 @@ MonoBehaviour:
     y: 0
     width: 738
     height: 487
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -1101,7 +1101,7 @@ MonoBehaviour:
     m_CachedPref: -244
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: 439776
+  m_LastInspectedObjectInstanceID: -1
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
@@ -1167,7 +1167,7 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_PosLeft: {x: 0, y: 0}
-  m_PosRight: {x: 0, y: 577}
+  m_PosRight: {x: 0, y: 697}
   m_Scope: 1
   m_SplitterFlex: 0.13552362
   m_SearchText: 
@@ -1212,8 +1212,8 @@ MonoBehaviour:
     y: 487
     width: 738
     height: 460
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 2}
   m_Panes:
   - {fileID: 2}

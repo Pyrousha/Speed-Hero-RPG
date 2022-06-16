@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerMove2D : MonoBehaviour
 {
@@ -31,7 +32,8 @@ public class PlayerMove2D : MonoBehaviour
     public bool IsGrounded => isGrounded;
 
     [SerializeField] private float raycastHeight;
-    public GameObject[] raycastPoints;
+    [SerializeField] private Transform raycastParent;
+    private List<Transform> raycastPoints;
 
     [SerializeField] private Transform respawnTransform;
     private Vector3 respawnLocation; 
@@ -72,28 +74,29 @@ public class PlayerMove2D : MonoBehaviour
         heroRB.velocity = startingVelocity;
 
         pathMove2D = GetComponent<PathMove2D>();
+
+        raycastPoints = Utils.GetChildrenFromParent(raycastParent);
     }
 
     // Update is called once per frame
     void Update()
     {
-        isGrounded = false;
-
         //Not dashing, menu is closed, dialogue is closed, not attacking
         canMove =  (HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) &&        //Not dashing
                    (MenuController.Instance.Interactable == false) &&                                      //Menu closed
                    (DialogueUI.Instance.isOpen == false) &&                                                //Dialogue closed
                    (PlayerSwordHandler.Instance.AttackState != PlayerSwordHandler.AttackStateEnum.attacking);   //Not attacking
 
-
-            foreach (GameObject go in raycastPoints) //check ground positions
+        isGrounded = false;
+        foreach (Transform rayPoint in raycastPoints) //check ground positions
+        {
+            //Debug.DrawLine(rayPoint.position, rayPoint.position + Vector3.down*raycastHeight, Color.magenta, 0.1f, false);
+            if (Physics.Raycast(rayPoint.position, Vector3.down, raycastHeight, groundLayer))
             {
-                if (Physics.Raycast(go.transform.position, Vector3.down, raycastHeight, groundLayer))
-                {
-                    isGrounded = true;
-                    break;
-                }
+                isGrounded = true;
+                break;
             }
+        } 
 
         if (canMove)
         {
