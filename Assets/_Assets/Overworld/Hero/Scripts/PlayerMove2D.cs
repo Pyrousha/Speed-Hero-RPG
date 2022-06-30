@@ -5,9 +5,6 @@ public class PlayerMove2D : MonoBehaviour
 {
     public static PlayerMove2D Instance;
 
-    [Header("Debug Stuff")]
-    [SerializeField] private bool hasSpeedCrystal;
-
     [Header("Self References")]
     public Rigidbody heroRB;
     public Animator heroAnim;

@@ -46,7 +46,7 @@ public class PlayerSwordHandler : MonoBehaviour
 
     private void Update()
     {
-        if ((InputHandler.Instance.Attack.down) && (canQueueNextAttack))
+        if ((InputHandler.Instance.Attack.down) && (canQueueNextAttack) && (HeroInventory.Instance.HasSword))
         {
             StartAttack();
         }

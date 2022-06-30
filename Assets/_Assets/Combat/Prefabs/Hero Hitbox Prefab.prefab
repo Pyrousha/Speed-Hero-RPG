@@ -933,6 +933,7 @@ GameObject:
   - component: {fileID: 7980103914353494389}
   - component: {fileID: 2013728684727854849}
   - component: {fileID: 1532284118735589974}
+  - component: {fileID: 8079839162468535494}
   m_Layer: 16
   m_Name: Hero Hitbox Prefab
   m_TagString: Player
@@ -991,7 +992,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 880c4ee3d21eb8446bc67e4e4c706682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasSpeedCrystal: 0
   heroRB: {fileID: 2056187914861830942}
   heroAnim: {fileID: 2056187915542348806}
   heroSprite: {fileID: 2056187915542348801}
@@ -1099,6 +1099,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.54, y: 0.1, z: 0.2}
   m_Center: {x: 0, y: -0.335, z: -0.395}
+--- !u!114 &8079839162468535494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056187914861830938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 233f6f39bf3f3f34ba6fc87749e74265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasSpeedCrystal: 0
+  hasSword: 0
+  dashManager: {fileID: 7980103914353494389}
+  swordHandler: {fileID: 5657980382700371047}
 --- !u!1 &2056187915088033952
 GameObject:
   m_ObjectHideFlags: 0
