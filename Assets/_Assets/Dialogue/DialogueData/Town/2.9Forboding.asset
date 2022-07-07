@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c77e930972665f4f9a9210fba3c3022, type: 3}
+  m_Name: 2.9Forboding
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: You may have started something that now only you can stop.
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: The crystal you found, what color was it?
+  - speaker: {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
+    text: Blue.
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: Ah. The Velox Aura. Seamus failed to protect it, then.
+  - speaker: {fileID: 11400000, guid: 85cd204bd9b350548bb972a14f222473, type: 2}
+    text: I knew I should've been assigned crystal guard!
+  - speaker: {fileID: 11400000, guid: 85cd204bd9b350548bb972a14f222473, type: 2}
+    text: "Gatekeeper \u2014 while a noble and dignified position \u2014 was a waste
+      of my strength and bravery."
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: In any case, the crystal is one with you now, absorbed into your being.
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: It will grant you powers which are unprecedented in mortals.
+  nextDialogueObject: {fileID: 0}
+  responses:
+  - responseText: Like a superhero? That's so cool.
+    dialogueObject: {fileID: 0}
+  - responseText: Can you help me get my friend back or not?
+    dialogueObject: {fileID: 0}
+  - responseText: ...
+    dialogueObject: {fileID: 0}

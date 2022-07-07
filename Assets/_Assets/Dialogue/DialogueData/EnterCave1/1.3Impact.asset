@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c77e930972665f4f9a9210fba3c3022, type: 3}
-  m_Name: RaceOver_Lose
+  m_Name: 1.3Impact
   m_EditorClassIdentifier: 
   dialogueLines:
+  - speaker: {fileID: 11400000, guid: d281487534c80b042829091ff113f904, type: 2}
+    text: Urgh.
   - speaker: {fileID: 11400000, guid: 5b609800b10a3274092d2b4ac8549623, type: 2}
-    text: Just like gym class. Glad to see my skills hold up in the field.
-  - speaker: {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
-    text: Yeah yeah... Whatever man, I think that yeet sprained my ankle!
-  - speaker: {fileID: 11400000, guid: 5b609800b10a3274092d2b4ac8549623, type: 2}
-    text: 'Oh Miles, always with the excuses...
-
-      >:)'
+    text: At least I was.
   nextDialogueObject: {fileID: 0}
-  responses: []
+  responses:
+  - responseText: Are you okay?
+    dialogueObject: {fileID: 11400000, guid: b5f7e1a0ecb4b1e41b9a38f3cc801e8f, type: 2}
+  - responseText: Oof.
+    dialogueObject: {fileID: 11400000, guid: b5f7e1a0ecb4b1e41b9a38f3cc801e8f, type: 2}
+  - responseText: ...
+    dialogueObject: {fileID: 11400000, guid: b5f7e1a0ecb4b1e41b9a38f3cc801e8f, type: 2}

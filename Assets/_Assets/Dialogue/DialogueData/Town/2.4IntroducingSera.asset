@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c77e930972665f4f9a9210fba3c3022, type: 3}
+  m_Name: 2.4IntroducingSera
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: You? Doing research? Did hell freeze over?
+  - speaker: {fileID: 11400000, guid: 85cd204bd9b350548bb972a14f222473, type: 2}
+    text: I do research! I do big, good research with the most scientific-est sources.
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: Ah, of course. But what, exactly, ARE these sources?
+  - speaker: {fileID: 11400000, guid: 85cd204bd9b350548bb972a14f222473, type: 2}
+    text: Why, the most intelligent, informed bunch in the Under-Earth,
+  - speaker: {fileID: 11400000, guid: 85cd204bd9b350548bb972a14f222473, type: 2}
+    text: My listeners!
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: "That's ... literally the worst source of inf\u2014"
+  - speaker: {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
+    text: Uh, excuse me?
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: Oh, who is this, Alex? One of your listeners? Started holding them captive?
+  - speaker: {fileID: 11400000, guid: 85cd204bd9b350548bb972a14f222473, type: 2}
+    text: No, they're not a listener. Not yet.
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: Oh, please. You wouldn't actually listen to that dreck, would you?
+  nextDialogueObject: {fileID: 0}
+  responses:
+  - responseText: Of course. Gotta at least hear him out.
+    dialogueObject: {fileID: 11400000, guid: d1a7c2b4f5895ed4f844665d6bfb6765, type: 2}
+  - responseText: Uhhh, no, definitely not.
+    dialogueObject: {fileID: 11400000, guid: 9184f3ea13ac79c41a7fd5282762d137, type: 2}
