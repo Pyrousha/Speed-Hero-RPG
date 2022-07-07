@@ -123,6 +123,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &27823069 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2056187914861830938, guid: ad3d4f3950012194bbc20ceab5ebac9a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2087040130}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &54953597
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,6 +968,20 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2087040130}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &762747858
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27823069}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.11, z: 0}
 --- !u!1001 &823237085
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70649,7 +70669,21 @@ MonoBehaviour:
       type: 3}
   emptyObj: {fileID: 3506463760612082005, guid: 410fa1307a2878746b23d5e65dbc042c,
     type: 3}
-  testObj: {fileID: 0}
+  meshesToCombine:
+  - name: Ground
+    terrainPieceIndex: 1
+    childIndices: 00000000
+    layer:
+      serializedVersion: 2
+      m_Bits: 16384
+    physicMaterial: {fileID: 13400000, guid: 0c9b7a5d71a6e60499305abd44f1b1f8, type: 2}
+  - name: Walls
+    terrainPieceIndex: 1
+    childIndices: 0100000002000000
+    layer:
+      serializedVersion: 2
+      m_Bits: 4096
+    physicMaterial: {fileID: 13400000, guid: 0c9b7a5d71a6e60499305abd44f1b1f8, type: 2}
 --- !u!4 &1299569953
 Transform:
   m_ObjectHideFlags: 0
@@ -71677,6 +71711,11 @@ PrefabInstance:
     - target: {fileID: 172927924039960832, guid: ad3d4f3950012194bbc20ceab5ebac9a,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532284118735589974, guid: ad3d4f3950012194bbc20ceab5ebac9a,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2056187914861830936, guid: ad3d4f3950012194bbc20ceab5ebac9a,
