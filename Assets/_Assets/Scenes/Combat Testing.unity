@@ -3553,6 +3553,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8079839162468535494, guid: ad3d4f3950012194bbc20ceab5ebac9a,
+        type: 3}
+      propertyPath: hasSword
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079839162468535494, guid: ad3d4f3950012194bbc20ceab5ebac9a,
+        type: 3}
+      propertyPath: hasSpeedCrystal
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad3d4f3950012194bbc20ceab5ebac9a, type: 3}
 --- !u!4 &965089561 stripped
@@ -5190,7 +5200,7 @@ MonoBehaviour:
       type: 3}
   emptyObj: {fileID: 6484670955000183290, guid: 486b032844d61c14798f2d07f3c5da36,
     type: 3}
-  testObj: {fileID: 0}
+  meshesToCombine: []
 --- !u!4 &1299569953
 Transform:
   m_ObjectHideFlags: 0
