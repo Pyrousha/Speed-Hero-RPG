@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c77e930972665f4f9a9210fba3c3022, type: 3}
+  m_Name: 3.3TheresSeamus
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - speaker: {fileID: 11400000, guid: 7b4264dcc0e254b4f8df594556b70bc9, type: 2}
+    text: You're back! ...Finally...
+  - speaker: {fileID: 11400000, guid: d281487534c80b042829091ff113f904, type: 2}
+    text: Miles! My God, where have you been?
+  - speaker: {fileID: 11400000, guid: b32b8a83597a55c409c0fbd00bf6ffa0, type: 2}
+    text: I thought you'd left me for dead.
+  nextDialogueObject: {fileID: 0}
+  responses:
+  - responseText: I wouldn't leave you!
+    dialogueObject: {fileID: 11400000, guid: 31548bc4289802b4383cc150bb523bdc, type: 2}
+  - responseText: Your mom would kill me if I went home by myself.
+    dialogueObject: {fileID: 11400000, guid: 9b8fe81f21c4b3044949f0aa0bb5b0a4, type: 2}
+  - responseText: ...
+    dialogueObject: {fileID: 11400000, guid: 01b6d46dbb042394b9c204668fa6b11a, type: 2}

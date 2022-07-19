@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c77e930972665f4f9a9210fba3c3022, type: 3}
+  m_Name: 2.18ShowMe
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: Show me where you last saw your friend.
+  - speaker: {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
+    text: Here.
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: Hmm...
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: Ah! Here. This auxiliary tunnel system should also route you to this location.
+  - speaker: {fileID: 11400000, guid: 85cd204bd9b350548bb972a14f222473, type: 2}
+    text: It'd also be the only place Seamus could go after the cave-in!
+  - speaker: {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
+    text: He can't leave?
+  - speaker: {fileID: 11400000, guid: 85cd204bd9b350548bb972a14f222473, type: 2}
+    text: 'It''s not really that he can''t. More that he wouldn''t. Like me, he is
+      full of honor and duty. '
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: He's sworn to guard the crystal, and that's not quite available for the
+      guarding anymore. He could leave if he likes.
+  - speaker: {fileID: 11400000, guid: 85cd204bd9b350548bb972a14f222473, type: 2}
+    text: You know nothing of honor!
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: "Yes, well, in any case we are \u2014 at the very least \u2014 most likely
+      to find them somewhere in these tunnels."
+  nextDialogueObject: {fileID: 0}
+  responses:
+  - responseText: Take me there. I'm getting my friend back.
+    dialogueObject: {fileID: 11400000, guid: 882531ca14305da438c18f2ccb799bdc, type: 2}
+  - responseText: Let's go ... The longer we wait, the more trouble I'll be in later.
+    dialogueObject: {fileID: 11400000, guid: 882531ca14305da438c18f2ccb799bdc, type: 2}
+  - responseText: I think I'm ready.
+    dialogueObject: {fileID: 11400000, guid: 882531ca14305da438c18f2ccb799bdc, type: 2}

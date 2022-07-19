@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c77e930972665f4f9a9210fba3c3022, type: 3}
+  m_Name: 2.10FindSeamus
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: 'In any case, we should find Seamus and reclaim your friend. '
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: I'm not well studied in crystal consumption, and he may be able to direct
+      us on what to do with your condition.
+  - speaker: {fileID: 11400000, guid: 85cd204bd9b350548bb972a14f222473, type: 2}
+    text: It'll have to wait until morning. Curfew's in effect now.
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: I suppose. Let's set up your room for tonight.
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: In the morning, I'll run to see the Librarian to get a map of the cave
+      system. Luckily for you, it's well documented.
+  nextDialogueObject: {fileID: 0}
+  responses: []

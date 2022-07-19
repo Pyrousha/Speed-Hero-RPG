@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c77e930972665f4f9a9210fba3c3022, type: 3}
+  m_Name: 3.5SeamusInterrupt
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - speaker: {fileID: 11400000, guid: 7b4264dcc0e254b4f8df594556b70bc9, type: 2}
+    text: Hate to interrupt this reunion, but I've gotta kill you now, kid.
+  - speaker: {fileID: 11400000, guid: d281487534c80b042829091ff113f904, type: 2}
+    text: What?! You made me sleep in this moldy cave just to kill us now?
+  - speaker: {fileID: 11400000, guid: 7b4264dcc0e254b4f8df594556b70bc9, type: 2}
+    text: Sorry, son. I can't let a crystal bearer out of these caves alive.
+  nextDialogueObject: {fileID: 0}
+  responses:
+  - responseText: But you already did.
+    dialogueObject: {fileID: 11400000, guid: bbebee7e740656f4d9e69c9f782fd29f, type: 2}
+  - responseText: So it's going to be like that, huh? [Start Combat]
+    dialogueObject: {fileID: 11400000, guid: caa7464516976e14f9b36571a27c306e, type: 2}
+  - responseText: ...
+    dialogueObject: {fileID: 11400000, guid: b1952207daff2e24a9899f2c35842f3d, type: 2}

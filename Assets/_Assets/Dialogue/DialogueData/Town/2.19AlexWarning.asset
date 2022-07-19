@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c77e930972665f4f9a9210fba3c3022, type: 3}
+  m_Name: 2.19AlexWarning
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - speaker: {fileID: 11400000, guid: 85cd204bd9b350548bb972a14f222473, type: 2}
+    text: I've gotta warn you, kid. These tunnels ... they're more dangerous than
+      the ones you came through to get here.
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: Indeed. They've been much less kept.
+  - speaker: {fileID: 11400000, guid: 85cd204bd9b350548bb972a14f222473, type: 2}
+    text: Are you sure you're ready?
+  nextDialogueObject: {fileID: 0}
+  responses:
+  - responseText: Yes.
+    dialogueObject: {fileID: 11400000, guid: 0a67f1c9cffb3a04bbea3b32af5e9654, type: 2}
+  - responseText: I guess.
+    dialogueObject: {fileID: 0}
+  - responseText: What choice do I have?
+    dialogueObject: {fileID: 11400000, guid: 6d1063f3182fbfb48996a3404e3c7d5e, type: 2}

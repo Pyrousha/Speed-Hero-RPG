@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c77e930972665f4f9a9210fba3c3022, type: 3}
+  m_Name: 3.1Arrival
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: And here we are. This is the start of the auxiliary tunnel system.
+  - speaker: {fileID: 11400000, guid: 85cd204bd9b350548bb972a14f222473, type: 2}
+    text: Yessir! Full of creepy creatures and other unsightly beasts.
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: Good luck. I hope you make it to your friend in one piece and then back
+      home in two.
+  - speaker: {fileID: 11400000, guid: dbc707c598a89f341b1f106b417d821d, type: 2}
+    text: Not injured. But two becuase there'll be two of you.
+  - speaker: {fileID: 11400000, guid: 85cd204bd9b350548bb972a14f222473, type: 2}
+    text: A slip! she's revealed her evil intentions!
+  - speaker: {fileID: 11400000, guid: 85cd204bd9b350548bb972a14f222473, type: 2}
+    text: Don't worry. I'm still on your side. You got this, kid.
+  nextDialogueObject: {fileID: 0}
+  responses:
+  - responseText: You aren't coming with me.
+    dialogueObject: {fileID: 11400000, guid: b42fd9248e76f1249ad76b2f71bd35d8, type: 2}
+  - responseText: Thanks, both of you.
+    dialogueObject: {fileID: 11400000, guid: 5a33520b686c5ca438e2cde28a752d50, type: 2}
+  - responseText: Smell you later.
+    dialogueObject: {fileID: 11400000, guid: 6892a393dbcf9944e8c2a3d5c07749e0, type: 2}

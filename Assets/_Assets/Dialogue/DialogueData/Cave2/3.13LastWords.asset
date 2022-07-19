@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c77e930972665f4f9a9210fba3c3022, type: 3}
+  m_Name: 3.13LastWords
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - speaker: {fileID: 11400000, guid: 7b4264dcc0e254b4f8df594556b70bc9, type: 2}
+    text: Listen, before I toss you through, I've got one thing I want to say.
+  - speaker: {fileID: 11400000, guid: 7b4264dcc0e254b4f8df594556b70bc9, type: 2}
+    text: I don't know if you'll keep your powers when you pass through the portal.
+  - speaker: {fileID: 11400000, guid: 7b4264dcc0e254b4f8df594556b70bc9, type: 2}
+    text: Hope to Creator you don't, but I don't know.
+  - speaker: {fileID: 11400000, guid: 7b4264dcc0e254b4f8df594556b70bc9, type: 2}
+    text: So, if you do, be good, okay?
+  nextDialogueObject: {fileID: 0}
+  responses:
+  - responseText: I will.
+    dialogueObject: {fileID: 11400000, guid: ac84c9d8e0a330e4b8b81fe2f8eb74dd, type: 2}
+  - responseText: No.
+    dialogueObject: {fileID: 11400000, guid: 4a443b41607c3204a82a7120de54bc89, type: 2}
+  - responseText: ...
+    dialogueObject: {fileID: 11400000, guid: f362248b7e105194ca43a4d380975ffa, type: 2}

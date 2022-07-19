@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c77e930972665f4f9a9210fba3c3022, type: 3}
+  m_Name: 3.8HerePortal
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - speaker: {fileID: 11400000, guid: 7b4264dcc0e254b4f8df594556b70bc9, type: 2}
+    text: This portal opened up shortly after the cave-in.
+  - speaker: {fileID: 11400000, guid: 7b4264dcc0e254b4f8df594556b70bc9, type: 2}
+    text: I've never seen anything like it, an I've seen a lot of tomfoolery in my
+      day.
+  - speaker: {fileID: 11400000, guid: 7b4264dcc0e254b4f8df594556b70bc9, type: 2}
+    text: But I'd bet it has something to do with you two coming in this way.
+  - speaker: {fileID: 11400000, guid: b32b8a83597a55c409c0fbd00bf6ffa0, type: 2}
+    text: Are you serious? We can't do this!
+  - speaker: {fileID: 11400000, guid: 7b4264dcc0e254b4f8df594556b70bc9, type: 2}
+    text: You have any other idea how to gget home?
+  - speaker: {fileID: 11400000, guid: b32b8a83597a55c409c0fbd00bf6ffa0, type: 2}
+    text: No.
+  - speaker: {fileID: 11400000, guid: 7b4264dcc0e254b4f8df594556b70bc9, type: 2}
+    text: I can't let you two stay here. Step over here, and I'll toss you through.
+      It looks a tad high for you to reach on your own.
+  - speaker: {fileID: 11400000, guid: e75401f1e6473f647a95318971d92b9b, type: 2}
+    text: But Miles won the fight! You have to do what we say.
+  nextDialogueObject: {fileID: 0}
+  responses:
+  - responseText: No, Vincent. He's right. This is our only hope of getting home.
+    dialogueObject: {fileID: 11400000, guid: 79bbbd3c049258049b69bc9af6e8ea4c, type: 2}
+  - responseText: Yeah, we don't have to listen to you!
+    dialogueObject: {fileID: 11400000, guid: 6fe9372ba74972f408044f9edfe91c95, type: 2}
+  - responseText: ...
+    dialogueObject: {fileID: 11400000, guid: b4cf353f450cc0b46954c01680b66674, type: 2}
