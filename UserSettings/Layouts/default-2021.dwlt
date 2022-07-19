@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 0
+    x: -1920
     y: 43
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Scene
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 6435
+  controlID: 29092
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 6566
+  controlID: 29075
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 6474
+  controlID: 29076
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 6567
+  controlID: 28973
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -326,7 +326,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 6436
+  controlID: 29093
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -402,7 +402,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1215
+    x: -705
     y: 578
     width: 704
     height: 421
@@ -495,7 +495,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 0
+    x: -1920
     y: 73
     width: 299
     height: 577
@@ -506,9 +506,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 0815a1ff1a60a4ff56eba4ff4a32a8ff9258c4ff7270e0ff4efaffff70faffff246500006c65000074650000c8e03a008a304c00d4285000
+      m_SelectedIDs: 46d7a7ff
+      m_LastClickedID: -5777594
+      m_ExpandedIDs: 664ea3ff0e9aa4ff36b4a7ff46d7a7ff66dca7ff5c55b1fff2d0b2ffcceab5ffd0eab5ffbe5abfff0c76bfff9a8dbfff28a5bfff36f1c0ff7286c3ff5a0bc4ff5e0bc4ffc62ac4ffb28ee0ff3a91e0ff3c91e0ffaa93e0ffa294e0ffb894e0ff3eace9ff88ace9ff6ef0e9ff90f0e9ffb2f0e9ffbc0beaffde0beaff4a23eaff6c23eaffd83aeafffa3aeaff3e52eaff8252eaffe686ebff0ea1eeff32fbfffffa6000008c610000d4610000dc610000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -553,7 +553,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 300
+    x: -1620
     y: 73
     width: 913
     height: 577
@@ -758,9 +758,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 13.533346, y: -12.301364, z: -39.625557}
+    m_Target: {x: -34.873154, y: 22.100258, z: -0.059566975}
     speed: 2
-    m_Value: {x: 13.533346, y: -12.301364, z: -39.625557}
+    m_Value: {x: -34.873154, y: 22.100258, z: -0.059566975}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -807,13 +807,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.13857901, y: -0.43323326, z: 0.0676093, w: -0.88799506}
+    m_Target: {x: 0.27106163, y: -0.005774571, z: 0.0016271502, w: 0.96254617}
     speed: 2
-    m_Value: {x: 0.13857903, y: 0.43323326, z: -0.06760931, w: 0.8879951}
+    m_Value: {x: 0.27105814, y: -0.0072183637, z: 0.0020337352, w: 0.96253383}
   m_Size:
-    m_Target: 25.0474
+    m_Target: 4.569317
     speed: 2
-    m_Value: 25.0474
+    m_Value: 4.569317
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -905,7 +905,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 0
+    x: -1920
     y: 671
     width: 901
     height: 328
@@ -926,22 +926,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/_Assets/Combat/Enemies
+    - Assets/_Assets/Overworld/Terrain/Prefabs-Models/Stairs
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/_Assets/Combat/Enemies
+  - Assets/_Assets/Overworld/Terrain/Prefabs-Models/Stairs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: H:\Github\Repositories\Speed-Hero-RPG
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 80}
-    m_SelectedIDs: a2ee0600
-    m_LastClickedID: 454306
-    m_ExpandedIDs: 0000000080a9030084a9030086a9030088a9030092a90300daef060000ca9a3b
+    scrollPos: {x: 0, y: 204}
+    m_SelectedIDs: 265f2400
+    m_LastClickedID: 2383654
+    m_ExpandedIDs: 00000000faa70300fca70300fea7030000a8030002a8030004a803001aa8030000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -969,7 +969,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000080a9030084a9030086a9030088a9030092a90300daef060000ca9a3b
+    m_ExpandedIDs: 00000000faa70300fca70300fea7030000a8030002a8030004a8030000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -996,8 +996,8 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: c6230000901101000000000054ac03009ace0000
+    m_HadKeyboardFocusLastEvent: 1
+    m_ExpandedInstanceIDs: c6230000901101000000000054ac03009ace00009eee060060ce0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1048,7 +1048,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 671
-    width: 866
+    width: 901
     height: 328
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -1085,7 +1085,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -6004730
+  m_LastSelectedObjectID: -5777594
 --- !u!114 &23
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1107,7 +1107,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 902
+    x: -1018
     y: 671
     width: 311
     height: 328
@@ -1128,22 +1128,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/_Assets/Scenes
+    - Assets/_Assets/Overworld/Terrain/Prefabs-Models/Stairs
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/_Assets/Scenes
+  - Assets/_Assets/Overworld/Terrain/Prefabs-Models/Stairs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: H:\Github\Repositories\Speed-Hero-RPG
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 80}
-    m_SelectedIDs: a0a90300
-    m_LastClickedID: 240032
-    m_ExpandedIDs: 0000000080a9030084a9030086a9030088a9030092a90300daef060000ca9a3b
+    scrollPos: {x: 0, y: 204}
+    m_SelectedIDs: 265f2400
+    m_LastClickedID: 2383654
+    m_ExpandedIDs: 00000000faa70300fca70300fea7030000a8030002a8030004a803001aa8030000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1171,7 +1171,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000080a9030084a9030086a9030088a9030092a90300daef060000ca9a3b
+    m_ExpandedIDs: 00000000faa70300fca70300fea7030000a8030002a8030004a8030000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1199,7 +1199,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: 
+    m_ExpandedInstanceIDs: 1aa9030018a903009eee060060ce0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1248,7 +1248,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1215
+    x: -705
     y: 73
     width: 704
     height: 484
@@ -1263,7 +1263,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 1818
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
