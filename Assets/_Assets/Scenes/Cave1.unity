@@ -1150,6 +1150,45 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 167832227}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &979043940
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 207424126701896833, guid: a6f945caf9b3c6c4f9f923f2e2242c7d,
+        type: 3}
+      propertyPath: m_Name
+      value: StairDown_Parent
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859261041768821342, guid: a6f945caf9b3c6c4f9f923f2e2242c7d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859261041768821342, guid: a6f945caf9b3c6c4f9f923f2e2242c7d,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859261041768821342, guid: a6f945caf9b3c6c4f9f923f2e2242c7d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859261041768821342, guid: a6f945caf9b3c6c4f9f923f2e2242c7d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859261041768821342, guid: a6f945caf9b3c6c4f9f923f2e2242c7d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a6f945caf9b3c6c4f9f923f2e2242c7d, type: 3}
 --- !u!1 &1016162189
 GameObject:
   m_ObjectHideFlags: 0
@@ -6581,6 +6620,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cave1 Terrain Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 682203948223927743, guid: a597d9377bf0c594982c1354ff3c0ade,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 682573880775173047, guid: a597d9377bf0c594982c1354ff3c0ade,
         type: 3}
@@ -70656,7 +70700,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7daf57486d022034296a6794a2fcfa0b, type: 3}
   - {fileID: 21300000, guid: 1c0b6fcfb8a971e4fbe14d4434870ba3, type: 3}
   floorHeight: 7
-  gridSize: 1
+  gridSize: 0.5
   terrainPieces:
   - color: {r: 0, g: 0, b: 0, a: 1}
     terrainObj: {fileID: 5239634724577113642, guid: e01751e5325da3945beaa2c9d28356d8,
@@ -70666,6 +70710,9 @@ MonoBehaviour:
       type: 3}
   - color: {r: 0.14117648, g: 0.13333334, b: 0.20392159, a: 1}
     terrainObj: {fileID: 6663466463008790718, guid: 21dc543eaf31afb4e97340b530a833f2,
+      type: 3}
+  - color: {r: 0.25882354, g: 0.25882354, b: 0.25882354, a: 1}
+    terrainObj: {fileID: 5239634724577113642, guid: bdcec8f59a828b3488f9b061db3df2ce,
       type: 3}
   emptyObj: {fileID: 3506463760612082005, guid: 410fa1307a2878746b23d5e65dbc042c,
     type: 3}
@@ -71597,7 +71644,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1902404443}
   m_Layer: 0
-  m_Name: Characters
+  m_Name: Entities
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71782,6 +71829,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hero Hitbox Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079839162468535494, guid: ad3d4f3950012194bbc20ceab5ebac9a,
+        type: 3}
+      propertyPath: hasSword
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad3d4f3950012194bbc20ceab5ebac9a, type: 3}
