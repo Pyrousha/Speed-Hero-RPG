@@ -8,14 +8,14 @@ public class StairCanvas : Singleton<StairCanvas>
     [SerializeField] private Animator anim;
     private Vector3 targPosition;
 
-    public void TriggerHit(StairTrigger.Dir direction, Vector3 newTargPos)
+    public void TriggerHit(StairParent.Dir direction, Vector3 newTargPos)
     {
         targPosition = newTargPos;
 
         anim.ResetTrigger("left");
         anim.ResetTrigger("right");
 
-        if(direction == StairTrigger.Dir.left)
+        if(direction == StairParent.Dir.left)
         {
             anim.SetTrigger("left");
         }

@@ -190,6 +190,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1788981223800356684}
+  - component: {fileID: 573111600458223996}
   m_Layer: 0
   m_Name: StairUp_Parent
   m_TagString: Untagged
@@ -212,9 +213,25 @@ Transform:
   - {fileID: 2258842789800677004}
   - {fileID: 2258842791009024257}
   - {fileID: 1788981224403073659}
+  - {fileID: 6000800878657577331}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &573111600458223996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788981223800356685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 749de12e0b701314ca5976c26d427252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destinationPos: {fileID: 6000800878657577331}
+  direction: 1
+  linkedStair: {fileID: 0}
 --- !u!1 &1788981224403073656
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,5 +342,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b199afa086a4b6a4b8620158000c3475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 1
-  targPos: {x: -40.43842, y: 22.90651, z: 4.4343}
+  stairParent: {fileID: 573111600458223996}
+--- !u!1 &3635824055001170691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6000800878657577331}
+  m_Layer: 0
+  m_Name: DestinationPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6000800878657577331
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3635824055001170691}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 1.4, z: 2.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1788981223800356684}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
