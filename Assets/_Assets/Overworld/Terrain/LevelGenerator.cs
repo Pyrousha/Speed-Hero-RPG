@@ -7,8 +7,10 @@ public class LevelGenerator : MonoBehaviour
 {
     [SerializeField] private string levelName;
     [SerializeField] private Sprite[] floorSprites;
+    [SerializeField] private List<Transform> floorObjParents;
     [SerializeField] private float floorHeight;
     [SerializeField] private float gridSize;
+    [SerializeField] private bool zOffset;
 
     [System.Serializable]
     private struct TerrainStruct
@@ -65,9 +67,9 @@ public class LevelGenerator : MonoBehaviour
         levelParent.transform.localPosition = Vector3.zero;
         levelParent.name = levelName;
 
-        for (int z = 0; z< floorSprites.Length; z++)
+        for (int z = 0; z < floorSprites.Length; z++)
         {
-            GameObject floorParent =  Instantiate(emptyObj);
+            GameObject floorParent = Instantiate(emptyObj);
             floorParent.transform.parent = levelParent.transform;
             floorParent.transform.localPosition = Vector3.zero;
             floorParent.name = "Floor " + z.ToString();
@@ -83,7 +85,7 @@ public class LevelGenerator : MonoBehaviour
             {
                 for (int x = 0; x < width; x++)
                 {
-                    Color pixelColor = sprTexture.GetPixel(x, height - y -1);
+                    Color pixelColor = sprTexture.GetPixel(x, height - y - 1);
 
                     //Debug.Log(x+","+y+": " + pixelColor);
 
@@ -92,7 +94,7 @@ public class LevelGenerator : MonoBehaviour
                     //obj2.GetComponent<SpriteRenderer>().color = pixelColor;
 
                     int colorIndex = -1;
-                    for (int i = 0; i<colors.Length; i++)
+                    for (int i = 0; i < colors.Length; i++)
                     {
                         if (pixelColor == colors[i])
                         {
@@ -101,19 +103,23 @@ public class LevelGenerator : MonoBehaviour
                         }
                     }
 
-                    if(colorIndex > -1)
+                    if (colorIndex > -1)
                     {
                         //Valid color, spawn corresponding object;
                         GameObject obj = Instantiate(objs[colorIndex], floorParent.transform);
 
-                        obj.transform.localPosition = new Vector3(x*gridSize, z*floorHeight, -y*gridSize);
+                        obj.transform.localPosition = new Vector3(x * gridSize, z * floorHeight, -y * gridSize);
+                        if(zOffset)
+                            obj.transform.localPosition += new Vector3(0, 0, z * floorHeight);
+                        //diag offset
+
 
                         //Check if this object should have its mesh combined
                         for (int i = 0; i < meshesToCombine.Length; i++)
                         {
-                            if(meshesToCombine[i].terrainPieceIndex == colorIndex)
+                            if (meshesToCombine[i].terrainPieceIndex == colorIndex)
                             {
-                                foreach(int childIndex in meshesToCombine[i].childIndices)
+                                foreach (int childIndex in meshesToCombine[i].childIndices)
                                 {
                                     meshFilters[i].Add(obj.transform.GetChild(childIndex).GetComponent<MeshFilter>());
                                 }
@@ -125,6 +131,12 @@ public class LevelGenerator : MonoBehaviour
         }
 
         CombineMeshes();
+
+        for (int i = 0; i< floorObjParents.Count; i++)
+        {
+            floorObjParents[i].position += new Vector3(0, floorHeight * i, 
+                (zOffset == false ? 0 : floorHeight * i));
+        }
     }
 
     public void CombineMeshes()
@@ -154,7 +166,7 @@ public class LevelGenerator : MonoBehaviour
             parentMesh.mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
             parentMesh.mesh.CombineMeshes(combine);
 
-            //AutoWeld(parentMesh.mesh, 50f, 1f);
+            //-AutoWeld(parentMesh.mesh, 50f, 1f);
 
             meshCollider.sharedMesh = parentMesh.mesh;
             meshCollider.material = meshesToCombine[j].physicMaterial;
