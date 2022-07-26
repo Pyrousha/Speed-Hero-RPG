@@ -15,4 +15,9 @@ public static class Utils
 
         return toReturn;
     }
+
+    public static float RoundToNearest(float value, float step)
+    {
+        return Mathf.Round(value / step) * step;
+    }
 }

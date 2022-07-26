@@ -18,8 +18,8 @@ TagManager:
   - UI
   - TriggerA
   - TriggerB
-  - 
-  - 
+  - Interactable
+  - Hero-Interact-Hitbox
   - Trigger-HeroOnly
   - 
   - Terrain-Unwalkable

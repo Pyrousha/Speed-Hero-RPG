@@ -10,6 +10,8 @@ public class DialogueActivator : MonoBehaviour, IInteractable
     [SerializeField] private DialogueObject dialogueObject;
     [SerializeField] private bool playWithoutInput;
     [SerializeField] private PlayOptions playOption;
+    [SerializeField] private float priority;
+    public float Priority => priority;
 
     private enum PlayOptions
     {
@@ -33,20 +35,17 @@ public class DialogueActivator : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && other.TryGetComponent(out HeroDialogueInteract player))
+        if (other.TryGetComponent(out HeroDialogueInteract player))
         {
-            player.Interactable = this;
+            player.AddInteractable(this);
         }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && other.TryGetComponent(out HeroDialogueInteract player))
+        if (other.TryGetComponent(out HeroDialogueInteract player))
         {
-            if (player.Interactable is DialogueActivator dialogueActivator && dialogueActivator == this)
-            {
-                player.Interactable = null;
-            }
+            player.RemoveInteractable(this);
         }
     }
 

@@ -12,6 +12,7 @@ public class PlayerMove2D : MonoBehaviour
     private PathMove2D pathMove2D;
     [SerializeField] private Transform playerTransform;
     public Transform PlayerTransform => playerTransform;
+    [SerializeField] private Transform interactObj;
 
     [Header("Movement")]
     public Vector2 inputVect;
@@ -19,6 +20,8 @@ public class PlayerMove2D : MonoBehaviour
     public float maxMoveSpeed;
     public float accelSpeed;
     public float frictionSpeed;
+
+    private float interactDir = 270;
 
     public bool canMove { get; private set; }
     public Vector3 startingVelocity;
@@ -104,8 +107,21 @@ public class PlayerMove2D : MonoBehaviour
             inputVect = new Vector2(0, 0);
         }
 
-        if (inputVect.magnitude > 0)
+        if (inputVect.magnitude > 0.05f)
+        {
             dirFacing = inputVect;
+
+            float unroundedAngle = Vector2.Angle(Vector2.right, inputVect.normalized);
+            float newInteractDir = Utils.RoundToNearest(unroundedAngle, 45f);
+            if (inputVect.y < 0)
+                newInteractDir *= -1;
+
+            if(newInteractDir != interactDir)
+            {
+                interactDir = newInteractDir;
+                interactObj.localEulerAngles = new Vector3(0, -interactDir, 0);
+            }
+        }
 
         SetAnimatorValues(inputVect);
     }

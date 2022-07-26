@@ -32,6 +32,7 @@ public class HeroDashManager : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator anim;
+    [SerializeField] private SingleSFXManager dashSfxManager;
 
     Vector2 dir;
 
@@ -122,6 +123,9 @@ public class HeroDashManager : MonoBehaviour
 
         //Spawn first afterimage + afterimage timer
         SpawnAfterImage();
+
+        //play sfx
+        dashSfxManager.PlayClip(0);
     }
 
     private void SetDashAnim(Vector2 dir)
