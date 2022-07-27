@@ -76,11 +76,14 @@ public class InputHandler : MonoBehaviour
             Instance = this;
     }
 
+    void Update()
+    {
+        dialogueInteractPressed = interact.down;
+    }
+
     // Update is called once per frame
     void LateUpdate()
     {
-        dialogueInteractPressed = interact.down;
-
         direction = GetDirection();
 
         //Rest direction buttons

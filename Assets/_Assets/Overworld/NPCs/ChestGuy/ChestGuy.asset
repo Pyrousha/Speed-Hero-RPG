@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: A Chest (???)
   portraitSprite: {fileID: 2061074330, guid: 92cbb8bf942827e4aab38f43c0158da7, type: 3}
+  voice: {fileID: 8300000, guid: 1515334ee4266534b92fd967974db70f, type: 3}

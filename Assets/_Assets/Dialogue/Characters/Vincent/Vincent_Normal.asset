@@ -15,3 +15,4 @@ MonoBehaviour:
   characterName: Vincent
   portraitSprite: {fileID: -5539520888360231985, guid: 233c6a60c84a28e4cb5a57f6118e773a,
     type: 3}
+  voice: {fileID: 8300000, guid: aa57970e827318d4abddcec0f4d9fc0f, type: 3}

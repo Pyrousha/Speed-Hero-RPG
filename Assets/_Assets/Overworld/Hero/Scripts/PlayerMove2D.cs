@@ -1,18 +1,21 @@
-﻿using UnityEngine;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class PlayerMove2D : MonoBehaviour
+public class PlayerMove2D : Singleton<PlayerMove2D>
 {
-    public static PlayerMove2D Instance;
-
     [Header("Self References")]
     public Rigidbody heroRB;
     public Animator heroAnim;
-    public SpriteRenderer heroSprite;
+    [SerializeField] private SpriteRenderer heroSprite;
+    public SpriteRenderer HeroSprite => heroSprite;
     private PathMove2D pathMove2D;
     [SerializeField] private Transform playerTransform;
     public Transform PlayerTransform => playerTransform;
     [SerializeField] private Transform interactObj;
+
+    [SerializeField] private List<Transform> hitboxEdges; //right, up, left, down
+    [SerializeField] private float walkoffDistance;
 
     [Header("Movement")]
     public Vector2 inputVect;
@@ -30,6 +33,9 @@ public class PlayerMove2D : MonoBehaviour
     public LayerMask groundLayer;
     private bool isGrounded = true;
     public bool IsGrounded => isGrounded;
+    private List<Vector3> groundedPositions = new List<Vector3>();
+    private int maxPositions = 5;
+    private float checkIntervalTime = 0.125f;
 
     [SerializeField] private float raycastHeight;
     [SerializeField] private Transform raycastParent;
@@ -59,11 +65,6 @@ public class PlayerMove2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Debug.LogError("Multiple PlayerMove2Ds found");
-
         canMove = true;
 
         if (respawnTransform != null)
@@ -76,6 +77,29 @@ public class PlayerMove2D : MonoBehaviour
         pathMove2D = GetComponent<PathMove2D>();
 
         raycastPoints = Utils.GetChildrenFromParent(raycastParent);
+
+        StartCoroutine(RespawnPointChecking());
+    }
+
+    private IEnumerator RespawnPointChecking()
+    {
+        while (true)
+        {
+            if (isGrounded)
+            {
+                if (groundedPositions.Count == maxPositions)
+                {
+                    groundedPositions.RemoveAt(0);
+                }
+
+                groundedPositions.Add(transform.position);
+                yield return new WaitForSeconds(checkIntervalTime);
+            }
+            else
+            {
+                yield return null;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -96,18 +120,32 @@ public class PlayerMove2D : MonoBehaviour
                 isGrounded = true;
                 break;
             }
-        } 
+        }
 
         if (canMove)
         {
             inputVect = GetDirectionFromInput();
+
+            //change input vect to prevent walking off edges
+            //horizontal
+            if (inputVect.x < 0)
+            {
+
+            }
+            else
+            {
+                if (inputVect.x > 0)
+                {
+
+                }
+            }
         }
         else
         {
             inputVect = new Vector2(0, 0);
         }
 
-        if (inputVect.magnitude > 0.05f)
+        if (inputVect.magnitude > 0.02f)
         {
             dirFacing = inputVect;
 
@@ -299,7 +337,9 @@ public class PlayerMove2D : MonoBehaviour
 
     public void Respawn()
     {
-        transform.position = respawnLocation;
+        //transform.position = respawnLocation;
+        transform.position = groundedPositions[0];
+
         heroRB.velocity = new Vector3(0, 0, 0);
         heroSprite.sortingOrder = 1;
 

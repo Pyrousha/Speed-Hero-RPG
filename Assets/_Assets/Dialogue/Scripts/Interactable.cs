@@ -83,6 +83,12 @@ public class Interactable : MonoBehaviour, IInteractable
         {
             objs[0].GetComponent<Animation>().Play();
             OnPlayOnceConditionPassed();
+
+            GetComponent<SingleSFXManager>().PlayClip(1); //success clip
+        }
+        else
+        {
+            GetComponent<SingleSFXManager>().PlayClip(0); //fail clip
         }
     }
     #endregion

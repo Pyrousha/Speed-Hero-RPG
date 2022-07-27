@@ -19,7 +19,7 @@ MonoBehaviour:
       Maybe we should just head back, Vincent.'
   - speaker: {fileID: 11400000, guid: 5b609800b10a3274092d2b4ac8549623, type: 2}
     text: I've got a better idea...
-  - speaker: {fileID: 11400000, guid: 5b609800b10a3274092d2b4ac8549623, type: 2}
+  - speaker: {fileID: 11400000, guid: e75401f1e6473f647a95318971d92b9b, type: 2}
     text: TUCK THOSE KNEES!
   - speaker: {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
     text: Aaaaaaa

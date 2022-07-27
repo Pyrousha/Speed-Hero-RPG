@@ -361,6 +361,7 @@ namespace UnityEngine.AI
         }
 
 #if UNITY_EDITOR
+        [System.Obsolete]
         bool UnshareNavMeshAsset()
         {
             // Nothing to unshare
@@ -389,6 +390,7 @@ namespace UnityEngine.AI
             return false;
         }
 
+        [System.Obsolete]
         void OnValidate()
         {
             if (UnshareNavMeshAsset())

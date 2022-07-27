@@ -62,8 +62,7 @@ MonoBehaviour:
   dialogueUI: {fileID: 0}
   dialogueObject: {fileID: 11400000, guid: 3664e07f24f9ce6409122b29d5c9b8d3, type: 2}
   playWithoutInput: 0
-  playOption: 1
-  priority: 0
+  playOption: 2
 --- !u!1 &1331666513139145454
 GameObject:
   m_ObjectHideFlags: 0

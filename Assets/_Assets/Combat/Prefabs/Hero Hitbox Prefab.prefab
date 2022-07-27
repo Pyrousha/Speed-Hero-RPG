@@ -1202,6 +1202,11 @@ MonoBehaviour:
   heroSprite: {fileID: 2056187915542348801}
   playerTransform: {fileID: 1223662365852191165}
   interactObj: {fileID: 4105194459064016367}
+  hitboxEdges:
+  - {fileID: 104263574746339833}
+  - {fileID: 9019463527331765565}
+  - {fileID: 2559027870733455821}
+  - {fileID: 6395107041173064303}
   inputVect: {x: 0, y: 0}
   maxMoveSpeed: 5
   accelSpeed: 0.7

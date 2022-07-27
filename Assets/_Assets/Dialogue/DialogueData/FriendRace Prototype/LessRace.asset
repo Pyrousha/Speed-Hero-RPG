@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LessRace
   m_EditorClassIdentifier: 
   dialogueLines:
-  - speaker: {fileID: 0}
+  - speaker: {fileID: 11400000, guid: 5b609800b10a3274092d2b4ac8549623, type: 2}
     text: Anyway, wanna race to the big tree at the end of the path?
   nextDialogueObject: {fileID: 0}
   responses:

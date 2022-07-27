@@ -97,18 +97,24 @@ public class DialogueUI : MonoBehaviour
         for (int i = 0; i< dialogueObject.GetDialogue().Length; i++)
         {
             //Set speaker labels + icon
+            AudioClip voiceClip = null;
             CharacterObject newSpeaker = dialogueObject.Characters[i];
             if (newSpeaker != null)
             {
                 nameLabel.text = newSpeaker.CharacterName;
                 nameSpacing.text = newSpeaker.CharacterName;
                 speakerImage.sprite = newSpeaker.PortraitSprite;
+                voiceClip = newSpeaker.Voice;
+            }
+            else
+            {
+                Debug.LogError("No speaker set for DialogueObject \"" + dialogueObject.name + "\", on dialogue line " + i);
             }
 
             //show text
             string dialogue = dialogueObject.GetDialogue()[i];
-            yield return RunTypingEffect(dialogue);
-            textLabel.text = dialogue;
+            yield return RunTypingEffect(dialogue, voiceClip);
+            textLabel.color = typewriterEffect.TextColor;
 
             //if responses exist, don't let player close text box
             if ((i == dialogueObject.GetDialogue().Length - 1) && (dialogueObject.HasResponses))
@@ -142,9 +148,9 @@ public class DialogueUI : MonoBehaviour
         }
     }
 
-    private IEnumerator RunTypingEffect(string dialogue)
+    private IEnumerator RunTypingEffect(string dialogue, AudioClip voiceClip)
     {
-        typewriterEffect.Run(dialogue, textLabel);
+        typewriterEffect.Run(dialogue, textLabel, voiceClip);
 
         while (typewriterEffect.isRunning)
         {

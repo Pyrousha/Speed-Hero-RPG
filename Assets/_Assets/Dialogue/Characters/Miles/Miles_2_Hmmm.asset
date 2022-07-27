@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fb1d7b5ed2c152419536425f7f28b9c, type: 3}
-  m_Name: Hero
+  m_Name: Miles_2_Hmmm
   m_EditorClassIdentifier: 
-  characterName: Hero
-  portraitSprite: {fileID: 21300000, guid: 39793631da712aa4a88c0deb8f7b55d3, type: 3}
+  characterName: Miles
+  portraitSprite: {fileID: -1035263992, guid: 1051e7271ee5f7d4db7b76d4b3c68149, type: 3}
+  voice: {fileID: 8300000, guid: 7c209aa7708d982449f847b0726e329f, type: 3}
