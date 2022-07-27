@@ -10,12 +10,12 @@ public class DialogueActivator : MonoBehaviour, IInteractable
     [SerializeField] private DialogueObject dialogueObject;
     [SerializeField] private bool playWithoutInput;
     [SerializeField] private PlayOptions playOption;
-    [SerializeField] private float priority;
-    public float Priority => priority;
+    public int Priority { get; set; }
 
-    private enum PlayOptions
+    public enum PlayOptions
     {
         playOnce,
+        playOnceIfSucceeds,
         playAgainWithInput
     }
 

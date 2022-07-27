@@ -171,5 +171,10 @@ public class DialogueUI : MonoBehaviour
     public void DisableDialogueBox()
     {
         dialogueParent.SetActive(false);
+
+        //This shouldn't be needed, but Unity be Unity sometimes...
+        currDialogueObject = null;
+        textLabel.text = string.Empty;
+        isOpen = false;
     }
 }

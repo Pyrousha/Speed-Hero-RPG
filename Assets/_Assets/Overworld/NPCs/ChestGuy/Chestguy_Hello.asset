@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c77e930972665f4f9a9210fba3c3022, type: 3}
+  m_Name: Chestguy_Hello
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - speaker: {fileID: 11400000, guid: 9acb9bf872ac2d149a3ab7912f40d60d, type: 2}
+    text: AYOOOOOOO WAS POPPIN BB!!!
+  - speaker: {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
+    text: Uhhhhhhhhhhh hello?
+  - speaker: {fileID: 11400000, guid: 9acb9bf872ac2d149a3ab7912f40d60d, type: 2}
+    text: Ye ye ye, it's ya boi, here to give you some useful sheeeeeeit or whatevs,
+      yo.
+  - speaker: {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
+    text: Oh that'd actually be really helpful, thank you!
+  - speaker: {fileID: 11400000, guid: 9acb9bf872ac2d149a3ab7912f40d60d, type: 2}
+    text: Don't mention it homie! Now take this and go game on those fools!
+  nextDialogueObject: {fileID: 0}
+  responses: []
