@@ -1207,6 +1207,8 @@ MonoBehaviour:
   - {fileID: 9019463527331765565}
   - {fileID: 2559027870733455821}
   - {fileID: 6395107041173064303}
+  walkoffDistance: 1
+  walkoffSpeedMultiplier: 0.35
   inputVect: {x: 0, y: 0}
   maxMoveSpeed: 5
   accelSpeed: 0.7
@@ -1262,6 +1264,7 @@ MonoBehaviour:
   dashSpeed: 20
   secondsPerAfterimage: 0.01
   endDashSpeedMultiplier: 0.1
+  upForce: 1
   playerController: {fileID: 2056187914861830937}
   playerVisualTransform: {fileID: 2056187915542348800}
   rb: {fileID: 2056187914861830942}

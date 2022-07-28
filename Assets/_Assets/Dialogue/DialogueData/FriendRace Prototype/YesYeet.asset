@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: YesYeet
   m_EditorClassIdentifier: 
   dialogueLines:
-  - speaker: {fileID: 11400000, guid: 5b609800b10a3274092d2b4ac8549623, type: 2}
+  - speaker: {fileID: 11400000, guid: d281487534c80b042829091ff113f904, type: 2}
     text: Liar!
   nextDialogueObject: {fileID: 11400000, guid: 27d21fd047956fb40aa4b7865aac1d4e, type: 2}
   responses: []

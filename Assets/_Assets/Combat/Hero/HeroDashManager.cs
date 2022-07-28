@@ -26,6 +26,8 @@ public class HeroDashManager : MonoBehaviour
 
     [SerializeField] private float endDashSpeedMultiplier;
 
+    [SerializeField] private float upForce;
+
     [Header("References")]
     [SerializeField] private PlayerMove2D playerController;
     [SerializeField] private Transform playerVisualTransform;
@@ -109,7 +111,7 @@ public class HeroDashManager : MonoBehaviour
         SetDashAnim(dir);
 
         //No gravy
-        rb.useGravity = false;
+        //rb.useGravity = false;
 
         //Set timer and state
         dashState = dashStateEnum.dashing;
@@ -119,7 +121,7 @@ public class HeroDashManager : MonoBehaviour
         transform.position += new Vector3(0, 0.025f, 0);
 
         //Set velocity
-        rb.velocity = new Vector3(dir.x * dashSpeed, 0, dir.y * dashSpeed);
+        rb.velocity = new Vector3(dir.x * dashSpeed, upForce, dir.y * dashSpeed);
 
         //Spawn first afterimage + afterimage timer
         SpawnAfterImage();

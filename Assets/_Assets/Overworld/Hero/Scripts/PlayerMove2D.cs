@@ -16,6 +16,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
 
     [SerializeField] private List<Transform> hitboxEdges; //right, up, left, down
     [SerializeField] private float walkoffDistance;
+    [SerializeField] private float walkoffSpeedMultiplier;
 
     [Header("Movement")]
     public Vector2 inputVect;
@@ -122,21 +123,57 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
             }
         }
 
+        Vector2 inputVect_Unchanged = new Vector2(0, 0);
+
         if (canMove)
         {
             inputVect = GetDirectionFromInput();
+            inputVect_Unchanged = inputVect;
 
             //change input vect to prevent walking off edges
             //horizontal
             if (inputVect.x < 0)
             {
-
+                Vector3 startPos = hitboxEdges[0].transform.position + new Vector3(-walkoffDistance, 0.1f, 0.1f);
+                if (!Physics.Raycast(startPos, new Vector3(0,-1,-1), 1, groundLayer))
+                {
+                    //going to walk off soon
+                    inputVect = new Vector2(inputVect.x * walkoffSpeedMultiplier, inputVect.y);
+                }
             }
             else
             {
                 if (inputVect.x > 0)
                 {
+                    Vector3 startPos = hitboxEdges[2].transform.position + new Vector3(walkoffDistance, 0.1f, 0.1f);
+                    if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), 1, groundLayer))
+                    {
+                        //going to walk off soon
+                        inputVect = new Vector2(inputVect.x * walkoffSpeedMultiplier, inputVect.y);
+                    }
+                }
+            }
 
+            //vertical
+            if (inputVect.y > 0)
+            {
+                Vector3 startPos = hitboxEdges[3].transform.position + new Vector3(0, 0.1f, 0.1f + walkoffDistance);
+                if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), 1, groundLayer))
+                {
+                    //going to walk off soon
+                    inputVect = new Vector2(inputVect.x, inputVect.y * walkoffSpeedMultiplier);
+                }
+            }
+            else
+            {
+                if (inputVect.y < 0)
+                {
+                    Vector3 startPos = hitboxEdges[1].transform.position + new Vector3(0, 0.1f, 0.1f - walkoffDistance);
+                    if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), 1, groundLayer))
+                    {
+                        //going to walk off soon
+                        inputVect = new Vector2(inputVect.x * walkoffSpeedMultiplier, inputVect.y * walkoffSpeedMultiplier);
+                    }
                 }
             }
         }
@@ -145,13 +182,13 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
             inputVect = new Vector2(0, 0);
         }
 
-        if (inputVect.magnitude > 0.02f)
+        if (inputVect_Unchanged.magnitude > 0.05f)
         {
-            dirFacing = inputVect;
+            dirFacing = inputVect_Unchanged;
 
-            float unroundedAngle = Vector2.Angle(Vector2.right, inputVect.normalized);
+            float unroundedAngle = Vector2.Angle(Vector2.right, inputVect_Unchanged.normalized);
             float newInteractDir = Utils.RoundToNearest(unroundedAngle, 45f);
-            if (inputVect.y < 0)
+            if (inputVect_Unchanged.y < 0)
                 newInteractDir *= -1;
 
             if(newInteractDir != interactDir)
@@ -161,7 +198,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
             }
         }
 
-        SetAnimatorValues(inputVect);
+        SetAnimatorValues(inputVect_Unchanged);
     }
 
     private void FixedUpdate()
@@ -292,7 +329,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     public void SetAnimatorValues(Vector2 inputVect)
     {
         //Player stopped moving keys, set dir value to get idle anim
-        if (inputVect.sqrMagnitude < 0.05f)        
+        if (inputVect.magnitude < 0.05f)        
         {
             switch(heroAnim.GetCurrentAnimatorClipInfo(0)[0].clip.name)
             {

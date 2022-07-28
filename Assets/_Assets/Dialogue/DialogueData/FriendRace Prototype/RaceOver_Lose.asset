@@ -17,7 +17,7 @@ MonoBehaviour:
     text: Just like gym class. Glad to see my skills hold up in the field.
   - speaker: {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
     text: Yeah yeah... Whatever man, I think that yeet sprained my ankle!
-  - speaker: {fileID: 11400000, guid: 5b609800b10a3274092d2b4ac8549623, type: 2}
+  - speaker: {fileID: 11400000, guid: e75401f1e6473f647a95318971d92b9b, type: 2}
     text: 'Oh Miles, always with the excuses...
 
       >:)'

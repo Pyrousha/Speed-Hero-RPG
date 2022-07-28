@@ -35,14 +35,14 @@ public class TypewriterEffect : MonoBehaviour
 
     private IEnumerator TypeText(string textToType, TMP_Text textLabel, AudioClip voiceClip)
     {
+        textLabel.text = textToType;
+
         TMP_TextInfo textInfo = textLabel.textInfo;
         Color32[] newVertexColors;
         Color32 c0 = textColor;
         textLabel.color = Color.clear;
 
         isRunning = true;
-
-        textLabel.text = textToType;
 
         float t = 0;
         int charIndex = 0;
@@ -53,6 +53,8 @@ public class TypewriterEffect : MonoBehaviour
             voiceAudioSource.time = 0;
             voiceAudioSource.Play();
         }
+
+        yield return null;
 
         while (charIndex < textToType.Length)
         {

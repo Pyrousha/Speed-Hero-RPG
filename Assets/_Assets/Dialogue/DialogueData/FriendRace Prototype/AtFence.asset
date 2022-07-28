@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AtFence
   m_EditorClassIdentifier: 
   dialogueLines:
-  - speaker: {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
+  - speaker: {fileID: 11400000, guid: ef8b521178b68cb41b6347f55021c734, type: 2}
     text: 'Shoot, this fence is new.
 
       Maybe we should just head back, Vincent.'
@@ -21,7 +21,7 @@ MonoBehaviour:
     text: I've got a better idea...
   - speaker: {fileID: 11400000, guid: e75401f1e6473f647a95318971d92b9b, type: 2}
     text: TUCK THOSE KNEES!
-  - speaker: {fileID: 11400000, guid: e7e49e1734a8be947b3d8e2d7eee3b3e, type: 2}
-    text: Aaaaaaa
+  - speaker: {fileID: 11400000, guid: 38529815922386a49852642397d25c10, type: 2}
+    text: AAAAAAAAAA!
   nextDialogueObject: {fileID: 0}
   responses: []
