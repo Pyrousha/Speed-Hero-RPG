@@ -12,11 +12,15 @@ public class PathMove2D : MonoBehaviour
     [SerializeField] private Transform pathObjectParent;
 
     [SerializeField] private UnityEvent afterPathFinished;
+    public void SetAfterPathEvent(UnityEvent newEvent)
+    {
+        afterPathFinished = newEvent;
+    }
 
     private List<Vector3> pathPoints = new List<Vector3>();
     private Vector3 targetPosition;
 
-    private Rigidbody rb;
+    [SerializeField] private Rigidbody rb;
 
     [Header("Ground checking")]
     public bool onlyMoveOnGround;
@@ -33,10 +37,16 @@ public class PathMove2D : MonoBehaviour
     [SerializeField] private float frictionSpeed;
     private float tempFrictionSpeed;
 
+    private bool isHero = false;
+    private PlayerMove2D playerMove2D = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerMove2D = GetComponent<PlayerMove2D>();
+        if (playerMove2D != null)
+            isHero = true;
+
         maxMoveSpeed = moveSpeed;
 
         if (raycastPointParent != null)
@@ -74,6 +84,9 @@ public class PathMove2D : MonoBehaviour
             pathPoints.Add(pathParent.GetChild(i).position);
         }
 
+        if (pathPoints.Count == 0) //no children use parent transform as target position
+            pathPoints.Add(pathParent.position);
+
         targetPosition = pathPoints[0];
 
         pathParent.gameObject.SetActive(false);
@@ -92,10 +105,10 @@ public class PathMove2D : MonoBehaviour
             {
                 if (pathPoints.Count <= 1) //No points left, or this is the last one
                 {
-                    if (GetComponent<PlayerMove2D>() != null)
-                        GetComponent<PlayerMove2D>().SetAnimatorValues(Vector2.zero);
+                    if (isHero)
+                        playerMove2D.SetAnimatorValues(Vector2.zero);
 
-                    afterPathFinished.Invoke();
+                    afterPathFinished?.Invoke();
                     DisableMovement();
                 }
                 else
@@ -250,10 +263,7 @@ public class PathMove2D : MonoBehaviour
         }
         #endregion
 
-
         //Debug.Log(inputVect);
-
- 
 
         Vector3 newVelocity = new Vector3(newSpeedX, rb.velocity.y, newSpeedZ);
 
@@ -263,8 +273,8 @@ public class PathMove2D : MonoBehaviour
         //Set velocity after calculation
         rb.velocity = newVelocity;
 
-        if(GetComponent<PlayerMove2D>() != null)
-            GetComponent<PlayerMove2D>().SetAnimatorValues(inputVect);
+        if(isHero)
+            playerMove2D.SetAnimatorValues(inputVect);
     }
 
     private bool CalcIsGrounded()

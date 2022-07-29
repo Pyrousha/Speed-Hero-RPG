@@ -95,11 +95,7 @@ public class PlayerSwordHandler : MonoBehaviour
 
     public bool CanStartAttack()
     {
-        bool canMove = (HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) &&        //Not dashing
-           (MenuController.Instance.Interactable == false) &&                                                  //Menu closed
-           (DialogueUI.Instance.isOpen == false);                                                              //Dialogue closed
-
-        return canMove;
+        return PlayerMove2D.Instance.CanParry();
     }
 
     public void NudgeHero()

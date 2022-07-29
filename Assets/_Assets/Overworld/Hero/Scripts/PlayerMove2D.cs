@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMove2D : Singleton<PlayerMove2D>
 {
@@ -31,7 +33,9 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     public Vector3 startingVelocity;
 
     [Header("Ground checking")]
-    public LayerMask groundLayer;
+    [SerializeField] private float antiSlideMultiplier;
+    public LayerMask walkableGroundLayer;
+    [SerializeField] private LayerMask terrainLayer;
     private bool isGrounded = true;
     public bool IsGrounded => isGrounded;
     private List<Vector3> groundedPositions = new List<Vector3>();
@@ -43,24 +47,40 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     private List<Transform> raycastPoints;
 
     [SerializeField] private Transform respawnTransform;
-    private Vector3 respawnLocation; 
+    private Vector3 respawnLocation;
+
+    [Header("EventArray")]
+    [SerializeField] private List<EventNameAndEvent> unityEvents;
+    [System.Serializable]
+    public struct EventNameAndEvent
+    {
+        public EventNames eventName;
+        public UnityEvent unityEvent;
+    }
+    [SerializeField] public enum EventNames
+    {
+        pathmoveToPlayermove,
+        playermoveToPathmove
+    }
 
     public bool MenusClosed()
     {
         //menu is closed, dialogue is closed
-        return (MenuController.Instance.Interactable == false) && (DialogueUI.Instance.isOpen == false);                                                      
+        return ((MenuController.Instance.Interactable == false) &&  //menu not open
+                (DialogueUI.Instance.isOpen == false) &&            //dialogue not open
+                (enabled));                                         //PlayerMove2D enabled
     }
 
     public bool CanParry()
     {
         //Not dashing, menu is closed, dialogue is closed
-        bool canDash = ((HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) &&        //Not dashing
-               (MenuController.Instance.Interactable == false) &&                                               //Menu closed
-               (DialogueUI.Instance.isOpen == false));                                                          //Dialogue closed
+        bool canParry = ((HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) &&        //Not dashing
+               MenusClosed());                                                                                   //Can act
 
-        PlayerSwordHandler.Instance.TryCancelAttack();
+        if(canParry)
+            PlayerSwordHandler.Instance.TryCancelAttack();
 
-        return canDash;
+        return canParry;
     }
 
     // Start is called before the first frame update
@@ -116,7 +136,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         foreach (Transform rayPoint in raycastPoints) //check ground positions
         {
             //Debug.DrawLine(rayPoint.position, rayPoint.position + Vector3.down*raycastHeight, Color.magenta, 0.1f, false);
-            if (Physics.Raycast(rayPoint.position, Vector3.down, raycastHeight, groundLayer))
+            if (Physics.Raycast(rayPoint.position, Vector3.down, raycastHeight, walkableGroundLayer))
             {
                 isGrounded = true;
                 break;
@@ -135,7 +155,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
             if (inputVect.x < 0)
             {
                 Vector3 startPos = hitboxEdges[0].transform.position + new Vector3(-walkoffDistance, 0.1f, 0.1f);
-                if (!Physics.Raycast(startPos, new Vector3(0,-1,-1), 1, groundLayer))
+                if (!Physics.Raycast(startPos, new Vector3(0,-1,-1), 1, terrainLayer))
                 {
                     //going to walk off soon
                     inputVect = new Vector2(inputVect.x * walkoffSpeedMultiplier, inputVect.y);
@@ -146,7 +166,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
                 if (inputVect.x > 0)
                 {
                     Vector3 startPos = hitboxEdges[2].transform.position + new Vector3(walkoffDistance, 0.1f, 0.1f);
-                    if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), 1, groundLayer))
+                    if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), 1, terrainLayer))
                     {
                         //going to walk off soon
                         inputVect = new Vector2(inputVect.x * walkoffSpeedMultiplier, inputVect.y);
@@ -158,7 +178,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
             if (inputVect.y > 0)
             {
                 Vector3 startPos = hitboxEdges[3].transform.position + new Vector3(0, 0.1f, 0.1f + walkoffDistance);
-                if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), 1, groundLayer))
+                if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), 1, terrainLayer))
                 {
                     //going to walk off soon
                     inputVect = new Vector2(inputVect.x, inputVect.y * walkoffSpeedMultiplier);
@@ -169,7 +189,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
                 if (inputVect.y < 0)
                 {
                     Vector3 startPos = hitboxEdges[1].transform.position + new Vector3(0, 0.1f, 0.1f - walkoffDistance);
-                    if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), 1, groundLayer))
+                    if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), 1, terrainLayer))
                     {
                         //going to walk off soon
                         inputVect = new Vector2(inputVect.x * walkoffSpeedMultiplier, inputVect.y * walkoffSpeedMultiplier);
@@ -199,6 +219,18 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         }
 
         SetAnimatorValues(inputVect_Unchanged);
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if(collision.gameObject.layer != LayerMask.NameToLayer("Terrain-Walkable"))
+        {
+            //Collided with wall, unslide if going up
+            if(heroRB.velocity.y > 0)
+            {
+                heroRB.velocity = new Vector3(heroRB.velocity.x, -10f, heroRB.velocity.z);
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -381,5 +413,20 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         heroSprite.sortingOrder = 1;
 
         Hero_Stats.Instance.TakeDamage(0.5f);
+    }
+
+    public void MoveAlongPath(Transform pathParent)
+    {
+        unityEvents[(int)EventNames.playermoveToPathmove].unityEvent.Invoke();
+        pathMove2D.GeneratePath(pathParent);
+        pathMove2D.AllowMovement();
+    }
+
+    public void SetCanMoveAfterPath(bool canMoveAfterPath)
+    {
+        if (canMoveAfterPath)
+            pathMove2D.SetAfterPathEvent(unityEvents[(int)EventNames.pathmoveToPlayermove].unityEvent);
+        else
+            pathMove2D.SetAfterPathEvent(null);
     }
 }

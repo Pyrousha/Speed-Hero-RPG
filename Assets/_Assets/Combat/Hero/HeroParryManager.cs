@@ -38,7 +38,7 @@ public class HeroParryManager : Singleton<HeroParryManager>
         {
             case ParryStateEnum.idle:
                 {
-                    if (InputHandler.Instance.Parry.down)
+                    if ((InputHandler.Instance.Parry.down) && (PlayerMove2D.Instance.CanParry()))
                     {
                         parrySuccess = false;
 

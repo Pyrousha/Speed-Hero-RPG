@@ -1214,12 +1214,73 @@ MonoBehaviour:
   accelSpeed: 0.7
   frictionSpeed: 0.8
   startingVelocity: {x: 0, y: 0, z: 0}
-  groundLayer:
+  antiSlideMultiplier: 0.5
+  walkableGroundLayer:
     serializedVersion: 2
     m_Bits: 16384
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 20480
   raycastHeight: 0.2
   raycastParent: {fileID: 730360040735124730}
   respawnTransform: {fileID: 0}
+  unityEvents:
+  - eventName: 0
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7557022375058444388}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2056187914861830937}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - eventName: 1
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2056187914861830937}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7557022375058444388}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
 --- !u!114 &7557022375058444388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1238,12 +1299,13 @@ MonoBehaviour:
   afterPathFinished:
     m_PersistentCalls:
       m_Calls: []
+  rb: {fileID: 2056187914861830942}
   onlyMoveOnGround: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 16385
   raycastHeight: 0.2
-  raycastPointParent: {fileID: 0}
+  raycastPointParent: {fileID: 730360040735124730}
   moveSpeed: 4.35
   accelSpeed: 0.5
   frictionSpeed: 0.8
