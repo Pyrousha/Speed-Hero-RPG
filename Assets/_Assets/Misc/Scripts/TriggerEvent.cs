@@ -9,6 +9,7 @@ public class TriggerEvent : MonoBehaviour
     [SerializeField] private LayerMask interactionLayer;
     [SerializeField] private bool doOnce;
     [SerializeField] private UnityEvent onEnteredEvent;
+    [SerializeField] private UnityEvent afterDoneEvent;
 
     public void OnTriggerEnter(Collider other)
     {
@@ -22,6 +23,9 @@ public class TriggerEvent : MonoBehaviour
     void DoEvent()
     {
         onEnteredEvent.Invoke();
+
+        if (afterDoneEvent != null)
+            afterDoneEvent.Invoke();
 
         if (doOnce)
             gameObject.SetActive(false);
