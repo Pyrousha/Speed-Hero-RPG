@@ -83,6 +83,11 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         return canParry;
     }
 
+    public bool CanAttack()
+    {
+        return ((HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) && MenusClosed());
+    }
+
     // Start is called before the first frame update
     void Start()
     {

@@ -46,7 +46,7 @@ public class PlayerSwordHandler : MonoBehaviour
 
     private void Update()
     {
-        if ((InputHandler.Instance.Attack.down) && (canQueueNextAttack) && (HeroInventory.Instance.HasSword))
+        if ((InputHandler.Instance.Attack.down) && (canQueueNextAttack) && (HeroInventory.Instance.HasSword) && (PlayerMove2D.Instance.CanAttack()))
         {
             StartAttack();
         }
@@ -54,9 +54,6 @@ public class PlayerSwordHandler : MonoBehaviour
 
     private void StartAttack()
     {
-        if (CanStartAttack() == false)
-            return;
-
         if(useMousePosForAttackDir)
         {
             RaycastHit hit;
@@ -91,11 +88,6 @@ public class PlayerSwordHandler : MonoBehaviour
 
         attackState = AttackStateEnum.attacking;
         canQueueNextAttack = false;
-    }
-
-    public bool CanStartAttack()
-    {
-        return PlayerMove2D.Instance.CanParry();
     }
 
     public void NudgeHero()
