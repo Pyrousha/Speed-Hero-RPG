@@ -58,6 +58,8 @@ public class Hero_Stats : Singleton<Hero_Stats>
         //Make player invincible
         BecomeInvincible();
         heroSpriteRend.color = invincibleColor;
+
+        CameraMove2D.Instance.OnRespawn();
     }
 
     public void BecomeInvincible()

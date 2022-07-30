@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMove2D : MonoBehaviour
+public class CameraMove2D : Singleton<CameraMove2D>
 {
     [SerializeField] private Transform target;
 
@@ -16,6 +16,12 @@ public class CameraMove2D : MonoBehaviour
 
     private float minZ = -9999;
     private float maxZ = 9999;
+
+    private bool shouldLerp;
+    [SerializeField] private float camMoveSpeed;
+
+    [SerializeField] private List<GameObject> sideWalls;
+    [SerializeField] private List<bool> wallsActive;
 
     //[SerializeField] private float camMoveSpeed;
 
@@ -40,21 +46,48 @@ public class CameraMove2D : MonoBehaviour
         {
             Vector3 targetPos = target.position;
 
-            targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
-            targetPos.z = Mathf.Clamp(targetPos.z, minZ, maxZ);
+            if (shouldLerp)
+            {
+                float moveSpeedThisFrame = camMoveSpeed * Time.deltaTime;
 
-            transform.position = targetPos;
-
-            //Camera move to position
-            /*float moveSpeedThisFrame = camMoveSpeed * Time.deltaTime;
-
-            if (Vector3.Distance(transform.position, targetPos) <= moveSpeedThisFrame)
-                transform.position = targetPos;
+                if (Vector3.Distance(transform.position, targetPos) <= moveSpeedThisFrame)
+                    transform.position = targetPos;
+                else
+                {
+                    Vector3 targetDir = (targetPos - transform.position).normalized;
+                    transform.position += targetDir * moveSpeedThisFrame;
+                }
+            }
             else
             {
-                Vector3 targetDir = (targetPos - transform.position).normalized;
-                transform.position += targetDir * moveSpeedThisFrame;
-            }*/
+                targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
+                targetPos.z = Mathf.Clamp(targetPos.z, minZ, maxZ);
+
+                transform.position = targetPos;
+            }
         }
+        else
+        {
+            if (shouldLerp)
+                LerpDone();
+        }
+    }
+
+    public void OnRespawn()
+    {
+        for(int i = 0; i< sideWalls.Count; i++)
+        {
+            wallsActive[i] = sideWalls[i].activeInHierarchy;
+        }
+
+        shouldLerp = true;
+
+        PlayerMove2D.Instance.isRespawning = true;
+    }
+
+    public void LerpDone()
+    {
+        shouldLerp = false;
+        PlayerMove2D.Instance.isRespawning = false;
     }
 }

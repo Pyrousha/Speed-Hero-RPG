@@ -1200,6 +1200,7 @@ MonoBehaviour:
   heroRB: {fileID: 2056187914861830942}
   heroAnim: {fileID: 2056187915542348806}
   heroSprite: {fileID: 2056187915542348801}
+  pathMove2D: {fileID: 7557022375058444388}
   playerTransform: {fileID: 1223662365852191165}
   interactObj: {fileID: 4105194459064016367}
   hitboxEdges:

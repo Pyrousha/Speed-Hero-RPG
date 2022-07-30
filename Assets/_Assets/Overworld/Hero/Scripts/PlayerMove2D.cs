@@ -11,7 +11,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     public Animator heroAnim;
     [SerializeField] private SpriteRenderer heroSprite;
     public SpriteRenderer HeroSprite => heroSprite;
-    private PathMove2D pathMove2D;
+    [SerializeField] private PathMove2D pathMove2D;
     [SerializeField] private Transform playerTransform;
     public Transform PlayerTransform => playerTransform;
     [SerializeField] private Transform interactObj;
@@ -31,12 +31,13 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
 
     public bool canMove { get; private set; }
     public Vector3 startingVelocity;
+    public bool isRespawning { get; set; }
 
     [Header("Ground checking")]
     [SerializeField] private float antiSlideMultiplier;
     public LayerMask walkableGroundLayer;
     [SerializeField] private LayerMask terrainLayer;
-    private bool isGrounded = true;
+    private bool isGrounded = false;
     public bool IsGrounded => isGrounded;
     private List<Vector3> groundedPositions = new List<Vector3>();
     private int maxPositions = 5;
@@ -100,8 +101,6 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
 
         heroRB.velocity = startingVelocity;
 
-        pathMove2D = GetComponent<PathMove2D>();
-
         raycastPoints = Utils.GetChildrenFromParent(raycastParent);
 
         StartCoroutine(RespawnPointChecking());
@@ -132,10 +131,11 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     void Update()
     {
         //Not dashing, menu is closed, dialogue is closed, not attacking
-        canMove =  (HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) &&        //Not dashing
-                   (MenuController.Instance.Interactable == false) &&                                      //Menu closed
-                   (DialogueUI.Instance.isOpen == false) &&                                                //Dialogue closed
-                   (PlayerSwordHandler.Instance.AttackState != PlayerSwordHandler.AttackStateEnum.attacking);   //Not attacking
+        canMove =  (HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) &&                //Not dashing
+                   (MenuController.Instance.Interactable == false) &&                                              //Menu closed
+                   (DialogueUI.Instance.isOpen == false) &&                                                        //Dialogue closed
+                   (PlayerSwordHandler.Instance.AttackState != PlayerSwordHandler.AttackStateEnum.attacking) &&    //Not attacking
+                   !isRespawning;                                                                                  //Not respawning
 
         isGrounded = false;
         foreach (Transform rayPoint in raycastPoints) //check ground positions
@@ -155,26 +155,32 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
             inputVect = GetDirectionFromInput();
             inputVect_Unchanged = inputVect;
 
+            float rayDistance = 10;
+
             //change input vect to prevent walking off edges
             //horizontal
             if (inputVect.x < 0)
             {
-                Vector3 startPos = hitboxEdges[0].transform.position + new Vector3(-walkoffDistance, 0.1f, 0.1f);
-                if (!Physics.Raycast(startPos, new Vector3(0,-1,-1), 1, terrainLayer))
+                Vector3 startPos = hitboxEdges[0].transform.position + new Vector3(-walkoffDistance, 5f, 5f);
+                //Debug.DrawLine(startPos, new Vector3(0, -1, -1) * rayDistance, Color.red);
+                if (!Physics.Raycast(startPos, new Vector3(0,-1,-1), rayDistance, terrainLayer))
                 {
                     //going to walk off soon
                     inputVect = new Vector2(inputVect.x * walkoffSpeedMultiplier, inputVect.y);
+                    Debug.Log("About to walk off in direction -X");
                 }
             }
             else
             {
                 if (inputVect.x > 0)
                 {
-                    Vector3 startPos = hitboxEdges[2].transform.position + new Vector3(walkoffDistance, 0.1f, 0.1f);
-                    if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), 1, terrainLayer))
+                    Vector3 startPos = hitboxEdges[2].transform.position + new Vector3(walkoffDistance, 5f, 5f);
+                    //Debug.DrawLine(startPos, new Vector3(0, -1, -1) * rayDistance, Color.red);
+                    if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), rayDistance, terrainLayer))
                     {
                         //going to walk off soon
                         inputVect = new Vector2(inputVect.x * walkoffSpeedMultiplier, inputVect.y);
+                        Debug.Log("About to walk off in direction +X");
                     }
                 }
             }
@@ -182,22 +188,26 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
             //vertical
             if (inputVect.y > 0)
             {
-                Vector3 startPos = hitboxEdges[3].transform.position + new Vector3(0, 0.1f, 0.1f + walkoffDistance);
-                if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), 1, terrainLayer))
+                Vector3 startPos = hitboxEdges[3].transform.position + new Vector3(0, 5f, 5f + walkoffDistance);
+                //Debug.DrawLine(startPos, new Vector3(0, -1, -1) * rayDistance, Color.red);
+                if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), rayDistance, terrainLayer))
                 {
                     //going to walk off soon
                     inputVect = new Vector2(inputVect.x, inputVect.y * walkoffSpeedMultiplier);
+                    Debug.Log("About to walk off in direction +Y");
                 }
             }
             else
             {
                 if (inputVect.y < 0)
                 {
-                    Vector3 startPos = hitboxEdges[1].transform.position + new Vector3(0, 0.1f, 0.1f - walkoffDistance);
-                    if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), 1, terrainLayer))
+                    Vector3 startPos = hitboxEdges[1].transform.position + new Vector3(0, 5f, 5f - walkoffDistance);
+                    //Debug.DrawLine(startPos, new Vector3(0, -1, -1) * rayDistance, Color.red);
+                    if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), rayDistance, terrainLayer))
                     {
                         //going to walk off soon
-                        inputVect = new Vector2(inputVect.x * walkoffSpeedMultiplier, inputVect.y * walkoffSpeedMultiplier);
+                        inputVect = new Vector2(inputVect.x, inputVect.y * walkoffSpeedMultiplier);
+                        Debug.Log("About to walk off in direction -Y");
                     }
                 }
             }
@@ -223,7 +233,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
             }
         }
 
-        SetAnimatorValues(inputVect_Unchanged);
+        SetAnimatorValues(inputVect_Unchanged, isGrounded);
     }
 
     private void OnCollisionStay(Collision collision)
@@ -347,7 +357,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     {
         heroRB.velocity = new Vector3(nudgeStrength * dir.x, heroRB.velocity.y, nudgeStrength * dir.y);
 
-        SetAnimatorValues(dir);
+        SetAnimatorValues(dir, isGrounded);
     }
 
     public void StopNudge()
@@ -363,7 +373,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         return dir;
     }
 
-    public void SetAnimatorValues(Vector2 inputVect)
+    public void SetAnimatorValues(Vector2 inputVect, bool isCurrentlyGrounded)
     {
         //Player stopped moving keys, set dir value to get idle anim
         if (inputVect.magnitude < 0.05f)        
@@ -401,7 +411,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         heroAnim.SetFloat("Horizontal", inputVect.x * 2);
         heroAnim.SetFloat("Vertical", inputVect.y);
         heroAnim.SetFloat("Speed", inputVect.sqrMagnitude);
-        heroAnim.SetBool("InAir", !isGrounded && HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing);
+        heroAnim.SetBool("InAir", !isCurrentlyGrounded && HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing);
     }
 
     public void SetRespawnLocation(Transform newRespawn)
@@ -418,6 +428,8 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         heroSprite.sortingOrder = 1;
 
         Hero_Stats.Instance.TakeDamage(0.5f);
+
+        
     }
 
     public void MoveAlongPath(Transform pathParent)

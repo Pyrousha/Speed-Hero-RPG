@@ -106,7 +106,7 @@ public class PathMove2D : MonoBehaviour
                 if (pathPoints.Count <= 1) //No points left, or this is the last one
                 {
                     if (isHero)
-                        playerMove2D.SetAnimatorValues(Vector2.zero);
+                        playerMove2D.SetAnimatorValues(Vector2.zero, isGrounded);
 
                     afterPathFinished?.Invoke();
                     DisableMovement();
@@ -171,7 +171,11 @@ public class PathMove2D : MonoBehaviour
     private void SetVelocity(bool shouldMove)
     {
         if (!isGrounded)
+        {
+            if (isHero)
+                playerMove2D.SetAnimatorValues(Vector2.zero, isGrounded);
             return;
+        }
 
         Vector2 inputVect = new Vector2(0,0);
 
@@ -274,7 +278,7 @@ public class PathMove2D : MonoBehaviour
         rb.velocity = newVelocity;
 
         if(isHero)
-            playerMove2D.SetAnimatorValues(inputVect);
+            playerMove2D.SetAnimatorValues(inputVect, isGrounded);
     }
 
     private bool CalcIsGrounded()
