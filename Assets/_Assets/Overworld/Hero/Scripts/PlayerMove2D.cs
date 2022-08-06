@@ -67,7 +67,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     public bool MenusClosed()
     {
         //menu is closed, dialogue is closed
-        return ((MenuController.Instance.Interactable == false) &&  //menu not open
+        return ((PauseMenuController.Instance.Interactable == false) &&  //menu not open
                 (DialogueUI.Instance.isOpen == false) &&            //dialogue not open
                 (enabled));                                         //PlayerMove2D enabled
     }
@@ -132,7 +132,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     {
         //Not dashing, menu is closed, dialogue is closed, not attacking
         canMove =  (HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) &&                //Not dashing
-                   (MenuController.Instance.Interactable == false) &&                                              //Menu closed
+                   (PauseMenuController.Instance.Interactable == false) &&                                              //Menu closed
                    (DialogueUI.Instance.isOpen == false) &&                                                        //Dialogue closed
                    (PlayerSwordHandler.Instance.AttackState != PlayerSwordHandler.AttackStateEnum.attacking) &&    //Not attacking
                    !isRespawning;                                                                                  //Not respawning

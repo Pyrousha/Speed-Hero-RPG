@@ -5,15 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
+    path: Assets/_Assets/Scenes/MainMenu.unity
+    guid: 9e9aa5f667480024ba4f19a86ac36272
+  - enabled: 1
     path: Assets/_Assets/Scenes/Forest.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/_Assets/Scenes/Combat-Standard.unity
-    guid: 391317620212f5b4daa2bbef0289e89f
-  - enabled: 1
-    path: Assets/_Assets/Scenes/DEAD.unity
-    guid: 97a4a15e8e47b8646b3bccf10baa0d2b
+    path: Assets/_Assets/Scenes/Cave1.unity
+    guid: 39cc0795742082d41adbe30fa788ac2d
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1de0bb1ee355f344f96d82f4c878327b,
       type: 2}
