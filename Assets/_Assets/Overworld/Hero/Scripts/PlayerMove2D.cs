@@ -47,8 +47,10 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     [SerializeField] private Transform raycastParent;
     private List<Transform> raycastPoints;
 
-    [SerializeField] private Transform respawnTransform;
-    private Vector3 respawnLocation;
+    [SerializeField] private LayerMask fallingPlatformLayer;
+    [SerializeField] private Transform centerHitboxLocation;
+    private List<FallingPlatform> platformsToRespawn = new List<FallingPlatform>();
+    private List<FallingPlatform> currStoodOnPlatforms = new List<FallingPlatform>();
 
     [Header("EventArray")]
     [SerializeField] private List<EventNameAndEvent> unityEvents;
@@ -94,11 +96,6 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     {
         canMove = true;
 
-        if (respawnTransform != null)
-            respawnLocation = respawnTransform.position;
-        else
-            respawnLocation = transform.position;
-
         heroRB.velocity = startingVelocity;
 
         raycastPoints = Utils.GetChildrenFromParent(raycastParent);
@@ -112,12 +109,27 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         {
             if (isGrounded)
             {
+                RaycastHit hit;
+                Ray ray = new Ray(centerHitboxLocation.position, Vector3.down);
+                //Debug.DrawLine(ray.origin, ray.origin + ray.direction * (raycastHeight + 0.1f), Color.red, 0.5f);
+                if (Physics.Raycast(ray, out hit, raycastHeight, walkableGroundLayer))
+                {
+                    if(hit.collider.gameObject.CompareTag("NoRespawn"))
+                    {
+                        //not valid for respawning, so do not add to array of respawn locations
+                    }
+                    else
+                    {
+                        //valid respawn location
+                        groundedPositions.Add(transform.position);
+                    }
+                }
+
                 if (groundedPositions.Count == maxPositions)
                 {
                     groundedPositions.RemoveAt(0);
                 }
 
-                groundedPositions.Add(transform.position);
                 yield return new WaitForSeconds(checkIntervalTime);
             }
             else
@@ -147,6 +159,51 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
                 break;
             }
         }
+
+        #region Falling Platforms
+        //See which platforms the player is currently standing on
+        List<FallingPlatform> platformsHitThisFrame = new List<FallingPlatform>();
+        foreach (Transform rayPoint in raycastPoints)
+        {
+            RaycastHit hit;
+            Ray ray = new Ray(rayPoint.position, Vector3.down);
+            if (Physics.Raycast(ray, out hit, raycastHeight, fallingPlatformLayer))
+            {
+                FallingPlatform currPlatform = hit.collider.gameObject.GetComponent<FallingPlatform>();
+                if (platformsHitThisFrame.Contains(currPlatform))
+                    continue;
+                else
+                    platformsHitThisFrame.Add(currPlatform);
+            }
+        }
+
+        //make any platforms the player is no longer standing on fall
+        int i = 0;
+        while (i < currStoodOnPlatforms.Count)
+        {
+            FallingPlatform currPlatform = currStoodOnPlatforms[i];
+            if(platformsHitThisFrame.Contains(currPlatform))
+            {
+                //player still standing on this platform
+            }
+            else
+            {
+                //player stepped off platform, make it fall
+                platformsToRespawn.Add(currPlatform);
+                currPlatform.Fall();
+                currStoodOnPlatforms.RemoveAt(i);
+                continue;
+            }
+            i++;
+        }
+
+        //Add all new platforms to list of current platforms (if needed)
+        foreach (FallingPlatform platform in platformsHitThisFrame)
+        {
+            if (!currStoodOnPlatforms.Contains(platform))
+                currStoodOnPlatforms.Add(platform);
+        }
+        #endregion
 
         Vector2 inputVect_Unchanged = new Vector2(0, 0);
 
@@ -414,11 +471,6 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         heroAnim.SetBool("InAir", !isCurrentlyGrounded && HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing);
     }
 
-    public void SetRespawnLocation(Transform newRespawn)
-    {
-        respawnLocation = newRespawn.position;
-    }
-
     public void Respawn()
     {
         //transform.position = respawnLocation;
@@ -429,7 +481,10 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
 
         Hero_Stats.Instance.TakeDamage(0.5f);
 
-        
+        foreach(FallingPlatform platform in platformsToRespawn)
+        {
+            platform.Rise();
+        }
     }
 
     public void MoveAlongPath(Transform pathParent)

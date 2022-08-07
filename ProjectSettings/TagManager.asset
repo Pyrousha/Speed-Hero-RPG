@@ -9,6 +9,7 @@ TagManager:
   - EnemyProjectile
   - ProjectileGrid
   - AttackCube
+  - NoRespawn
   layers:
   - Default
   - TransparentFX
@@ -34,7 +35,7 @@ TagManager:
   - Enemy-Attack
   - NPC-Hitbox
   - 
-  - 
+  - FallingPlatform
   - 
   - 
   - 

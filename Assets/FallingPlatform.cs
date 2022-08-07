@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FallingPlatform : MonoBehaviour
+{
+    [SerializeField] private Animator anim;
+
+    public void Rise()
+    {
+        anim.SetTrigger("Rise");
+    }
+
+    public void Fall()
+    {
+        anim.SetTrigger("Fall");
+    }
+}

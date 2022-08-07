@@ -1224,7 +1224,9 @@ MonoBehaviour:
     m_Bits: 20480
   raycastHeight: 0.2
   raycastParent: {fileID: 730360040735124730}
-  respawnTransform: {fileID: 0}
+  fallingPlatformLayer:
+    serializedVersion: 2
+    m_Bits: 16777216
   unityEvents:
   - eventName: 0
     unityEvent:

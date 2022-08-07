@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Text.RegularExpressions;
 
 public class TypewriterEffect : MonoBehaviour
 {
@@ -47,6 +48,8 @@ public class TypewriterEffect : MonoBehaviour
         float t = 0;
         int charIndex = 0;
 
+        int numBreaks = Regex.Matches(textToType, "<br>").Count;
+
         if(voiceClip != null)
         {
             voiceAudioSource.clip = voiceClip;
@@ -56,7 +59,7 @@ public class TypewriterEffect : MonoBehaviour
 
         yield return null;
 
-        while (charIndex < textToType.Length)
+        while (charIndex < textToType.Length - numBreaks*4)
         {
             int lastCharIndex = charIndex;
 
