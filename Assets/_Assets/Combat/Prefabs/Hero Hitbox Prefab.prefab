@@ -1227,6 +1227,7 @@ MonoBehaviour:
   fallingPlatformLayer:
     serializedVersion: 2
     m_Bits: 16777216
+  centerHitboxLocation: {fileID: 730360040428506960}
   unityEvents:
   - eventName: 0
     unityEvent:

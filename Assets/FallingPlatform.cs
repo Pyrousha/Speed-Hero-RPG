@@ -15,4 +15,12 @@ public class FallingPlatform : MonoBehaviour
     {
         anim.SetTrigger("Fall");
     }
+
+    public void RiseAndReset()
+    {
+        anim.ResetTrigger("Fall");
+
+        if(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name != "PlatformRise")
+            anim.SetTrigger("Rise");
+    }
 }

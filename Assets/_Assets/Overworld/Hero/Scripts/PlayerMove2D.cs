@@ -16,9 +16,13 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     public Transform PlayerTransform => playerTransform;
     [SerializeField] private Transform interactObj;
 
-    [SerializeField] private List<Transform> hitboxEdges; //right, up, left, down
+    //[SerializeField] private List<Transform> hitboxEdges; //right, up, left, down
     [SerializeField] private float walkoffDistance;
     [SerializeField] private float walkoffSpeedMultiplier;
+    private List<Transform> rightPoints;
+    private List<Transform> leftPoints;
+    private List<Transform> upPoints;
+    private List<Transform> downPoints;
 
     [Header("Movement")]
     public Vector2 inputVect;
@@ -49,7 +53,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
 
     [SerializeField] private LayerMask fallingPlatformLayer;
     [SerializeField] private Transform centerHitboxLocation;
-    private List<FallingPlatform> platformsToRespawn = new List<FallingPlatform>();
+    //private List<FallingPlatform> platformsToRespawn = new List<FallingPlatform>();
     private List<FallingPlatform> currStoodOnPlatforms = new List<FallingPlatform>();
 
     [Header("EventArray")]
@@ -60,7 +64,8 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         public EventNames eventName;
         public UnityEvent unityEvent;
     }
-    [SerializeField] public enum EventNames
+    [SerializeField]
+    public enum EventNames
     {
         pathmoveToPlayermove,
         playermoveToPathmove
@@ -80,7 +85,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         bool canParry = ((HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) &&        //Not dashing
                MenusClosed());                                                                                   //Can act
 
-        if(canParry)
+        if (canParry)
             PlayerSwordHandler.Instance.TryCancelAttack();
 
         return canParry;
@@ -100,6 +105,12 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
 
         raycastPoints = Utils.GetChildrenFromParent(raycastParent);
 
+        rightPoints = new List<Transform> { raycastPoints[2], raycastPoints[5], raycastPoints[8] };
+        leftPoints = new List<Transform> { raycastPoints[0], raycastPoints[3], raycastPoints[6] };
+        upPoints = new List<Transform> { raycastPoints[0], raycastPoints[1], raycastPoints[2] };
+        downPoints = new List<Transform> { raycastPoints[6], raycastPoints[7], raycastPoints[8] };
+
+
         StartCoroutine(RespawnPointChecking());
     }
 
@@ -114,7 +125,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
                 //Debug.DrawLine(ray.origin, ray.origin + ray.direction * (raycastHeight + 0.1f), Color.red, 0.5f);
                 if (Physics.Raycast(ray, out hit, raycastHeight, walkableGroundLayer))
                 {
-                    if(hit.collider.gameObject.CompareTag("NoRespawn"))
+                    if (hit.collider.gameObject.CompareTag("NoRespawn"))
                     {
                         //not valid for respawning, so do not add to array of respawn locations
                     }
@@ -125,7 +136,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
                     }
                 }
 
-                if (groundedPositions.Count == maxPositions)
+                if (groundedPositions.Count > maxPositions)
                 {
                     groundedPositions.RemoveAt(0);
                 }
@@ -143,7 +154,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     void Update()
     {
         //Not dashing, menu is closed, dialogue is closed, not attacking
-        canMove =  (HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) &&                //Not dashing
+        canMove = (HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) &&                //Not dashing
                    (PauseMenuController.Instance.Interactable == false) &&                                              //Menu closed
                    (DialogueUI.Instance.isOpen == false) &&                                                        //Dialogue closed
                    (PlayerSwordHandler.Instance.AttackState != PlayerSwordHandler.AttackStateEnum.attacking) &&    //Not attacking
@@ -163,8 +174,10 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         #region Falling Platforms
         //See which platforms the player is currently standing on
         List<FallingPlatform> platformsHitThisFrame = new List<FallingPlatform>();
-        foreach (Transform rayPoint in raycastPoints)
+        for (int j = 0; j < raycastPoints.Count; j++)
         {
+            Transform rayPoint = raycastPoints[j];
+
             RaycastHit hit;
             Ray ray = new Ray(rayPoint.position, Vector3.down);
             if (Physics.Raycast(ray, out hit, raycastHeight, fallingPlatformLayer))
@@ -182,14 +195,14 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         while (i < currStoodOnPlatforms.Count)
         {
             FallingPlatform currPlatform = currStoodOnPlatforms[i];
-            if(platformsHitThisFrame.Contains(currPlatform))
+            if (platformsHitThisFrame.Contains(currPlatform))
             {
                 //player still standing on this platform
             }
             else
             {
                 //player stepped off platform, make it fall
-                platformsToRespawn.Add(currPlatform);
+                //platformsToRespawn.Add(currPlatform);
                 currPlatform.Fall();
                 currStoodOnPlatforms.RemoveAt(i);
                 continue;
@@ -197,9 +210,11 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
             i++;
         }
 
-        //Add all new platforms to list of current platforms (if needed)
-        foreach (FallingPlatform platform in platformsHitThisFrame)
+        RaycastHit hit0;
+        Ray ray0 = new Ray(centerHitboxLocation.position, Vector3.down);
+        if (Physics.Raycast(ray0, out hit0, raycastHeight, fallingPlatformLayer))
         {
+            FallingPlatform platform = hit0.collider.gameObject.GetComponent<FallingPlatform>();
             if (!currStoodOnPlatforms.Contains(platform))
                 currStoodOnPlatforms.Add(platform);
         }
@@ -218,9 +233,19 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
             //horizontal
             if (inputVect.x < 0)
             {
-                Vector3 startPos = hitboxEdges[0].transform.position + new Vector3(-walkoffDistance, 5f, 5f);
-                //Debug.DrawLine(startPos, new Vector3(0, -1, -1) * rayDistance, Color.red);
-                if (!Physics.Raycast(startPos, new Vector3(0,-1,-1), rayDistance, terrainLayer))
+                bool terrainHit = false;
+                foreach (Transform pos in rightPoints)
+                {
+                    Vector3 startPos = pos.position + new Vector3(-walkoffDistance, 5f, 5f);
+                    //Debug.DrawLine(startPos, new Vector3(0, -1, -1) * rayDistance, Color.red);
+                    if (Physics.Raycast(startPos, new Vector3(0, -1, -1), rayDistance, terrainLayer))
+                    {
+                        terrainHit = true;
+                        break;
+                    }
+                }
+
+                if (terrainHit == false)
                 {
                     //going to walk off soon
                     inputVect = new Vector2(inputVect.x * walkoffSpeedMultiplier, inputVect.y);
@@ -231,9 +256,19 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
             {
                 if (inputVect.x > 0)
                 {
-                    Vector3 startPos = hitboxEdges[2].transform.position + new Vector3(walkoffDistance, 5f, 5f);
-                    //Debug.DrawLine(startPos, new Vector3(0, -1, -1) * rayDistance, Color.red);
-                    if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), rayDistance, terrainLayer))
+                    bool terrainHit = false;
+                    foreach (Transform pos in leftPoints)
+                    {
+                        Vector3 startPos = pos.position + new Vector3(walkoffDistance, 5f, 5f);
+                        //Debug.DrawLine(startPos, new Vector3(0, -1, -1) * rayDistance, Color.red);
+                        if (Physics.Raycast(startPos, new Vector3(0, -1, -1), rayDistance, terrainLayer))
+                        {
+                            terrainHit = true;
+                            break;
+                        }
+                    }
+
+                    if (terrainHit == false)
                     {
                         //going to walk off soon
                         inputVect = new Vector2(inputVect.x * walkoffSpeedMultiplier, inputVect.y);
@@ -245,9 +280,19 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
             //vertical
             if (inputVect.y > 0)
             {
-                Vector3 startPos = hitboxEdges[3].transform.position + new Vector3(0, 5f, 5f + walkoffDistance);
-                //Debug.DrawLine(startPos, new Vector3(0, -1, -1) * rayDistance, Color.red);
-                if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), rayDistance, terrainLayer))
+                bool terrainHit = false;
+                foreach (Transform pos in downPoints)
+                {
+                    Vector3 startPos = pos.position + new Vector3(0, 5f, 5f + walkoffDistance);
+                    //Debug.DrawLine(startPos, new Vector3(0, -1, -1) * rayDistance, Color.red);
+                    if (Physics.Raycast(startPos, new Vector3(0, -1, -1), rayDistance, terrainLayer))
+                    {
+                        terrainHit = true;
+                        break;
+                    }
+                }
+
+                if (terrainHit == false)
                 {
                     //going to walk off soon
                     inputVect = new Vector2(inputVect.x, inputVect.y * walkoffSpeedMultiplier);
@@ -258,9 +303,19 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
             {
                 if (inputVect.y < 0)
                 {
-                    Vector3 startPos = hitboxEdges[1].transform.position + new Vector3(0, 5f, 5f - walkoffDistance);
-                    //Debug.DrawLine(startPos, new Vector3(0, -1, -1) * rayDistance, Color.red);
-                    if (!Physics.Raycast(startPos, new Vector3(0, -1, -1), rayDistance, terrainLayer))
+                    bool terrainHit = false;
+                    foreach (Transform pos in upPoints)
+                    {
+                        Vector3 startPos = pos.position + new Vector3(0, 5f, 5f - walkoffDistance);
+                        //Debug.DrawLine(startPos, new Vector3(0, -1, -1) * rayDistance, Color.red);
+                        if (Physics.Raycast(startPos, new Vector3(0, -1, -1), rayDistance, terrainLayer))
+                        {
+                            terrainHit = true;
+                            break;
+                        }
+                    }
+
+                    if (terrainHit == false)
                     {
                         //going to walk off soon
                         inputVect = new Vector2(inputVect.x, inputVect.y * walkoffSpeedMultiplier);
@@ -283,7 +338,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
             if (inputVect_Unchanged.y < 0)
                 newInteractDir *= -1;
 
-            if(newInteractDir != interactDir)
+            if (newInteractDir != interactDir)
             {
                 interactDir = newInteractDir;
                 interactObj.localEulerAngles = new Vector3(0, -interactDir, 0);
@@ -295,10 +350,10 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
 
     private void OnCollisionStay(Collision collision)
     {
-        if(collision.gameObject.layer != LayerMask.NameToLayer("Terrain-Walkable"))
+        if (collision.gameObject.layer != LayerMask.NameToLayer("Terrain-Walkable"))
         {
             //Collided with wall, unslide if going up
-            if(heroRB.velocity.y > 0)
+            if (heroRB.velocity.y > 0)
             {
                 heroRB.velocity = new Vector3(heroRB.velocity.x, -10f, heroRB.velocity.z);
             }
@@ -419,7 +474,7 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
 
     public void StopNudge()
     {
-        if(HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing)
+        if (HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing)
             heroRB.velocity = new Vector3(0, heroRB.velocity.y, 0);
     }
 
@@ -433,9 +488,9 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     public void SetAnimatorValues(Vector2 inputVect, bool isCurrentlyGrounded)
     {
         //Player stopped moving keys, set dir value to get idle anim
-        if (inputVect.magnitude < 0.05f)        
+        if (inputVect.magnitude < 0.05f)
         {
-            switch(heroAnim.GetCurrentAnimatorClipInfo(0)[0].clip.name)
+            switch (heroAnim.GetCurrentAnimatorClipInfo(0)[0].clip.name)
             {
                 case ("Hero-right"):
                     {
@@ -481,10 +536,11 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
 
         Hero_Stats.Instance.TakeDamage(0.5f);
 
+        /*
         foreach(FallingPlatform platform in platformsToRespawn)
         {
             platform.Rise();
-        }
+        }*/
     }
 
     public void MoveAlongPath(Transform pathParent)
