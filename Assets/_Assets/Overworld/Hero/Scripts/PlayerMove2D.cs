@@ -71,6 +71,8 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         playermoveToPathmove
     }
 
+    private Vector3 velocity;
+
     public bool MenusClosed()
     {
         //menu is closed, dialogue is closed
@@ -384,8 +386,8 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     {
         //This is only called when the player is grounded
 
-        float currSpeedX = heroRB.velocity.x;
-        float currSpeedZ = heroRB.velocity.z;
+        float currSpeedX = velocity.x;
+        float currSpeedZ = velocity.z;
 
         float newSpeedX = currSpeedX;
         float newSpeedZ = currSpeedZ;
@@ -462,7 +464,18 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         }
         #endregion
 
-        heroRB.velocity = new Vector3(newSpeedX, heroRB.velocity.y, newSpeedZ);
+        velocity.x = newSpeedX;
+        velocity.z = newSpeedZ;
+
+        if (velocity.x == 0)
+            heroRB.velocity = new Vector3(0, heroRB.velocity.y, heroRB.velocity.z);
+
+        if(velocity.z == 0)
+            heroRB.velocity = new Vector3(heroRB.velocity.x, heroRB.velocity.y, 0);
+
+        //heroRB.velocity = new Vector3(newSpeedX, heroRB.velocity.y, newSpeedZ);
+        if (velocity.magnitude > 0.05f)
+            heroRB.MovePosition(transform.position + velocity/50f);
     }
 
     public void NudgeHero(Vector2 dir, float nudgeStrength)
