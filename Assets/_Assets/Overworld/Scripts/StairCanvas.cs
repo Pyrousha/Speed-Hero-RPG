@@ -11,8 +11,10 @@ public class StairCanvas : Singleton<StairCanvas>
     [SerializeField] private Animator walkAnim;
     private Vector3 targPosition;
 
-    public void TriggerHit(StairParent.Dir direction, Vector3 newTargPos)
+    public void TriggerHit(StairParent.Dir direction, Vector3 newTargPos, int fromFloor, int toFloor)
     {
+        FloorManager.Instance.GoToNewFloor(fromFloor, toFloor);
+
         targPosition = newTargPos;
 
         anim.ResetTrigger("left");

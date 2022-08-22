@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class StairParent : MonoBehaviour
 {
+    [SerializeField] private int floorNum;
+    public int FloorNum => floorNum;
+
     [System.Serializable]
     public enum Dir
     {
@@ -21,7 +24,7 @@ public class StairParent : MonoBehaviour
 
     public void TriggerEnter()
     {
-        StairCanvas.Instance.TriggerHit(direction, linkedStair.TargPos);
+        StairCanvas.Instance.TriggerHit(direction, linkedStair.TargPos, floorNum, linkedStair.FloorNum);
 
         gameObject.GetComponent<SingleSFXManager>().PlayClip(0);
     }

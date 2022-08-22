@@ -6,17 +6,19 @@ public class PlatformPuzzleController : MonoBehaviour
 {
     [SerializeField] private List<FallingPlatform> platforms;
 
+    private List<BoxCollider> topPlatforms = new List<BoxCollider>();
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        foreach(FallingPlatform platform in platforms)
+        {
+            topPlatforms.Add(platform.GetComponent<BoxCollider>());
+        }
+
+        DisablePlatforms();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void RespawnAllPlatforms()
     {
@@ -24,6 +26,22 @@ public class PlatformPuzzleController : MonoBehaviour
         {
             platform.RiseAndReset();
             //platform.Rise();
+        }
+    }
+
+    public void EnablePlatforms()
+    {
+        foreach(BoxCollider col in topPlatforms)
+        {
+            col.enabled = true;
+        }
+    }
+
+    public void DisablePlatforms()
+    {
+        foreach (BoxCollider col in topPlatforms)
+        {
+            col.enabled = false;
         }
     }
 }

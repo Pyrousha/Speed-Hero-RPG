@@ -13,7 +13,11 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.transform.parent == transform)
+        if (other.transform.parent == transform)
+        {
             other.transform.parent = prevParent;
+            other.transform.localEulerAngles = Vector3.zero;
+            other.transform.localScale = Vector3.one;
+        }
     }
 }

@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 730360039933837180}
   - component: {fileID: 730360039933837183}
   m_Layer: 0
-  m_Name: Point3
+  m_Name: 6-Down Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 730360039988869827}
   - component: {fileID: 730360039988869826}
   m_Layer: 0
-  m_Name: Point1
+  m_Name: 2-Up Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 730360040428506966}
   - component: {fileID: 730360040428506961}
   m_Layer: 0
-  m_Name: Point4
+  m_Name: 4-Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 730360040559762971}
   - component: {fileID: 730360040559762970}
   m_Layer: 0
-  m_Name: Point2
+  m_Name: 8-Down Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -493,7 +493,7 @@ GameObject:
   - component: {fileID: 730360041200797416}
   - component: {fileID: 730360041200797419}
   m_Layer: 0
-  m_Name: Point0
+  m_Name: 0-Up Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1049,7 +1049,7 @@ GameObject:
   - component: {fileID: 2563588777267930674}
   - component: {fileID: 2663486133033547714}
   m_Layer: 0
-  m_Name: Point0 (1)
+  m_Name: 1-Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1137,6 +1137,7 @@ GameObject:
   - component: {fileID: 1532284118735589974}
   - component: {fileID: 8079839162468535494}
   - component: {fileID: 4074598723522487863}
+  - component: {fileID: 4106244617283043205}
   m_Layer: 16
   m_Name: Hero Hitbox Prefab
   m_TagString: Player
@@ -1192,7 +1193,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2056187914861830938}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 880c4ee3d21eb8446bc67e4e4c706682, type: 3}
   m_Name: 
@@ -1206,7 +1207,7 @@ MonoBehaviour:
   walkoffDistance: 1
   walkoffSpeedMultiplier: 0.35
   inputVect: {x: 0, y: 0}
-  maxMoveSpeed: 5
+  maxMoveSpeed: 4
   accelSpeed: 0.7
   frictionSpeed: 0.8
   startingVelocity: {x: 0, y: 0, z: 0}
@@ -1394,6 +1395,19 @@ CapsuleCollider:
   m_Height: 0.54
   m_Direction: 0
   m_Center: {x: 0, y: -0.265, z: -0.39}
+--- !u!135 &4106244617283043205
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056187914861830938}
+  m_Material: {fileID: 13400000, guid: 0c9b7a5d71a6e60499305abd44f1b1f8, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2056187915088033952
 GameObject:
   m_ObjectHideFlags: 0
@@ -1403,6 +1417,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2056187915088033953}
+  - component: {fileID: 1272238216}
+  - component: {fileID: 1272238217}
   m_Layer: 0
   m_Name: CameraTarget
   m_TagString: Untagged
@@ -1425,6 +1441,50 @@ Transform:
   m_Father: {fileID: 2003316709937824553}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1272238216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056187915088033952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89d8854535d7fa04da3f248013b2fbce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentTransform: {fileID: 2003316709937824553}
+  maxXOffset: 3
+  maxYOffset: 2.5
+  minXPercent: 0.8
+  maxXPercent: 0.95
+  minYPercent: 0.644444
+  maxYPercent: 0.9111111
+--- !u!114 &1272238217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056187915088033952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7707b20112cc064ab87e3387359979e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camMove2D: {fileID: 0}
+  playerMove: {fileID: 2056187914861830937}
+  cameraMoveSpeed: 15
+  secondsToWait: 0
+  unlockCameraAfterDone: 1
+  disablePlayerMoveOnStart: 0
+  enablePlayermoveAfterWait: 1
+  onArriveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  afterWaitEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2056187915542348803
 GameObject:
   m_ObjectHideFlags: 0
@@ -6753,7 +6813,7 @@ GameObject:
   - component: {fileID: 3778038682739125531}
   - component: {fileID: 7945967328257632129}
   m_Layer: 0
-  m_Name: Point0 (2)
+  m_Name: 3-Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7028,7 +7088,7 @@ GameObject:
   - component: {fileID: 5812294977420525631}
   - component: {fileID: 3935102787337814475}
   m_Layer: 0
-  m_Name: Point0 (3)
+  m_Name: 5-Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7560,7 +7620,7 @@ GameObject:
   - component: {fileID: 6224257458713063918}
   - component: {fileID: 5780620068557665947}
   m_Layer: 0
-  m_Name: Point2 (1)
+  m_Name: 7-Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

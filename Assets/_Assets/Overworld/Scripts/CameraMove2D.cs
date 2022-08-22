@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +24,8 @@ public class CameraMove2D : Singleton<CameraMove2D>
     [SerializeField] private List<GameObject> sideWalls;
     [SerializeField] private List<bool> wallsActive;
 
+    private bool inCutscene;
+
     //[SerializeField] private float camMoveSpeed;
 
     // Start is called before the first frame update
@@ -42,6 +45,9 @@ public class CameraMove2D : Singleton<CameraMove2D>
     // Update is called once per frame
     void LateUpdate()
     {
+        if (inCutscene)
+            return;
+
         if (transform.position != target.position)
         {
             Vector3 targetPos = target.position;
@@ -89,5 +95,38 @@ public class CameraMove2D : Singleton<CameraMove2D>
     {
         shouldLerp = false;
         PlayerMove2D.Instance.isRespawning = false;
+    }
+
+    public IEnumerator LerpToPos(Transform target, float moveSpeed, Action onArriveEvent, float secondsToWait, Action afterWaitEvent, bool moveToPlayerAfterDone)
+    {
+        inCutscene = true;
+        while(true)
+        {
+            Vector3 targetPos = target.position;
+
+            float moveSpeedThisFrame = moveSpeed * Time.deltaTime;
+
+            if (Vector3.Distance(transform.position, targetPos) <= moveSpeedThisFrame)
+            {
+                transform.position = targetPos;
+                break;
+            }
+            else
+            {
+                Vector3 targetDir = (targetPos - transform.position).normalized;
+                transform.position += targetDir * moveSpeedThisFrame;
+            }
+
+            yield return null;
+        }
+
+        onArriveEvent?.Invoke();
+
+        yield return new WaitForSeconds(secondsToWait);
+
+        afterWaitEvent?.Invoke();
+
+        if (moveToPlayerAfterDone)
+            inCutscene = false;
     }
 }

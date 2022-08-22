@@ -52,7 +52,7 @@ public class HeroDashManager : MonoBehaviour
         {
             case dashStateEnum.charged:
                 {
-                    if ((InputHandler.Instance.Dash.down) && (HeroInventory.Instance.HasDash) && (playerController.isRespawning == false))
+                    if ((InputHandler.Instance.Dash.down) && (HeroInventory.Instance.HasDash) && (playerController.CanDash()))
                     {
                         StartDash();
                     }

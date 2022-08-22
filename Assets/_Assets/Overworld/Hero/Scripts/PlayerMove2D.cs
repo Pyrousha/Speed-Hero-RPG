@@ -73,6 +73,8 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
 
     private Vector3 velocity;
 
+    public bool inCutscene { get; set; }
+
     public bool MenusClosed()
     {
         //menu is closed, dialogue is closed
@@ -85,7 +87,8 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     {
         //Not dashing, menu is closed, dialogue is closed
         bool canParry = ((HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) &&        //Not dashing
-               MenusClosed());                                                                                   //Can act
+               MenusClosed() &&                                                                                   //Can act
+               inCutscene == false);                                                                            //Not in cutscene
 
         if (canParry)
             PlayerSwordHandler.Instance.TryCancelAttack();
@@ -95,7 +98,12 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
 
     public bool CanAttack()
     {
-        return ((HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) && MenusClosed());
+        return ((HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing) && MenusClosed() && (inCutscene == false));
+    }
+
+    public bool CanDash()
+    {
+        return (isRespawning == false) && (inCutscene == false);
     }
 
     // Start is called before the first frame update
@@ -160,7 +168,8 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
                    (PauseMenuController.Instance.Interactable == false) &&                                              //Menu closed
                    (DialogueUI.Instance.isOpen == false) &&                                                        //Dialogue closed
                    (PlayerSwordHandler.Instance.AttackState != PlayerSwordHandler.AttackStateEnum.attacking) &&    //Not attacking
-                   !isRespawning;                                                                                  //Not respawning
+                   !isRespawning &&                                                                                  //Not respawning
+                   inCutscene == false;                                                                            //Not in cutscene
 
         isGrounded = false;
         foreach (Transform rayPoint in raycastPoints) //check ground positions
@@ -370,6 +379,9 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         if (HeroDashManager.Instance.DashState == HeroDashManager.dashStateEnum.dashing)
             return;
 
+        //if (PlayerSwordHandler.Instance.AttackState == PlayerSwordHandler.AttackStateEnum.attacking)
+            //return;
+
         //Apply directional gravity when in air
         if (!isGrounded)
         {
@@ -382,8 +394,18 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
         }
     }
 
+    private bool skipFrictionAndAcceleration;
+
+    public void SetSkipAcceleration(bool skip)
+    {
+        skipFrictionAndAcceleration = skip;
+    }
+
     public void ApplyFrictionAndAcceleration()
     {
+        if (skipFrictionAndAcceleration)
+            return;
+
         //This is only called when the player is grounded
 
         float currSpeedX = velocity.x;
@@ -480,7 +502,9 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
 
     public void NudgeHero(Vector2 dir, float nudgeStrength)
     {
-        heroRB.velocity = new Vector3(nudgeStrength * dir.x, heroRB.velocity.y, nudgeStrength * dir.y);
+        velocity.x = nudgeStrength * dir.x;
+        velocity.z = nudgeStrength * dir.y;
+        //heroRB.velocity = new Vector3(nudgeStrength * dir.x, heroRB.velocity.y, nudgeStrength * dir.y);
 
         SetAnimatorValues(dir, isGrounded);
     }
@@ -488,7 +512,9 @@ public class PlayerMove2D : Singleton<PlayerMove2D>
     public void StopNudge()
     {
         if (HeroDashManager.Instance.DashState != HeroDashManager.dashStateEnum.dashing)
-            heroRB.velocity = new Vector3(0, heroRB.velocity.y, 0);
+            //heroRB.velocity = new Vector3(0, heroRB.velocity.y, 0);
+            velocity.x = 0;
+            velocity.z = 0;
     }
 
     public Vector2 GetDirectionFromInput()
